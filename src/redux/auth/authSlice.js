@@ -4,9 +4,9 @@ import { loginThunk, logoutThink } from "./authThunks";
 
 const handleLogin = (state, { payload }) => {
   state.token = payload.token;
-  // state.user.name = payload.data.name;
-  // state.user.email = payload.data.email;
-  // state.user.isLogin = true;
+  state.user.name = payload.data.name;
+  state.user.email = payload.data.email;
+  state.user.isLogin = true;
 };
 const handleFulfilled = (state) => {
   state.isLoading = false;
@@ -25,9 +25,9 @@ const authSlice = createSlice({
       .addCase(loginThunk.fulfilled, handleLogin)
       .addCase(logoutThink.fulfilled, (state) => {
         state.token = "";
-        // state.user.name = "";
-        // state.user.email = "";
-        // state.user.isLogin = false;
+        state.user.name = "";
+        state.user.email = "";
+        state.user.isLogin = false;
       })
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),

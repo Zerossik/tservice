@@ -1,6 +1,10 @@
 import { useDispatch } from "react-redux";
-import { loginThunk, logoutThink } from "../redux/auth/authThunks";
-import { getCurrentUser, signup } from "../services/authAPI";
+import {
+  getCurrentUserThunk,
+  loginThunk,
+  logoutThink,
+} from "../redux/auth/authThunks";
+import { signup } from "../services/authAPI";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -25,9 +29,7 @@ const HomePage = () => {
       <button onClick={() => dispatch(logoutThink())}>logout</button> <br />
       <button
         onClick={() => {
-          getCurrentUser()
-            .then((data) => console.log(data))
-            .catch((error) => console.log(error.message));
+          dispatch(getCurrentUserThunk());
         }}
       >
         getCurrent

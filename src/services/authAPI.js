@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://service-center-6fck.onrender.com";
 
-const token = {
+export const token = {
   setToken(token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
@@ -36,6 +36,7 @@ export const signin = async (user) => {
 export const getCurrentUser = async () => {
   try {
     const { data } = await axios.get("/api/auth/current");
+
     return data;
   } catch (error) {
     throw new Error(error.message);

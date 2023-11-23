@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "../initialState";
-import { loginThunk, logoutThink } from "./authThunks";
+import { getCurrentUserThunk, loginThunk, logoutThink } from "./authThunks";
 
 const handleLogin = (state, { payload }) => {
   state.token = payload.token;
@@ -8,13 +8,32 @@ const handleLogin = (state, { payload }) => {
   state.user.email = payload.data.email;
   state.user.isLogin = true;
 };
+
+const handleLogout = (state) => {
+  state.token = "";
+  state.user.name = "";
+  state.user.email = "";
+  state.user.isLogin = false;
+};
+
+const handleGetCurrent = ({ user }, { payload }) => {
+  user.email = payload.email;
+  user.name = payload.name;
+  user.isLogin = true;
+};
+
 const handleFulfilled = (state) => {
+  state.error = null;
   state.isLoading = false;
 };
-const handlePending = (state, { payload }) => {
+const handlePending = (state) => {
   state.isLoading = true;
 };
-const handleRejected = () => {};
+const handleRejected = (state, { payload }) => {
+  state.error = payload;
+  state.isLoading = false;
+  console.log(payload);
+};
 
 const authSlice = createSlice({
   name: "authSlice",
@@ -23,12 +42,8 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginThunk.fulfilled, handleLogin)
-      .addCase(logoutThink.fulfilled, (state) => {
-        state.token = "";
-        state.user.name = "";
-        state.user.email = "";
-        state.user.isLogin = false;
-      })
+      .addCase(logoutThink.fulfilled, handleLogout)
+      .addCase(getCurrentUserThunk.fulfilled, handleGetCurrent)
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled

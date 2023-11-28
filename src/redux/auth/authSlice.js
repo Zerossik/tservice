@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialState } from "../initialState";
+import { authInitialState } from "../initialState";
 import { getCurrentUserThunk, loginThunk, logoutThink } from "./authThunks";
 
 const handleLogin = (state, { payload }) => {
@@ -39,7 +39,7 @@ const handleRejected = (state, { payload }) => {
 
 const authSlice = createSlice({
   name: "authSlice",
-  initialState,
+  initialState: authInitialState,
   reducers: {
     deleteToken: (state) => {
       state.token = "";

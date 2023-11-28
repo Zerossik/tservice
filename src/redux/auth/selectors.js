@@ -1,4 +1,4 @@
-export const selectToken = (state) => state.token;
-export const selectUser = (state) => state.user; // Повертає об'єкт user
-export const selectIsLoading = (state) => state.isLoading;
-export const selectIsLogin = (state) => state.user.isLogin;
+export const selectToken = ({ auth }) => auth.token;
+export const selectUser = ({ auth }) => auth.user; // Повертає об'єкт user
+export const selectIsLoading = ({ auth }) => auth.isLoading;
+export const selectIsLogin = ({ auth }) => auth.user.isLogin;

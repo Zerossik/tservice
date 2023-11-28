@@ -4,6 +4,7 @@ import { getCurrentUserThunk, loginThunk, logoutThink } from "./authThunks";
 
 const handleLogin = (state, { payload }) => {
   state.token = payload.token;
+  state.user.id = payload.data.id;
   state.user.name = payload.data.name;
   state.user.email = payload.data.email;
   state.user.isLogin = true;
@@ -11,12 +12,14 @@ const handleLogin = (state, { payload }) => {
 
 const handleLogout = (state) => {
   state.token = "";
+  state.user.id = "";
   state.user.name = "";
   state.user.email = "";
   state.user.isLogin = false;
 };
 
 const handleGetCurrent = ({ user }, { payload }) => {
+  user.id = payload.id;
   user.email = payload.email;
   user.name = payload.name;
   user.isLogin = true;
@@ -32,13 +35,23 @@ const handlePending = (state) => {
 const handleRejected = (state, { payload }) => {
   state.error = payload;
   state.isLoading = false;
-  console.log(payload);
 };
 
 const authSlice = createSlice({
   name: "authSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteToken: (state) => {
+      state.token = "";
+    },
+    setUser: (state, { payload }) => {
+      state.user.id = payload.data.id;
+      state.user.email = payload.data.email;
+      state.user.name = payload.data.name;
+      state.token = payload.token;
+      state.user.isLogin = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginThunk.fulfilled, handleLogin)
@@ -56,4 +69,6 @@ const authSlice = createSlice({
   },
 });
 
+export const { deleteToken } = authSlice.actions;
+export const { setUser } = authSlice.actions;
 export const authReducer = authSlice.reducer;

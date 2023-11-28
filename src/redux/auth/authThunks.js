@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { signin, logout, getCurrentUser } from "../../services/authAPI";
+import { getCurrentUser, logout, signin } from "../../services/authAPI";
 
 export const loginThunk = createAsyncThunk(
   "TService/login",
@@ -16,10 +16,15 @@ export const loginThunk = createAsyncThunk(
 export const getCurrentUserThunk = createAsyncThunk(
   "TService/getCurrentUser",
   async (_, { rejectWithValue }) => {
+    // const state = getState();
+
+    // if (!state.token) {
+    //   return rejectWithValue("Unable to fetch user");
+    // }
+
     try {
       const { data } = await getCurrentUser();
-
-      return data;
+      return data.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

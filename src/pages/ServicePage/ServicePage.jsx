@@ -1,38 +1,29 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 // styled
-import { Wrapper, Container } from "./ServicePage.styled";
+import { Wrapper, Container, Main } from "./ServicePage.styled";
+// components
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
+import { Loader } from "../../components/Loader";
+import { selectIsLoading } from "../../redux/auth/selectors";
 
 export const ServicePage = ({ toggleTheme }) => {
+  const isLoading = useSelector(selectIsLoading);
+
   return (
     <Wrapper>
-      <header>
+      <Header toggleTheme={toggleTheme} />
+      <Main>
         <Container>
-          <h1>Vite + React</h1>
-          <ul>
-            <li>
-              <NavLink to={`/`}>Home</NavLink>
-            </li>
-            <li>
-              <NavLink to={`/auth/login`}>Your Login</NavLink>
-            </li>
-            <li>
-              <NavLink to={`/auth/register`}>Your Register</NavLink>
-            </li>
-          </ul>
-          <button type="button" onClick={toggleTheme}>
-            BUTTON TOGGLE THEME
-          </button>
+          <Suspense fallback={<Loader isLoading={isLoading} />}>
+            <Outlet />
+          </Suspense>
         </Container>
-      </header>
-      <main>
-        <Container>
-          <Outlet />
-        </Container>
-      </main>
-      <footer>
-        <Container>Footer</Container>
-      </footer>
+      </Main>
+      <Footer />
     </Wrapper>
   );
 };

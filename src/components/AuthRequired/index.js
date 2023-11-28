@@ -1,1 +1,1 @@
-export { authRequiredLoader } from "./AuthRequired";
+export { loader } from "./loader";

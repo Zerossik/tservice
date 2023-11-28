@@ -1,1 +1,2 @@
-export { Login, loader } from "./Login";
+export { Login } from "./Login";
+export { loader } from "./loader";

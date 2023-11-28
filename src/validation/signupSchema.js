@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
+  name: Yup.string()
     .min(2, "Name is too short!")
     .max(50, "Name is too long!")
     .matches(/^[A-Za-z0-9 ]*$/, "Only letters and numbers")

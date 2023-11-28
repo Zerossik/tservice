@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import IcnGear from "../../assets/icons/gear-loader.svg?react";
 
 export const Container = styled.div`
   width: 100%;
@@ -54,6 +55,7 @@ export const Error = styled.div`
 `;
 
 export const FormButton = styled.button`
+  position: relative;
   height: 40px;
   padding: 10px 20px;
 
@@ -61,13 +63,32 @@ export const FormButton = styled.button`
   color: #fff;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #007aff;
+  background-color: #007aff;
 
   &:disabled {
     color: #007aff;
     border: 1px solid #007aff;
     background-color: rgba(255, 255, 255, 0.6);
-    cursor: not-allowed;
+    cursor: ${({ loading }) => (loading ? "wait" : "not-allowed")};
+  }
+`;
+
+export const IconLoader = styled(IcnGear)`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  fill: #007aff;
+  animation: rotationGear 3s linear infinite;
+
+  @keyframes rotationGear {
+    from {
+      transform: translate(0, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(0, -50%) rotate(360deg);
+    }
   }
 `;
 

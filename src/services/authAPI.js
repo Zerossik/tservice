@@ -23,7 +23,7 @@ export const apiPrivate = axios.create({
 });
 
 const addAuthorizationHeader = async (config) => {
-  let token = store.getState().token;
+  let token = store.getState().auth.token;
   if (token) {
     if (config?.headers) {
       config.headers["Authorization"] = `Bearer ${token}`;

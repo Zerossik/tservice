@@ -1,6 +1,6 @@
 export const authInitialState = {
   error: null,
-  user: { name: "", email: "", isLogin: false },
+  user: { id: "", name: "", email: "", isLogin: false },
   isLoading: false,
   token: "",
 };

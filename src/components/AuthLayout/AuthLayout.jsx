@@ -8,20 +8,31 @@ import { Wrapper } from "./AuthLayout.styled";
 import { useEffect } from "react";
 import { setUser } from "../../redux/auth/authSlice";
 import { Loader } from "../Loader";
-import { selectIsLoading } from "../../redux/auth/selectors";
+import {
+  selectIsLoading,
+  selectIsLogin,
+  selectUser,
+} from "../../redux/auth/selectors";
 
 export const AuthLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useLoaderData();
+  const isLoggedIn = useSelector(selectIsLogin);
   const isLoading = useSelector(selectIsLoading);
+  const userState = useSelector(selectUser);
 
   useEffect(() => {
-    if (user) {
-      dispatch(setUser(user));
-      navigate(`/${PATHS.CONTACTS}`, { replace: true });
+    if (isLoggedIn) {
+      navigate(PATHS.SERVICES, { replace: true });
+      return;
     }
-  }, [dispatch, navigate, user]);
+
+    if (user && !isLoggedIn) {
+      dispatch(setUser(user));
+      navigate(PATHS.SERVICES, { replace: true });
+    }
+  }, [dispatch, navigate, user, isLoggedIn, userState]);
 
   return (
     <Wrapper>

@@ -2,7 +2,6 @@
 // import viteLogo from "/vite.svg";
 import { useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PATHS } from "../constants";
@@ -16,8 +15,8 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import { ServicePage } from "../pages/ServicePage";
 import { GadgetList } from "./GadgetList/GadgetList";
+import { Loader } from "./Loader";
 import { ErrorPage } from "../pages/ErrorPage";
-import { selectIsLogin } from "../redux/auth/selectors";
 // loaders
 import { loader as loaderAuthLayout } from "./AuthLayout";
 import { loader as loaderGadgetList } from "./GadgetList";
@@ -25,7 +24,6 @@ import { loader as authRequiredLoader } from "./AuthRequired";
 
 export const App = () => {
   const [currentTheme, setCurrentTheme] = useState("light");
-  const isLoggedIn = useSelector(selectIsLogin);
 
   const toggleTheme = () => {
     setCurrentTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -45,14 +43,12 @@ export const App = () => {
         ],
       },
       {
-        path: PATHS.CONTACTS,
-        loader: (locationParams) => {
-          return authRequiredLoader(isLoggedIn, locationParams);
-        },
+        path: PATHS.SERVICES,
         element: <ServicePage toggleTheme={toggleTheme} />,
+        loader: authRequiredLoader,
         children: [
           { index: true, element: <GadgetList />, loader: loaderGadgetList },
-          { path: `${PATHS.CONTACTS}/:id`, element: <div>Something</div> },
+          { path: `${PATHS.SERVICES}/:id`, element: <div>Something</div> },
         ],
       },
     ],
@@ -73,7 +69,11 @@ export const App = () => {
         pauseOnHover
         theme={currentTheme === "light" ? "dark" : "light"}
       />
-      <RouterProvider router={router} />
+      <RouterProvider
+        router={router}
+        fallbackElement={<Loader isLoading={true} />}
+        future={{ v7_startTransition: true }}
+      />
     </ThemeProvider>
   );
 };

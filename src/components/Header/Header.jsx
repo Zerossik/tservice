@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 // styled
@@ -14,16 +15,19 @@ import {
 import { Loader } from "../Loader";
 import { logoutThink } from "../../redux/auth/authThunks";
 import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
+import { PATHS } from "../../constants";
 
 export const Header = ({ toggleTheme }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
 
   const handleClickLogOut = async () => {
     try {
       await dispatch(logoutThink()).unwrap();
       toast.success(`Ви успішно вийшли із системи`);
+      navigate(`${PATHS.BASE}`, { replace: true });
     } catch (error) {
       toast.warning(`Щось пішло не так:) Спробуйте ще раз`);
     }

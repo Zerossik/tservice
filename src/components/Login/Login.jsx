@@ -37,7 +37,7 @@ export const Login = () => {
         .unwrap()
         .then(() => {
           formik.resetForm();
-          navigate(`/${PATHS.CONTACTS}`, { replace: true });
+          navigate(`/${PATHS.SERVICES}`, { replace: true });
         })
         .catch(() => toast.warning(`Email або password, не вірні`));
     },
@@ -81,7 +81,7 @@ export const Login = () => {
           </InputWrapper>
 
           <div>
-            <NavLinkStyled to={PATHS.BASE}>Забули пароль?</NavLinkStyled>
+            <NavLinkStyled to={`${PATHS.BASE}`}>Забули пароль?</NavLinkStyled>
           </div>
 
           <FormButton

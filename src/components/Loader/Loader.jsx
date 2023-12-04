@@ -1,9 +1,12 @@
 import FadeLoader from "react-spinners/FadeLoader";
 import PropTypes from "prop-types";
+import { useTheme } from "styled-components";
 // styled
-// import { Wrapper } from "./Loader.styled";
+import { Wrapper } from "./Loader.styled";
 
 export const Loader = ({ isLoading }) => {
+  const theme = useTheme();
+
   return (
     <div
       style={{
@@ -18,14 +21,16 @@ export const Loader = ({ isLoading }) => {
         backgroundColor: "rgba(0, 0, 0, 0.2)",
       }}
     >
-      <FadeLoader
-        color="#0b68f3"
-        loading={isLoading}
-        // cssOverride={override}
-        size={200}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+      <Wrapper>
+        <FadeLoader
+          color={theme.color.loader}
+          loading={isLoading}
+          // cssOverride={override}
+          size={200}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </Wrapper>
     </div>
   );
 };

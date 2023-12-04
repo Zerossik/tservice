@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 // styled
 import {
@@ -10,27 +9,26 @@ import {
   ButtonWrapper,
   Button,
   UserName,
+  IconUser,
+  IconSettings,
+  DropDownList,
+  DropDownItem,
 } from "./Header.styled";
 // components
 import { Loader } from "../Loader";
-import { logoutThink } from "../../redux/auth/authThunks";
 import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
-import { PATHS } from "../../constants";
+import { LogOut } from "../LogOut/LogOut";
+import { DropDown } from "../DropDown";
+import { ToggleTheme } from "../ToggleTheme";
 
 export const Header = ({ toggleTheme }) => {
-  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const user = useSelector(selectUser);
-  const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
+  const dropDownRef = useRef(null);
 
-  const handleClickLogOut = async () => {
-    try {
-      await dispatch(logoutThink()).unwrap();
-      toast.success(`Ви успішно вийшли із системи`);
-      navigate(`${PATHS.BASE}`, { replace: true });
-    } catch (error) {
-      toast.warning(`Щось пішло не так:) Спробуйте ще раз`);
-    }
+  const toggleUserDropDown = () => {
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -39,20 +37,32 @@ export const Header = ({ toggleTheme }) => {
       <HeaderStyled>
         <HeaderContainer>
           <Logo>TService</Logo>
+
           <ButtonWrapper>
-            <Button type="button" onClick={toggleTheme}>
-              Toggle Theme
+            <Button type="button">
+              <IconSettings />
             </Button>
-
             <UserName>{user ? user.name : "Anonimus"}</UserName>
-
-            <Button
-              type="button"
-              onClick={handleClickLogOut}
-              disabled={isLoading}
-            >
-              LogOut
+            <Button type="button" onClick={toggleUserDropDown}>
+              <IconUser />
             </Button>
+
+            {isOpen && (
+              <DropDown
+                styled={{ top: "100%", right: 0 }}
+                onToggleDropDown={toggleUserDropDown}
+                dropRef={dropDownRef}
+              >
+                <DropDownList ref={dropDownRef}>
+                  <DropDownItem>
+                    <ToggleTheme onToggleTheme={toggleTheme} />
+                  </DropDownItem>
+                  <DropDownItem>
+                    <LogOut />
+                  </DropDownItem>
+                </DropDownList>
+              </DropDown>
+            )}
           </ButtonWrapper>
         </HeaderContainer>
       </HeaderStyled>

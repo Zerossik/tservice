@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import IcnGear from "../../assets/icons/gear-loader.svg?react";
+// import IcnGear from "../../assets/icons/gear-loader.svg?react";
 
 export const Container = styled.div`
   width: 100%;
@@ -8,19 +8,17 @@ export const Container = styled.div`
   margin: 15px;
   padding: 44px;
 
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.6);
-
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1),
-    0px 4px 4px 0px rgba(0, 0, 0, 0.05), 0px 1px 0px 0px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
+  border-radius: ${({ theme }) => theme.borderRadius.large};
+  border: 1px solid ${({ theme }) => theme.color.border};
+  background-color: ${({ theme }) => theme.color.bgSecondary};
+  box-shadow: ${({ theme }) => theme.color.shadow};
 `;
 
 export const Title = styled.h1`
   display: flex;
   justify-content: center;
   margin-bottom: 24px;
+  color: ${({ theme }) => theme.color.primary};
 `;
 
 export const FormStyled = styled.form`
@@ -40,10 +38,15 @@ export const InputStyled = styled.input`
   width: 100%;
   height: 40px;
   padding: 6px 40px 6px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.6);
+  color: ${({ theme }) => theme.color.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
+  border: 1px solid ${({ theme }) => theme.color.border};
+  background-color: ${({ theme }) => theme.color.bgSecondary};
   outline: none;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.color.placeholder};
+  }
 `;
 
 export const Error = styled.div`
@@ -51,7 +54,7 @@ export const Error = styled.div`
   bottom: -90;
   right: 0;
   text-align: right;
-  color: #ff8500;
+  color: ${({ theme }) => theme.color.error};
 `;
 
 export const FormButton = styled.button`
@@ -59,42 +62,43 @@ export const FormButton = styled.button`
   height: 40px;
   padding: 10px 20px;
 
-  font-weight: bold;
-  color: #fff;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: #007aff;
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.btnFont};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  border: 1px solid ${({ theme }) => theme.color.btnBorder};
+  background-color: ${({ theme }) => theme.color.btnBg};
 
   &:disabled {
-    color: #007aff;
-    border: 1px solid #007aff;
-    background-color: rgba(255, 255, 255, 0.6);
+    color: ${({ theme }) => theme.color.btnBg};
+    border: 1px solid ${({ theme }) => theme.color.btnBg};
+    background-color: ${({ theme }) => theme.color.bgSecondary};
     cursor: ${({ loading }) => (loading ? "wait" : "not-allowed")};
   }
 `;
 
-export const IconLoader = styled(IcnGear)`
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  width: 25px;
-  height: 25px;
-  fill: #007aff;
-  animation: rotationGear 3s linear infinite;
+// export const IconLoader = styled(IcnGear)`
+//   position: absolute;
+//   top: 50%;
+//   right: 10px;
+//   width: 25px;
+//   height: 25px;
+//   fill: #007aff;
+//   animation: rotationGear 3s linear infinite;
 
-  @keyframes rotationGear {
-    from {
-      transform: translate(0, -50%) rotate(0deg);
-    }
-    to {
-      transform: translate(0, -50%) rotate(360deg);
-    }
-  }
-`;
+//   @keyframes rotationGear {
+//     from {
+//       transform: translate(0, -50%) rotate(0deg);
+//     }
+//     to {
+//       transform: translate(0, -50%) rotate(360deg);
+//     }
+//   }
+// `;
 
 export const NavLinkStyled = styled(NavLink)`
   display: inline-flex;
   text-decoration: underline;
+  color: ${({ theme }) => theme.color.link};
 `;
 
 export const Text = styled.p`

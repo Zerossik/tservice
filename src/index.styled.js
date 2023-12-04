@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
 body {
   position: relative;
   font-family: ${({ theme }) => theme.font.primary};
-  font-size: ${({ theme }) => theme.fontSize.xs};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -30,6 +30,14 @@ button {
 
 address {
   font-style: normal;
+}
+
+
+input:-webkit-autofill {
+  -webkit-box-shadow: inset 0 0 0 50px ${({ theme }) =>
+    theme.color.bgSecondary}; /* колір вашого фону */
+  -webkit-text-fill-color: ${({ theme }) =>
+    theme.font.primary}; /* колір тексту */
 }
 
 ul {
@@ -68,3 +76,8 @@ img {
   overflow: hidden;
 }
 `;
+
+// z-indexes in this project
+// 100 - spinner
+// 90 - modal
+// 80 - dropDown

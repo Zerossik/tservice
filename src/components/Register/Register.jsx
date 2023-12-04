@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignupSchema } from "../../validation";
 import { PATHS } from "../../constants";
@@ -13,6 +13,7 @@ import {
   Label,
   InputStyled,
   FormButton,
+  NavLinkStyled,
   // IconLoader,
   Text,
   Error,
@@ -59,7 +60,7 @@ export const Register = () => {
       <Container>
         <Title>Реєстрація</Title>
 
-        <FormStyled onSubmit={formik.handleSubmit}>
+        <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
           <InputWrapper>
             <Label htmlFor="name">First Name</Label>
             <InputStyled
@@ -116,7 +117,7 @@ export const Register = () => {
 
         <Text>
           <span>Ти маєш акаунт?</span>
-          <NavLink to={`/${PATHS.LOGIN}`}>Увійти</NavLink>
+          <NavLinkStyled to={`/${PATHS.LOGIN}`}>Увійти</NavLinkStyled>
         </Text>
       </Container>
     </>

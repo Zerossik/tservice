@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { PATHS } from "../../constants";
 import { useFormik } from "formik";
@@ -33,6 +33,8 @@ export const Login = () => {
     },
     validationSchema: SigninSchema,
     onSubmit: (values) => {
+      const { email, password } = values;
+      if (email === "" || password === "") return;
       dispatch(loginThunk(values))
         .unwrap()
         .then(() => {
@@ -49,7 +51,7 @@ export const Login = () => {
       <Container>
         <Title>Авторизація</Title>
 
-        <FormStyled onSubmit={formik.handleSubmit}>
+        <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
           <InputWrapper>
             <Label htmlFor="email">Email Address</Label>
             <InputStyled
@@ -86,7 +88,8 @@ export const Login = () => {
 
           <FormButton
             type="submit"
-            disabled={!(formik.isValid && formik.dirty)}
+            // disabled={!(formik.isValid && formik.dirty)}
+            disabled={isLoading}
             $loading={isLoading}
           >
             Увійти
@@ -95,9 +98,20 @@ export const Login = () => {
 
         <Text>
           <span>Ти не маєш акаунта?</span>
-          <NavLink to={`/${PATHS.REGISTER}`}>Зареєструватися</NavLink>
+          <NavLinkStyled to={`/${PATHS.REGISTER}`}>
+            Зареєструватися
+          </NavLinkStyled>
         </Text>
       </Container>
     </>
   );
 };
+
+/* &:auto-fill,
+  :-webkit-autofill,
+  :-webkit-autofill:hover {
+    -webkit-text-fill-color: #31b0dd;
+    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+    background-color: red !important;*/
+/* ${(props) => console.log(props)}  */
+/* }  */

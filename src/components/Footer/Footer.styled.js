@@ -3,7 +3,7 @@ import { Container } from "../../pages/ServicePage/ServicePage.styled";
 
 export const FooterStyled = styled.footer`
   height: 44px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.color.bg};
 `;
 
 export const FooterContainer = styled(Container)`
@@ -15,5 +15,8 @@ export const FooterContainer = styled(Container)`
 `;
 
 export const Copyright = styled.h3`
-  color: #000;
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-weight: 500;
+  line-height: 1.42;
+  color: ${({ theme }) => theme.color.footerFont};
 `;

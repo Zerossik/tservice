@@ -20,15 +20,21 @@ import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
 import { LogOut } from "../LogOut/LogOut";
 import { DropDown } from "../DropDown";
 import { ToggleTheme } from "../ToggleTheme";
+import { Modal } from "../Modal";
 
 export const Header = ({ toggleTheme }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector(selectUser);
   const isLoading = useSelector(selectIsLoading);
   const dropDownRef = useRef(null);
 
   const toggleUserDropDown = () => {
-    setIsOpen((prev) => !prev);
+    setIsDropDownOpen((prev) => !prev);
+  };
+
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
@@ -39,7 +45,7 @@ export const Header = ({ toggleTheme }) => {
           <Logo>TService</Logo>
 
           <ButtonWrapper>
-            <Button type="button">
+            <Button type="button" onClick={toggleModal}>
               <IconSettings />
             </Button>
             <UserName>{user ? user.name : "Anonimus"}</UserName>
@@ -47,7 +53,7 @@ export const Header = ({ toggleTheme }) => {
               <IconUser />
             </Button>
 
-            {isOpen && (
+            {isDropDownOpen && (
               <DropDown
                 styled={{ top: "100%", right: 0 }}
                 onToggleDropDown={toggleUserDropDown}
@@ -66,6 +72,11 @@ export const Header = ({ toggleTheme }) => {
           </ButtonWrapper>
         </HeaderContainer>
       </HeaderStyled>
+      {isModalOpen && (
+        <Modal onToggleModal={toggleModal}>
+          <p>Settings is open</p>
+        </Modal>
+      )}
     </>
   );
 };

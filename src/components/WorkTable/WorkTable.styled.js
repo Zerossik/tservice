@@ -1,9 +1,13 @@
 import styled from "styled-components";
+import { HiPencilSquare } from "react-icons/hi2";
 
 export const Table = styled.table`
   width: 100%;
   table-layout: fixed;
-  /* border-radius: 12px; */
+  color: ${({ theme }) => theme.color.primary};
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: ${({ theme }) => theme.color.shadow};
 `;
 
 export const Row = styled.tr`
@@ -19,15 +23,15 @@ export const Thead = styled.thead`
 
   /* & th:nth-child(3) {
     width: 10%;
-  }
+  } */
 
-  & th:nth-child(4) {
-    width: 10%;
-  }
-
-  & th:nth-child(5) {
+  /* & th:nth-child(4) {
     width: 10%;
   } */
+
+  & th:last-child {
+    width: 5%;
+  }
 `;
 
 export const TableHead = styled.th`
@@ -36,13 +40,26 @@ export const TableHead = styled.th`
 
 export const Cell = styled.td`
   text-align: center;
-  background-color: #f4f3f3;
+  background-color: ${({ theme }) => theme.color.tableCell};
 `;
 
 export const Button = styled.button`
   width: 100%;
   height: 48px;
   font-weight: 700;
+  color: inherit;
   cursor: default;
   background-color: transparent;
+`;
+
+export const ButtonIconDelete = styled.button`
+  padding: 10px;
+  border-radius: 50%;
+  background-color: transparent;
+`;
+
+export const IconDelete = styled(HiPencilSquare)`
+  width: 20px;
+  height: 20px;
+  fill: ${({ theme }) => theme.color.iconMain};
 `;

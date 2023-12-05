@@ -20,8 +20,10 @@ const lightTheme = {
   logo: "#0b68f3",
   // icons
   iconMain: "rgba(18, 20, 23, 0.8)",
+  iconPlus: "#34C759",
   // table
   tableHead: "#3395ff",
+  tableCell: "#F4F3F3",
   // loader
   loader: "#0b68f3", // spinner
   // backDrop
@@ -38,10 +40,11 @@ const lightTheme = {
 };
 
 const darktheme = {
-  primary: "#fff",
+  primary: "rgb(250, 250, 250)",
   secondary: "#007aff", // need to change
-  bg: "#050505",
-  bgSecondary: "rgba(0, 0, 0, 0.8)",
+  bg: "#1E1E1E",
+  // bgSecondary: "rgba(0, 0, 0, 0.8)",
+  bgSecondary: "#2C2C2C",
   // header
   headerBg: "#e9f3ff", // need to change
   // button
@@ -59,8 +62,10 @@ const darktheme = {
   logo: "#0b68f3", // the same in dark and light theme
   // icons
   iconMain: "rgba(255, 255, 255, 0.8)",
+  iconPlus: "#33ff9d",
   // table
   tableHead: "#3395ff",
+  tableCell: "#2C2C2C",
   // loader
   loader: "#0b68f3",
   // backDrop

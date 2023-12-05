@@ -1,84 +1,67 @@
+// import { useLoaderData } from "react-router-dom";
+// component
+import { Modal } from "../Modal";
 // style
-import { Table, Row, Thead, TableHead, Cell, Button } from "./WorkTable.styled";
+import {
+  Table,
+  Row,
+  Thead,
+  TableHead,
+  Cell,
+  Button,
+  ButtonIconDelete,
+  IconDelete,
+} from "./WorkTable.styled";
+// data
+import { tableHeader } from "../../fakeData";
+import { useState } from "react";
 
-const buttonsFilter = [
-  {
-    id: "1",
-    buttonName: "#",
-    sortName: "number",
-    isActive: true,
-    sortDown: true,
-  },
-  {
-    id: "2",
-    buttonName: "Ім’я",
-    sortNmae: "clientName",
-    isActive: false,
-    sortDown: true,
-  },
-  {
-    id: "3",
-    buttonName: "Номер телефон",
-    sortNmae: "phone",
-    isActive: false,
-    sortDown: true,
-  },
-  {
-    id: "4",
-    buttonName: "Дата прийняття",
-    sortNmae: "date",
-    isActive: false,
-    sortDown: true,
-  },
-  {
-    id: "5",
-    buttonName: "Сума до сплати",
-    sortNmae: "price",
-    isActive: false,
-    sortDown: true,
-  },
-];
+const tableHeaderFiltered = tableHeader.filter((item) => item.isVisible);
 
 export const WorkTable = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const gadgetList = useLoaderData();
+
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
-    <Table>
-      <Thead>
-        <Row>
-          {buttonsFilter.map(({ id, buttonName }) => (
-            <TableHead key={id}>
-              <Button type="button">{buttonName}</Button>
-            </TableHead>
-          ))}
-          <TableHead>Статус</TableHead>
-          <TableHead>Дії</TableHead>
-        </Row>
-      </Thead>
-      <tbody>
-        <Row>
-          <Cell>1</Cell>
-          <Cell>Смітюх Микола</Cell>
-          <Cell>380957770000</Cell>
-          <Cell>20.11.2023</Cell>
-          <Cell>499грн</Cell>
-          <Cell>Чекає виконання</Cell>
-          <Cell>btn btn btn</Cell>
-        </Row>
-      </tbody>
-    </Table>
+    <>
+      <Table>
+        <Thead>
+          <Row>
+            {tableHeaderFiltered.map(({ id, buttonName }) => (
+              <TableHead key={id}>
+                <Button type="button">{buttonName}</Button>
+              </TableHead>
+            ))}
+            {/* <TableHead>Статус</TableHead> */}
+            <TableHead>Дії</TableHead>
+          </Row>
+        </Thead>
+        <tbody>
+          <Row>
+            <Cell>1</Cell>
+            <Cell>Смітюх Микола</Cell>
+            <Cell>Phone</Cell>
+            <Cell>Xiaomi Redmi</Cell>
+            <Cell>20.11.2023</Cell>
+            <Cell>499грн</Cell>
+            <Cell>Gotovo</Cell>
+            <Cell>
+              <ButtonIconDelete onClick={toggleModal}>
+                <IconDelete />
+              </ButtonIconDelete>
+            </Cell>
+          </Row>
+        </tbody>
+      </Table>
+      {isModalOpen && (
+        <Modal onToggleModal={toggleModal}>
+          <p>Edit some card of appliance</p>
+        </Modal>
+      )}
+    </>
   );
 };
-
-{
-  /* <table id="customers">
-  <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
-  </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
-    </tr>
-  </table> */
-}

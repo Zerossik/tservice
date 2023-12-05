@@ -50,17 +50,15 @@ export const IconSettings = styled(HiCog6Tooth)`
 `;
 
 export const DropDownList = styled.ul`
-  box-sizing: content-box;
-  overflow: hidden;
+  min-width: 150px;
   border: 2px solid ${({ theme }) => theme.color.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   background-color: ${({ theme }) => theme.color.dropDownBg};
   box-shadow: ${({ theme }) => theme.color.shadow};
+  overflow: hidden;
 `;
 
 export const DropDownItem = styled.li`
-  padding: 10px 20px;
-
   &:hover {
     background-color: ${({ theme }) => theme.color.dropDownHover};
   }

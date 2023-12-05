@@ -12,12 +12,12 @@ import { AuthLayout } from "./AuthLayout";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { ServicePage } from "../pages/ServicePage";
-import { GadgetList } from "./GadgetList/GadgetList";
+import { WorkTable } from "./WorkTable";
 import { Loader } from "./Loader";
 import { ErrorPage } from "../pages/ErrorPage";
 // loaders
 import { loader as loaderAuthLayout } from "./AuthLayout";
-import { loader as loaderGadgetList } from "./GadgetList";
+import { loader as loaderWorkTable } from "./WorkTable";
 import { loader as authRequiredLoader } from "./AuthRequired";
 
 export const App = () => {
@@ -45,7 +45,7 @@ export const App = () => {
         element: <ServicePage toggleTheme={toggleTheme} />,
         loader: authRequiredLoader,
         children: [
-          { index: true, element: <GadgetList />, loader: loaderGadgetList },
+          { index: true, element: <WorkTable />, loader: loaderWorkTable },
           { path: `${PATHS.SERVICES}/:id`, element: <div>Something</div> },
         ],
       },

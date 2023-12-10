@@ -8,11 +8,11 @@ export const RessPassForm = () => {
     const { value } = event.target.email;
 
     if (value.trim()) {
-      console.log("sended email");
       RessPassword(value)
-        .then(() => console.log("Ok"))
+        .then(() => console.log("email sended"))
         .catch((error) => console.log(error.message));
     }
+
     return;
   };
   return (

@@ -6,9 +6,12 @@ export const RessPassForm = () => {
   const handlerRstPass = (event) => {
     event.preventDefault();
     const { value } = event.target.email;
+
     if (value.trim()) {
       console.log("sended email");
-      RessPassword(value);
+      RessPassword(value)
+        .then(() => console.log("Ok"))
+        .catch((error) => console.log(error.message));
     }
     return;
   };

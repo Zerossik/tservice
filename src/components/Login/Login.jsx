@@ -20,11 +20,17 @@ import {
 } from "../Register/Register.styled";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { Loader } from "../Loader";
+import { useState } from "react";
+import { Modal } from "../Modal";
+import { RessPassForm } from "../AuthRessPass";
 
 export const Login = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
+
+  const toggleIsOpen = () => setIsOpen(!isOpen);
 
   const formik = useFormik({
     initialValues: {
@@ -48,6 +54,11 @@ export const Login = () => {
   return (
     <>
       {isLoading && <Loader isLoading={isLoading} />}
+      {isOpen && (
+        <Modal onToggleModal={toggleIsOpen}>
+          <RessPassForm />
+        </Modal>
+      )}
       <Container>
         <Title>Авторизація</Title>
 
@@ -83,7 +94,9 @@ export const Login = () => {
           </InputWrapper>
 
           <div>
-            <NavLinkStyled to={`${PATHS.BASE}`}>Забули пароль?</NavLinkStyled>
+            <NavLinkStyled to={`${PATHS.BASE}`} onClick={toggleIsOpen}>
+              Забули пароль?
+            </NavLinkStyled>
           </div>
 
           <FormButton

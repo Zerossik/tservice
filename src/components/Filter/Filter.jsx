@@ -1,8 +1,9 @@
 import { useState } from "react";
-// components
-import { Modal } from "../Modal";
 // style
 import { Wrapper, ButtonIconPlus, IconPlus } from "./Filter.styled";
+// components
+import { Modal } from "../Modal";
+import { OrderForm } from "../OrderForm/OrderForm";
 
 export const Filter = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,7 +11,7 @@ export const Filter = () => {
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-  console.log(isModalOpen);
+
   return (
     <>
       <Wrapper>
@@ -20,7 +21,7 @@ export const Filter = () => {
       </Wrapper>
       {isModalOpen && (
         <Modal onToggleModal={toggleModal}>
-          <p>Add Order</p>
+          <OrderForm />
         </Modal>
       )}
     </>

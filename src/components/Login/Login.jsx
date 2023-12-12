@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { PATHS } from "../../constants";
@@ -18,11 +19,17 @@ import { loginThunk } from "../../redux/auth/authThunks";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { Loader } from "../Loader";
 import { Input } from "../Input";
+import { Modal } from "../Modal";
+import { RessPassForm } from "../AuthRessPass";
+
 
 export const Login = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
+
+  const toggleIsOpen = () => setIsOpen(!isOpen);
 
   const formik = useFormik({
     initialValues: {
@@ -46,6 +53,11 @@ export const Login = () => {
   return (
     <>
       {isLoading && <Loader isLoading={isLoading} />}
+      {isOpen && (
+        <Modal onToggleModal={toggleIsOpen}>
+          <RessPassForm />
+        </Modal>
+      )}
       <Container>
         <Title>Авторизація</Title>
 
@@ -67,7 +79,9 @@ export const Login = () => {
           />
 
           <div>
-            <NavLinkStyled to={`${PATHS.BASE}`}>Забули пароль?</NavLinkStyled>
+            <NavLinkStyled to={`${PATHS.BASE}`} onClick={toggleIsOpen}>
+              Забули пароль?
+            </NavLinkStyled>
           </div>
 
           <FormButton type="submit" disabled={isLoading} $loading={isLoading}>

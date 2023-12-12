@@ -1,28 +1,27 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { PATHS } from "../../constants";
 import { useFormik } from "formik";
-import { SigninSchema } from "../../validation";
-import { loginThunk } from "../../redux/auth/authThunks";
 import { toast } from "react-toastify";
 // styled
 import {
   Container,
   Title,
   FormStyled,
-  InputWrapper,
-  Label,
-  InputStyled,
   FormButton,
   NavLinkStyled,
   Text,
-  Error,
 } from "../Register/Register.styled";
+// components
+import { SigninSchema } from "../../validation";
+import { loginThunk } from "../../redux/auth/authThunks";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { Loader } from "../Loader";
-import { useState } from "react";
+import { Input } from "../Input";
 import { Modal } from "../Modal";
 import { RessPassForm } from "../AuthRessPass";
+
 
 export const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,35 +62,21 @@ export const Login = () => {
         <Title>Авторизація</Title>
 
         <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
-          <InputWrapper>
-            <Label htmlFor="email">Email Address</Label>
-            <InputStyled
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-            />
-            {formik.errors.email ? <Error>{formik.errors.email}</Error> : null}
-          </InputWrapper>
+          <Input
+            name="email"
+            type="email"
+            formik={formik}
+            labelText="Email адреса"
+            moveLabel
+          />
 
-          <InputWrapper>
-            <Label htmlFor="email">Password</Label>
-            <InputStyled
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Пароль"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-            />
-            {formik.errors.password ? (
-              <Error>{formik.errors.password}</Error>
-            ) : null}
-          </InputWrapper>
+          <Input
+            name="password"
+            type="password"
+            formik={formik}
+            labelText="Пароль"
+            moveLabel
+          />
 
           <div>
             <NavLinkStyled to={`${PATHS.BASE}`} onClick={toggleIsOpen}>
@@ -99,12 +84,7 @@ export const Login = () => {
             </NavLinkStyled>
           </div>
 
-          <FormButton
-            type="submit"
-            // disabled={!(formik.isValid && formik.dirty)}
-            disabled={isLoading}
-            $loading={isLoading}
-          >
+          <FormButton type="submit" disabled={isLoading} $loading={isLoading}>
             Увійти
           </FormButton>
         </FormStyled>
@@ -119,12 +99,3 @@ export const Login = () => {
     </>
   );
 };
-
-/* &:auto-fill,
-  :-webkit-autofill,
-  :-webkit-autofill:hover {
-    -webkit-text-fill-color: #31b0dd;
-    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
-    background-color: red !important;*/
-/* ${(props) => console.log(props)}  */
-/* }  */

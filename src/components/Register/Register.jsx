@@ -9,17 +9,13 @@ import {
   Container,
   Title,
   FormStyled,
-  InputWrapper,
-  Label,
-  InputStyled,
   FormButton,
   NavLinkStyled,
-  // IconLoader,
   Text,
-  Error,
 } from "./Register.styled";
 import { signup } from "../../services/authAPI";
 import { Loader } from "../Loader";
+import { Input } from "../Input";
 
 export const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -61,49 +57,29 @@ export const Register = () => {
         <Title>Реєстрація</Title>
 
         <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
-          <InputWrapper>
-            <Label htmlFor="name">First Name</Label>
-            <InputStyled
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Ім’я"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-            />
-            {formik.errors.name ? <Error>{formik.errors.name}</Error> : null}
-          </InputWrapper>
+          <Input
+            name="name"
+            type="text"
+            formik={formik}
+            labelText="Ім’я"
+            moveLabel
+          />
 
-          <InputWrapper>
-            <Label htmlFor="email">Email Address</Label>
-            <InputStyled
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-            />
-            {formik.errors.email ? <Error>{formik.errors.email}</Error> : null}
-          </InputWrapper>
+          <Input
+            name="email"
+            type="email"
+            formik={formik}
+            labelText="Email адреса"
+            moveLabel
+          />
 
-          <InputWrapper>
-            <Label htmlFor="email">Password</Label>
-            <InputStyled
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Пароль"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-            />
-            {formik.errors.password ? (
-              <Error>{formik.errors.password}</Error>
-            ) : null}
-          </InputWrapper>
+          <Input
+            name="password"
+            type="password"
+            formik={formik}
+            labelText="Пароль"
+            moveLabel
+          />
 
           <FormButton
             type="submit"
@@ -111,7 +87,6 @@ export const Register = () => {
             $loading={loading}
           >
             Зареєструватися
-            {/* {loading && <IconLoader />} */}
           </FormButton>
         </FormStyled>
 

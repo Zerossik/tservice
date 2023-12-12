@@ -12,8 +12,11 @@ const lightTheme = {
   // dropDown
   dropDownBg: "#fff",
   dropDownHover: "#e5e5e5",
+  // modal
+  modalBg: "#e3e5e8",
   // input
   placeholder: "rgba(18, 20, 23, 0.5)",
+  readOnlyBg: "#e5e5e5",
   // link
   link: "#007aff",
   // logo
@@ -31,7 +34,7 @@ const lightTheme = {
   // footer
   footerFont: "rgba(0, 0, 0, 0.5)",
   // border
-  border: "rgba(255, 255, 255, 0.5)",
+  border: "rgba(0, 0, 0, 0.2)",
   // error
   error: "#ff8500",
   // shadow
@@ -54,8 +57,11 @@ const darktheme = {
   // dropDown
   dropDownBg: "#191919", // need to change
   dropDownHover: "#333",
+  // modal
+  modalBg: "#191919",
   // input
   placeholder: "rgba(255, 255, 255, 0.5)",
+  readOnlyBg: "#222",
   // link
   link: "#3395ff",
   // logo

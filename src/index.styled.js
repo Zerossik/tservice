@@ -81,3 +81,7 @@ img {
 // 100 - spinner
 // 90 - modal
 // 80 - dropDown
+
+// export const Label = styled.label.attrs({
+//   className: "visually-hidden",
+// })``;

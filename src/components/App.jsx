@@ -2,23 +2,26 @@ import { useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { PATHS } from "../constants";
 // theme style
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "../index.styled";
 import { theme } from "../constants/theme";
 // components
+import { PATHS } from "../constants";
 import { AuthLayout } from "./AuthLayout";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { ServicePage } from "../pages/ServicePage";
 import { WorkTable } from "./WorkTable";
 import { Loader } from "./Loader";
+import { ResetPassForm } from "./AuthResetPass";
+import { NewPassForm } from "./NewPassForm";
 import { ErrorPage } from "../pages/ErrorPage";
 // loaders
 import { loader as loaderAuthLayout } from "./AuthLayout";
 import { loader as loaderWorkTable } from "./WorkTable";
 import { loader as authRequiredLoader } from "./AuthRequired";
+import { loader as newPassFormLoader } from "./NewPassForm";
 
 export const App = () => {
   const [currentTheme, setCurrentTheme] = useState("light");
@@ -38,6 +41,12 @@ export const App = () => {
           { index: true, element: <Login /> },
           { path: PATHS.LOGIN, element: <Login /> },
           { path: PATHS.REGISTER, element: <Register /> },
+          { path: PATHS.RESET, element: <ResetPassForm /> },
+          {
+            path: `${PATHS.RESET}/:token`,
+            element: <NewPassForm />,
+            loader: newPassFormLoader,
+          },
         ],
       },
       {

@@ -36,11 +36,10 @@ export const logout = async () => {
   }
 };
 
-export const RessPassword = async (body) => {
+export const resetPassword = async (body) => {
   try {
-    await apiPublic.post("/api/auth/resetpassword", {
-      email: body,
-    });
+    const { data } = await apiPublic.post("/api/auth/resetpassword", body);
+    return data;
   } catch (error) {
     throw new Error(error.message);
   }

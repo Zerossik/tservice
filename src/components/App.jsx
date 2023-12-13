@@ -13,7 +13,8 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import { ServicePage } from "../pages/ServicePage";
 import { WorkTable } from "./WorkTable";
-import { Loader } from "./Loader";
+// import { Loader } from "./Loader";
+import { LoaderPretty } from "./LoaderPretty";
 import { ResetPassForm } from "./AuthResetPass";
 import { NewPassForm } from "./NewPassForm";
 import { ErrorPage } from "../pages/ErrorPage";
@@ -78,7 +79,8 @@ export const App = () => {
       />
       <RouterProvider
         router={router}
-        fallbackElement={<Loader isLoading={true} />}
+        // fallbackElement={<Loader isLoading={true} />}
+        fallbackElement={<LoaderPretty />}
         future={{ v7_startTransition: true }}
       />
     </ThemeProvider>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
@@ -15,10 +15,12 @@ import {
 import { Input } from "../Input";
 import { NewPassSchema } from "../../validation";
 import { PATHS } from "../../constants";
+import { setNewPassword } from "../../services/authAPI";
 
 export const NewPassForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const token = useLoaderData();
 
   const formik = useFormik({
     initialValues: {
@@ -29,19 +31,21 @@ export const NewPassForm = () => {
     onSubmit: async (value) => {
       try {
         setLoading(true);
-        // const {code} = await newPassword(value);
+        const { code } = await setNewPassword({
+          token: token,
+          password: value.password,
+        });
 
-        // if (code === 201) {
-        //   setLoading(false);
-        //   toast.success(`Ваш пароль змінено`);
-        //   formik.resetForm();
-        //   navigate(`/${PATHS.LOGIN}`, { replace: true });
-        // }
-        console.log(value);
+        if (code === 201) {
+          setLoading(false);
+          toast.success(`Ваш пароль змінено`);
+          formik.resetForm();
+          navigate(`/${PATHS.LOGIN}`, { replace: true });
+        }
       } catch (error) {
         console.log("error ", error.message);
-        toast.warning(`Щось пішло не так:) Спробуйте ще раз`);
         setLoading(false);
+        toast.warning(`Щось пішло не так:) Спробуйте ще раз`);
       }
     },
   });

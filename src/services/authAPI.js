@@ -44,3 +44,21 @@ export const resetPassword = async (body) => {
     throw new Error(error.message);
   }
 };
+
+export const verifyTokenLink = async (token) => {
+  try {
+    const { data } = await apiPublic.post("", token);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const setNewPassword = async (body) => {
+  try {
+    const { data } = await apiPublic.post("", body);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

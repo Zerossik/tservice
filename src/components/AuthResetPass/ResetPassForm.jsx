@@ -6,14 +6,14 @@ import {
   Container,
   Title,
   FormStyled,
-  FormButton,
-  NavLinkStyled,
   Text,
 } from "../Register/Register.styled";
 // components
 import { resetPassword } from "../../services/authAPI";
 import { resetPassSchema } from "../../validation";
 import { Input } from "../Input";
+import { NavLinkForm } from "../NavLinkForm";
+import { ButtonForm } from "../ButtonForm";
 import { Loader } from "../Loader";
 import { PATHS } from "../../constants";
 
@@ -52,17 +52,15 @@ export const ResetPassForm = () => {
             labelText="Email адреса"
             moveLabel
           />
-          <FormButton
-            type="submit"
+
+          <ButtonForm
+            buttonName="Відправити"
             disabled={!(formik.isValid && formik.dirty && !loading)}
-            $loading={loading}
-          >
-            Відправити
-          </FormButton>
+          />
         </FormStyled>
 
         <Text>
-          <NavLinkStyled to={`${PATHS.BASE}`}>На головну</NavLinkStyled>
+          <NavLinkForm path={`${PATHS.BASE}`} textLink="На головну" />
         </Text>
       </Container>
     </>

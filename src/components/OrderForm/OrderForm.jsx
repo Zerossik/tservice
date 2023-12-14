@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 // style
 import {
   FormStyled,
-  FormButton,
+  // FormButton,
   InputPhoneWrapper,
   List,
   ListItemArea,
@@ -22,6 +22,7 @@ import { Select } from "../Select";
 import { SelectConst } from "../SelectConst";
 import { TextArea } from "../TextArea/TextArea";
 import { ErrorInput } from "../ErrorInput";
+import { ButtonForm } from "../ButtonForm";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { Loader } from "../Loader";
@@ -205,12 +206,10 @@ export const OrderForm = () => {
             <TextArea name="failure" formik={formik} labelText="Несправність" />
           </ListItemArea>
           <ListItemLast>
-            <FormButton
-              type="submit"
+            <ButtonForm
+              buttonName="Додати"
               disabled={!(formik.isValid && formik.dirty)}
-            >
-              Додати
-            </FormButton>
+            />
           </ListItemLast>
         </List>
       </FormStyled>

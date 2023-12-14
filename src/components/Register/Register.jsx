@@ -1,21 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { SignupSchema } from "../../validation";
 import { PATHS } from "../../constants";
 import { toast } from "react-toastify";
 // styled
-import {
-  Container,
-  Title,
-  FormStyled,
-  FormButton,
-  NavLinkStyled,
-  Text,
-} from "./Register.styled";
+import { Container, Title, FormStyled, Text } from "./Register.styled";
+// components
+import { SignupSchema } from "../../validation";
 import { signup } from "../../services/authAPI";
 import { Loader } from "../Loader";
 import { Input } from "../Input";
+import { NavLinkForm } from "../NavLinkForm";
+import { ButtonForm } from "../ButtonForm";
 
 export const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -81,18 +77,15 @@ export const Register = () => {
             moveLabel
           />
 
-          <FormButton
-            type="submit"
+          <ButtonForm
+            buttonName="Зареєструватися"
             disabled={!(formik.isValid && formik.dirty && !loading)}
-            $loading={loading}
-          >
-            Зареєструватися
-          </FormButton>
+          />
         </FormStyled>
 
         <Text>
           <span>Ти маєш акаунт?</span>
-          <NavLinkStyled to={`/${PATHS.LOGIN}`}>Увійти</NavLinkStyled>
+          <NavLinkForm path={`/${PATHS.LOGIN}`} textLink="Увійти" />
         </Text>
       </Container>
     </>

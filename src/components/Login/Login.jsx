@@ -8,8 +8,6 @@ import {
   Container,
   Title,
   FormStyled,
-  FormButton,
-  NavLinkStyled,
   Text,
 } from "../Register/Register.styled";
 // components
@@ -18,6 +16,8 @@ import { loginThunk } from "../../redux/auth/authThunks";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { Loader } from "../Loader";
 import { Input } from "../Input";
+import { NavLinkForm } from "../NavLinkForm";
+import { ButtonForm } from "../ButtonForm";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -67,19 +67,15 @@ export const Login = () => {
           />
 
           <div>
-            <NavLinkStyled to={`/${PATHS.RESET}`}>Забули пароль?</NavLinkStyled>
+            <NavLinkForm path={`/${PATHS.RESET}`} textLink="Забули пароль?" />
           </div>
 
-          <FormButton type="submit" disabled={isLoading} $loading={isLoading}>
-            Увійти
-          </FormButton>
+          <ButtonForm buttonName="Увійти" disabled={isLoading} />
         </FormStyled>
 
         <Text>
           <span>Ти не маєш акаунта?</span>
-          <NavLinkStyled to={`/${PATHS.REGISTER}`}>
-            Зареєструватися
-          </NavLinkStyled>
+          <NavLinkForm path={`/${PATHS.REGISTER}`} textLink="Зареєструватися" />
         </Text>
       </Container>
     </>

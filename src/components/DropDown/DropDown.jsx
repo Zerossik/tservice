@@ -32,5 +32,5 @@ DropDown.propTypes = {
   onToggleDropDown: PropTypes.func,
   children: PropTypes.node,
   styled: PropTypes.object,
-  dropRef: PropTypes.func,
+  dropRef: PropTypes.object,
 };

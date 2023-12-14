@@ -20,7 +20,7 @@ import { setNewPassword } from "../../services/authAPI";
 export const NewPassForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const token = useLoaderData();
+  const data = useLoaderData();
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +32,8 @@ export const NewPassForm = () => {
       try {
         setLoading(true);
         const { code } = await setNewPassword({
-          token: token,
+          id: data.id,
+          token: data.token,
           password: value.password,
         });
 

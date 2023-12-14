@@ -11,6 +11,6 @@ export const ToggleTheme = ({ onToggleTheme, style }) => {
 };
 
 ToggleTheme.propTypes = {
-  onToggleTheme: PropTypes.func,
+  onToggleTheme: PropTypes.func.isRequired,
   style: PropTypes.object,
 };

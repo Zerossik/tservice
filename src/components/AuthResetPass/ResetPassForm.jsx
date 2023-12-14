@@ -1,18 +1,11 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// style
-import {
-  Container,
-  Title,
-  FormStyled,
-  Text,
-} from "../Register/Register.styled";
 // components
 import { resetPassword } from "../../services/authAPI";
 import { resetPassSchema } from "../../validation";
+import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
-import { NavLinkForm } from "../NavLinkForm";
 import { ButtonForm } from "../ButtonForm";
 import { Loader } from "../Loader";
 import { PATHS } from "../../constants";
@@ -42,27 +35,25 @@ export const ResetPassForm = () => {
   return (
     <>
       {loading && <Loader isLoading={loading} />}
-      <Container>
-        <Title>Відновлення паролю</Title>
-        <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
-          <Input
-            name="email"
-            type="email"
-            formik={formik}
-            labelText="Email адреса"
-            moveLabel
-          />
+      <AuthForm
+        formik={formik.handleSubmit}
+        title="Відновлення паролю"
+        path={`${PATHS.BASE}`}
+        textLink="На головну"
+      >
+        <Input
+          name="email"
+          type="email"
+          formik={formik}
+          labelText="Email адреса"
+          moveLabel
+        />
 
-          <ButtonForm
-            buttonName="Відправити"
-            disabled={!(formik.isValid && formik.dirty && !loading)}
-          />
-        </FormStyled>
-
-        <Text>
-          <NavLinkForm path={`${PATHS.BASE}`} textLink="На головну" />
-        </Text>
-      </Container>
+        <ButtonForm
+          buttonName="Відправити"
+          disabled={!(formik.isValid && formik.dirty && !loading)}
+        />
+      </AuthForm>
     </>
   );
 };

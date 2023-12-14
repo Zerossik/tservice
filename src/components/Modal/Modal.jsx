@@ -37,6 +37,6 @@ export const Modal = ({ onToggleModal, children }) => {
 };
 
 Modal.propTypes = {
-  onToggleModal: PropTypes.func,
-  children: PropTypes.node,
+  onToggleModal: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };

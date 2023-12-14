@@ -2,20 +2,14 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// style
-import {
-  Container,
-  Title,
-  FormStyled,
-  Text,
-} from "../Register/Register.styled";
 // components
+import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
-import { NavLinkForm } from "../NavLinkForm";
 import { ButtonForm } from "../ButtonForm";
 import { NewPassSchema } from "../../validation";
 import { PATHS } from "../../constants";
 import { setNewPassword } from "../../services/authAPI";
+import { Loader } from "../Loader";
 
 export const NewPassForm = () => {
   const [loading, setLoading] = useState(false);
@@ -51,9 +45,14 @@ export const NewPassForm = () => {
   });
 
   return (
-    <Container>
-      <Title>Змінити пароль</Title>
-      <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
+    <>
+      {loading && <Loader isLoading={loading} />}
+      <AuthForm
+        formik={formik.handleSubmit}
+        title="Змінити пароль"
+        path={`${PATHS.BASE}`}
+        textLink="На головну"
+      >
         <Input
           name="password"
           type="password"
@@ -73,11 +72,7 @@ export const NewPassForm = () => {
           buttonName="Змінити"
           disabled={!(formik.isValid && formik.dirty && !loading)}
         />
-      </FormStyled>
-
-      <Text>
-        <NavLinkForm path={`${PATHS.BASE}`} textLink="На головну" />
-      </Text>
-    </Container>
+      </AuthForm>
+    </>
   );
 };

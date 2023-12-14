@@ -11,6 +11,6 @@ export const ButtonForm = ({ buttonName, disabled }) => {
 };
 
 ButtonForm.propTypes = {
-  buttonName: PropTypes.string,
-  disabled: PropTypes.bool,
+  buttonName: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };

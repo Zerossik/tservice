@@ -7,6 +7,6 @@ export const NavLinkForm = ({ path, textLink }) => {
 };
 
 NavLinkForm.propTypes = {
-  path: PropTypes.string,
-  textLink: PropTypes.string,
+  path: PropTypes.string.isRequired,
+  textLink: PropTypes.string.isRequired,
 };

@@ -58,8 +58,13 @@ export const verifyTokenLink = async (body) => {
 };
 
 export const setNewPassword = async (body) => {
+  const { id, token, password } = body;
+
   try {
-    const { data } = await apiPublic.post("", body);
+    const { data } = await apiPublic.post(`/api/auth/resetpassword/${token}`, {
+      id,
+      password,
+    });
     return data;
   } catch (error) {
     throw new Error(error.message);

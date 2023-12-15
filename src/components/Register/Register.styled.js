@@ -14,8 +14,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  display: flex;
-  justify-content: center;
+  text-align: center;
   margin-bottom: 24px;
   color: ${({ theme }) => theme.color.primary};
 `;

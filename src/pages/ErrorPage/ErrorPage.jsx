@@ -10,10 +10,9 @@ export const ErrorPage = () => {
   return (
     <Wrapper id="error-page">
       <Container>
-        <h1>Oops! {error.status}</h1>
-        <p>Sorry, an unexpected error has occurred.</p>
+        <h1>{error.status}</h1>
         <div>
-          <p>{error.statusText}</p>
+          {/* <p>{error.statusText}</p> */}
           <p>{error.message}</p>
         </div>
         <NavLinkStyled to={PATHS.BASE}>To main</NavLinkStyled>

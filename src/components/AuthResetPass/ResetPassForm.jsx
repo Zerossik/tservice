@@ -12,7 +12,7 @@ import {
 } from "../Register/Register.styled";
 // components
 import { resetPassword } from "../../services/authAPI";
-import { resetPassSchema } from "../../validation";
+import { ResetPassSchema } from "../../validation";
 import { Input } from "../Input";
 import { Loader } from "../Loader";
 import { PATHS } from "../../constants";
@@ -24,7 +24,7 @@ export const ResetPassForm = () => {
     initialValues: {
       email: "",
     },
-    validationSchema: resetPassSchema,
+    validationSchema: ResetPassSchema,
     onSubmit: async (value) => {
       try {
         setLoading(true);

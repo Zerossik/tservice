@@ -16,6 +16,7 @@ import { Input } from "../Input";
 import { NewPassSchema } from "../../validation";
 import { PATHS } from "../../constants";
 import { setNewPassword } from "../../services/authAPI";
+import { Loader } from "../Loader";
 
 export const NewPassForm = () => {
   const [loading, setLoading] = useState(false);
@@ -52,35 +53,38 @@ export const NewPassForm = () => {
   });
 
   return (
-    <Container>
-      <Title>Змінити пароль</Title>
-      <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
-        <Input
-          name="password"
-          type="password"
-          formik={formik}
-          labelText="Новий пароль"
-          moveLabel
-        />
-        <Input
-          name="repeatPassword"
-          type="password"
-          formik={formik}
-          labelText="Новий пароль ще раз"
-          moveLabel
-        />
-        <FormButton
-          type="submit"
-          disabled={!(formik.isValid && formik.dirty && !loading)}
-          $loading={loading}
-        >
-          Змінити
-        </FormButton>
-      </FormStyled>
+    <>
+      {loading && <Loader isLoading={loading} />}
+      <Container>
+        <Title>Змінити пароль</Title>
+        <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
+          <Input
+            name="password"
+            type="password"
+            formik={formik}
+            labelText="Новий пароль"
+            moveLabel
+          />
+          <Input
+            name="repeatPassword"
+            type="password"
+            formik={formik}
+            labelText="Новий пароль ще раз"
+            moveLabel
+          />
+          <FormButton
+            type="submit"
+            disabled={!(formik.isValid && formik.dirty && !loading)}
+            $loading={loading}
+          >
+            Змінити
+          </FormButton>
+        </FormStyled>
 
-      <Text>
-        <NavLinkStyled to={`${PATHS.BASE}`}>На головну</NavLinkStyled>
-      </Text>
-    </Container>
+        <Text>
+          <NavLinkStyled to={`${PATHS.BASE}`}>На головну</NavLinkStyled>
+        </Text>
+      </Container>
+    </>
   );
 };

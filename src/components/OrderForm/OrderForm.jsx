@@ -15,7 +15,6 @@ import {
   ListItemLast,
 } from "./OrderForm.styled";
 // components
-import { OrderSchema } from "../../validation";
 import { Label } from "../Label";
 import { Input } from "../Input";
 import { Select } from "../Select";
@@ -25,6 +24,7 @@ import { ErrorInput } from "../ErrorInput";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { Loader } from "../Loader";
+import { OrderSchema } from "../../validation";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },

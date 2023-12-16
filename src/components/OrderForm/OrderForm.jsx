@@ -24,7 +24,6 @@ import { ErrorInput } from "../ErrorInput";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { Loader } from "../Loader";
-// import { OrderSchema } from "../../validation";
 import { MakeOrderSchema } from "../../validation";
 
 const listOfTypes = [
@@ -68,7 +67,6 @@ export const OrderForm = () => {
       description: "",
       failure: "",
     },
-    // validationSchema: OrderSchema,
     validationSchema: MakeOrderSchema,
     onSubmit: (values) => {
       dispatch(addContactThunk(values))

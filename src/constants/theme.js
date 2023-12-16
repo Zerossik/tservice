@@ -28,7 +28,7 @@ const lightTheme = {
   tableHead: "#3395ff",
   tableCell: "#F4F3F3",
   // loader
-  loader: "#0b68f3", // spinner
+  loader: "#0b68f3", // spinner Loader
   // backDrop
   backDrop: "rgba(0, 0, 0, 0.3)",
   // footer
@@ -73,7 +73,7 @@ const darktheme = {
   tableHead: "#3395ff",
   tableCell: "#2C2C2C",
   // loader
-  loader: "#0b68f3",
+  loader: "#0b68f3", // spinner Loader
   // backDrop
   backDrop: "rgba(0, 0, 0, 0.3)",
   // footer

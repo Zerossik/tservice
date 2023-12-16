@@ -1,10 +1,7 @@
 import * as Yup from "yup";
 import "yup-phone-lite";
 
-// const phoneRegExp =
-//   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-export const OrderSchema = Yup.object().shape({
+export const MakeOrderSchema = Yup.object({
   type: Yup.string().required("Required"),
   manufacturer: Yup.string().required("Required"),
   model: Yup.string().required("Required"),

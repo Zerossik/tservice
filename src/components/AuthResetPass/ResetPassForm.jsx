@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // components
 import { resetPassword } from "../../services/authAPI";
-import { resetPassSchema } from "../../validation";
 import { AuthForm } from "../AuthForm/AuthForm";
+import { ResetPassSchema } from "../../validation";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
 import { Loader } from "../Loader";
@@ -17,7 +17,7 @@ export const ResetPassForm = () => {
     initialValues: {
       email: "",
     },
-    validationSchema: resetPassSchema,
+    validationSchema: ResetPassSchema,
     onSubmit: async (value) => {
       try {
         setLoading(true);

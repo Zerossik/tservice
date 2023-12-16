@@ -15,7 +15,6 @@ import {
   ListItemLast,
 } from "./OrderForm.styled";
 // components
-import { OrderSchema } from "../../validation";
 import { Label } from "../Label";
 import { Input } from "../Input";
 import { Select } from "../Select";
@@ -26,6 +25,7 @@ import { ButtonForm } from "../ButtonForm";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { Loader } from "../Loader";
+import { MakeOrderSchema } from "../../validation";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },
@@ -68,7 +68,7 @@ export const OrderForm = () => {
       description: "",
       failure: "",
     },
-    validationSchema: OrderSchema,
+    validationSchema: MakeOrderSchema,
     onSubmit: (values) => {
       dispatch(addContactThunk(values))
         .unwrap()

@@ -36,7 +36,7 @@ export const ResetPassForm = () => {
     <>
       {loading && <Loader isLoading={loading} />}
       <AuthForm
-        formik={formik.handleSubmit}
+        formik={formik}
         title="Відновлення паролю"
         path={`${PATHS.BASE}`}
         textLink="На головну"

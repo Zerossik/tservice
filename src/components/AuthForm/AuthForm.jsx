@@ -24,7 +24,7 @@ export const AuthForm = ({ formik, title, children, text, path, textLink }) => {
 };
 
 AuthForm.propTypes = {
-  formik: PropTypes.func.isRequired,
+  formik: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   text: PropTypes.string,

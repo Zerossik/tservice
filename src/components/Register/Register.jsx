@@ -48,7 +48,7 @@ export const Register = () => {
     <>
       {loading && <Loader isLoading={loading} />}
       <AuthForm
-        formik={formik.handleSubmit}
+        formik={formik}
         title="Реєстрація"
         text="Ти маєш акаунт?"
         path={`/${PATHS.LOGIN}`}

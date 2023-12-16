@@ -49,7 +49,7 @@ export const NewPassForm = () => {
     <>
       {loading && <Loader isLoading={loading} />}
       <AuthForm
-        formik={formik.handleSubmit}
+        formik={formik}
         title="Змінити пароль"
         path={`${PATHS.BASE}`}
         textLink="На головну"

@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import "yup-phone-lite";
+// import "yup-phone-lite";
 
 export const OrderSchema = Yup.object().shape({
   type: Yup.string().required("Required"),
@@ -7,9 +7,9 @@ export const OrderSchema = Yup.object().shape({
   model: Yup.string().required("Required"),
   deviceID: Yup.string(),
   customerName: Yup.string().required("Required"),
-  phoneNumber: Yup.string()
-    .phone("UA", "Please enter a valid phone number")
-    .required("Required"),
+  // phoneNumber: Yup.string()
+  //   .phone("UA", "Please enter a valid phone number")
+  //   .required("Required"),
   price: Yup.number().required("Required"),
   status: Yup.string().required("Required"),
   masterName: Yup.string(),

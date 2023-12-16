@@ -2,17 +2,10 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// style
-import {
-  Container,
-  Title,
-  FormStyled,
-  FormButton,
-  NavLinkStyled,
-  Text,
-} from "../Register/Register.styled";
 // components
+import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
+import { ButtonForm } from "../ButtonForm";
 import { NewPassSchema } from "../../validation";
 import { PATHS } from "../../constants";
 import { setNewPassword } from "../../services/authAPI";
@@ -55,36 +48,32 @@ export const NewPassForm = () => {
   return (
     <>
       {loading && <Loader isLoading={loading} />}
-      <Container>
-        <Title>Змінити пароль</Title>
-        <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
-          <Input
-            name="password"
-            type="password"
-            formik={formik}
-            labelText="Новий пароль"
-            moveLabel
-          />
-          <Input
-            name="repeatPassword"
-            type="password"
-            formik={formik}
-            labelText="Новий пароль ще раз"
-            moveLabel
-          />
-          <FormButton
-            type="submit"
-            disabled={!(formik.isValid && formik.dirty && !loading)}
-            $loading={loading}
-          >
-            Змінити
-          </FormButton>
-        </FormStyled>
+      <AuthForm
+        formik={formik.handleSubmit}
+        title="Змінити пароль"
+        path={`${PATHS.BASE}`}
+        textLink="На головну"
+      >
+        <Input
+          name="password"
+          type="password"
+          formik={formik}
+          labelText="Новий пароль"
+          moveLabel
+        />
+        <Input
+          name="repeatPassword"
+          type="password"
+          formik={formik}
+          labelText="Новий пароль ще раз"
+          moveLabel
+        />
 
-        <Text>
-          <NavLinkStyled to={`${PATHS.BASE}`}>На головну</NavLinkStyled>
-        </Text>
-      </Container>
+        <ButtonForm
+          buttonName="Змінити"
+          disabled={!(formik.isValid && formik.dirty && !loading)}
+        />
+      </AuthForm>
     </>
   );
 };

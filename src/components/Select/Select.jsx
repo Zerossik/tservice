@@ -116,9 +116,9 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
 };
 
 Select.propTypes = {
-  name: PropTypes.string,
-  type: PropTypes.string,
-  formik: PropTypes.object,
-  labelText: PropTypes.string,
-  fildsList: PropTypes.array,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  formik: PropTypes.object.isRequired,
+  labelText: PropTypes.string.isRequired,
+  fildsList: PropTypes.array.isRequired,
 };

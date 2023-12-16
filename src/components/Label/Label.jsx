@@ -7,6 +7,6 @@ export const Label = ({ htmlFor, labelText }) => {
 };
 
 Label.propTypes = {
-  htmlFor: PropTypes.string,
-  labelText: PropTypes.string,
+  htmlFor: PropTypes.string.isRequired,
+  labelText: PropTypes.string.isRequired,
 };

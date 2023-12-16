@@ -1,23 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { PATHS } from "../../constants";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// styled
-import {
-  Container,
-  Title,
-  FormStyled,
-  FormButton,
-  NavLinkStyled,
-  Text,
-} from "../Register/Register.styled";
 // components
 import { SigninSchema } from "../../validation";
 import { loginThunk } from "../../redux/auth/authThunks";
+import { PATHS } from "../../constants";
 import { selectIsLoading } from "../../redux/auth/selectors";
-import { Loader } from "../Loader";
+import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
+import { NavLinkForm } from "../NavLinkForm";
+import { ButtonForm } from "../ButtonForm";
+import { Loader } from "../Loader";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -46,42 +40,35 @@ export const Login = () => {
   return (
     <>
       {isLoading && <Loader isLoading={isLoading} />}
-      <Container>
-        <Title>Авторизація</Title>
+      <AuthForm
+        formik={formik.handleSubmit}
+        title="Авторизація"
+        text="Ти не маєш акаунта?"
+        path={`/${PATHS.REGISTER}`}
+        textLink="Зареєструватися"
+      >
+        <Input
+          name="email"
+          type="email"
+          formik={formik}
+          labelText="Email адреса"
+          moveLabel
+        />
 
-        <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
-          <Input
-            name="email"
-            type="email"
-            formik={formik}
-            labelText="Email адреса"
-            moveLabel
-          />
+        <Input
+          name="password"
+          type="password"
+          formik={formik}
+          labelText="Пароль"
+          moveLabel
+        />
 
-          <Input
-            name="password"
-            type="password"
-            formik={formik}
-            labelText="Пароль"
-            moveLabel
-          />
+        <div>
+          <NavLinkForm path={`/${PATHS.RESET}`} textLink="Забули пароль?" />
+        </div>
 
-          <div>
-            <NavLinkStyled to={`/${PATHS.RESET}`}>Забули пароль?</NavLinkStyled>
-          </div>
-
-          <FormButton type="submit" disabled={isLoading} $loading={isLoading}>
-            Увійти
-          </FormButton>
-        </FormStyled>
-
-        <Text>
-          <span>Ти не маєш акаунта?</span>
-          <NavLinkStyled to={`/${PATHS.REGISTER}`}>
-            Зареєструватися
-          </NavLinkStyled>
-        </Text>
-      </Container>
+        <ButtonForm buttonName="Увійти" disabled={isLoading} />
+      </AuthForm>
     </>
   );
 };

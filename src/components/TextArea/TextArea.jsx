@@ -20,7 +20,7 @@ export const TextArea = ({ name, formik, labelText }) => {
 };
 
 TextArea.propTypes = {
-  name: PropTypes.string,
-  formik: PropTypes.object,
-  labelText: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  formik: PropTypes.object.isRequired,
+  labelText: PropTypes.string.isRequired,
 };

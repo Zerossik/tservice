@@ -41,7 +41,7 @@ export const Login = () => {
     <>
       {isLoading && <Loader isLoading={isLoading} />}
       <AuthForm
-        formik={formik.handleSubmit}
+        formik={formik}
         title="Авторизація"
         text="Ти не маєш акаунта?"
         path={`/${PATHS.REGISTER}`}

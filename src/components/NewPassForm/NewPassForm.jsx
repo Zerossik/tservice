@@ -1,24 +1,20 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// style
-import {
-  Container,
-  Title,
-  FormStyled,
-  FormButton,
-  NavLinkStyled,
-  Text,
-} from "../Register/Register.styled";
 // components
+import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
+import { ButtonForm } from "../ButtonForm";
 import { NewPassSchema } from "../../validation";
 import { PATHS } from "../../constants";
+import { setNewPassword } from "../../services/authAPI";
+import { Loader } from "../Loader";
 
 export const NewPassForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const data = useLoaderData();
 
   const formik = useFormik({
     initialValues: {
@@ -29,27 +25,35 @@ export const NewPassForm = () => {
     onSubmit: async (value) => {
       try {
         setLoading(true);
-        // const {code} = await newPassword(value);
+        const { code } = await setNewPassword({
+          id: data.id,
+          token: data.token,
+          password: value.password,
+        });
 
-        // if (code === 201) {
-        //   setLoading(false);
-        //   toast.success(`Ваш пароль змінено`);
-        //   formik.resetForm();
-        //   navigate(`/${PATHS.LOGIN}`, { replace: true });
-        // }
-        console.log(value);
+        if (code === 201) {
+          setLoading(false);
+          toast.success(`Ваш пароль змінено`);
+          formik.resetForm();
+          navigate(`/${PATHS.LOGIN}`, { replace: true });
+        }
       } catch (error) {
         console.log("error ", error.message);
-        toast.warning(`Щось пішло не так:) Спробуйте ще раз`);
         setLoading(false);
+        toast.warning(`Щось пішло не так:) Спробуйте ще раз`);
       }
     },
   });
 
   return (
-    <Container>
-      <Title>Змінити пароль</Title>
-      <FormStyled onSubmit={formik.handleSubmit} autoComplete="off">
+    <>
+      {loading && <Loader isLoading={loading} />}
+      <AuthForm
+        formik={formik}
+        title="Змінити пароль"
+        path={`${PATHS.BASE}`}
+        textLink="На головну"
+      >
         <Input
           name="password"
           type="password"
@@ -64,18 +68,12 @@ export const NewPassForm = () => {
           labelText="Новий пароль ще раз"
           moveLabel
         />
-        <FormButton
-          type="submit"
-          disabled={!(formik.isValid && formik.dirty && !loading)}
-          $loading={loading}
-        >
-          Змінити
-        </FormButton>
-      </FormStyled>
 
-      <Text>
-        <NavLinkStyled to={`${PATHS.BASE}`}>На головну</NavLinkStyled>
-      </Text>
-    </Container>
+        <ButtonForm
+          buttonName="Змінити"
+          disabled={!(formik.isValid && formik.dirty && !loading)}
+        />
+      </AuthForm>
+    </>
   );
 };

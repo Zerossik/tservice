@@ -24,9 +24,9 @@ export const Input = ({ name, type, formik, labelText, moveLabel }) => {
 };
 
 Input.propTypes = {
-  name: PropTypes.string,
-  type: PropTypes.string,
-  formik: PropTypes.object,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  formik: PropTypes.object.isRequired,
   labelText: PropTypes.string,
   moveLabel: PropTypes.bool,
 };

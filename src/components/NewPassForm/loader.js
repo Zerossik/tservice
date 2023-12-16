@@ -1,27 +1,26 @@
-// import { redirect } from "react-router-dom";
-// import { isUserLogin } from "./auth";
-// import { PATHS } from "../../constants";
+import { redirect } from "react-router-dom";
+import { verifyTokenLink } from "../../services/authAPI";
+import { PATHS } from "../../constants";
 
 export const loader = async ({ params, request }) => {
+  const { token } = params;
+  const url = new URL(request.url);
+  const id = url.searchParams.get("id");
+
   try {
-    // const data = await zapros(params.token) // запрос на верификацию токена
-    // if (data === true) {
-    //   return null;
-    // }
+    const data = await verifyTokenLink({ token, id });
+
+    if (data.code === 200) {
+      return { token, id };
+    }
+
+    return redirect(`${PATHS.LOGIN}`);
   } catch (error) {
-    console.log(error.message);
+    throw {
+      message: "Not found",
+      status: "404",
+    };
   }
-
-  //   throw new Response("Not Found", { status: 404 });
-  //     throw {
-  //       message: "the error there",
-  //       statusText: "statusText",
-  //       status: "res.status",
-  //     };
-
-  console.log(params);
-  console.log(request);
-  return null;
 };
 
 // export const loader = () => {

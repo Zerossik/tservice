@@ -29,8 +29,8 @@ export const DropDown = ({ onToggleDropDown, children, styled, dropRef }) => {
 };
 
 DropDown.propTypes = {
-  onToggleDropDown: PropTypes.func,
-  children: PropTypes.node,
+  onToggleDropDown: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
   styled: PropTypes.object,
-  dropRef: PropTypes.func,
+  dropRef: PropTypes.object.isRequired,
 };

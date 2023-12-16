@@ -8,23 +8,24 @@ import { toast } from "react-toastify";
 // style
 import {
   FormStyled,
-  FormButton,
+  // FormButton,
   InputPhoneWrapper,
   List,
   ListItemArea,
   ListItemLast,
 } from "./OrderForm.styled";
 // components
-import { OrderSchema } from "../../validation";
 import { Label } from "../Label";
 import { Input } from "../Input";
 import { Select } from "../Select";
 import { SelectConst } from "../SelectConst";
 import { TextArea } from "../TextArea/TextArea";
 import { ErrorInput } from "../ErrorInput";
+import { ButtonForm } from "../ButtonForm";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { Loader } from "../Loader";
+import { MakeOrderSchema } from "../../validation";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },
@@ -67,7 +68,7 @@ export const OrderForm = () => {
       description: "",
       failure: "",
     },
-    validationSchema: OrderSchema,
+    validationSchema: MakeOrderSchema,
     onSubmit: (values) => {
       dispatch(addContactThunk(values))
         .unwrap()
@@ -205,12 +206,10 @@ export const OrderForm = () => {
             <TextArea name="failure" formik={formik} labelText="Несправність" />
           </ListItemArea>
           <ListItemLast>
-            <FormButton
-              type="submit"
+            <ButtonForm
+              buttonName="Додати"
               disabled={!(formik.isValid && formik.dirty)}
-            >
-              Додати
-            </FormButton>
+            />
           </ListItemLast>
         </List>
       </FormStyled>

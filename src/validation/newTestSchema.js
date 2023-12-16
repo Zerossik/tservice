@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import "yup-phone-lite";
 
-export const NewTestSchema = Yup.object({
+export const OrderSchema = Yup.object({
   type: Yup.string().required("Required"),
   manufacturer: Yup.string().required("Required"),
   model: Yup.string().required("Required"),

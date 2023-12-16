@@ -25,7 +25,7 @@ import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { Loader } from "../Loader";
 // import { OrderSchema } from "../../validation";
-import { NewTestSchema } from "../../validation";
+import { OrderSchema } from "../../validation";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },
@@ -69,7 +69,7 @@ export const OrderForm = () => {
       failure: "",
     },
     // validationSchema: OrderSchema,
-    validationSchema: NewTestSchema,
+    validationSchema: OrderSchema,
     onSubmit: (values) => {
       dispatch(addContactThunk(values))
         .unwrap()

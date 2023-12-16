@@ -3,4 +3,4 @@ export { SigninSchema } from "./signinSchema";
 export { ResetPassSchema } from "./resetPassSchema";
 export { NewPassSchema } from "./newPassSchema";
 // export { OrderSchema } from "./orderSchema";
-export { OrderSchema } from "./newTestSchema";
+export { OrderSchema } from "./orderSchema";

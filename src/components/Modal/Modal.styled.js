@@ -13,12 +13,12 @@ export const BackDrop = styled.div`
 `;
 
 export const ModalWindow = styled.div`
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 991px;
+  max-width: 960px;
   padding: 40px;
   border: 1px solid ${({ theme }) => theme.color.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};

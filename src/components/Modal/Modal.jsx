@@ -1,7 +1,10 @@
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 // style
 import { BackDrop, ModalWindow, ButtonClose, IconClose } from "./Modal.styled";
 import { useEffect } from "react";
+
+const modalRoot = document.querySelector("#modal-root");
 
 export const Modal = ({ onToggleModal, children }) => {
   useEffect(() => {
@@ -11,9 +14,11 @@ export const Modal = ({ onToggleModal, children }) => {
       }
     };
 
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      document.body.style.overflow = "visible";
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [onToggleModal]);
@@ -24,7 +29,7 @@ export const Modal = ({ onToggleModal, children }) => {
     }
   };
 
-  return (
+  return createPortal(
     <BackDrop onClick={handleBackDropClick}>
       <ModalWindow>
         <ButtonClose onClick={onToggleModal}>
@@ -32,7 +37,8 @@ export const Modal = ({ onToggleModal, children }) => {
         </ButtonClose>
         {children}
       </ModalWindow>
-    </BackDrop>
+    </BackDrop>,
+    modalRoot
   );
 };
 

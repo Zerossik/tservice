@@ -17,6 +17,7 @@ import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 
 export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
+  const [value, setValue] = useState("");
   const [openList, setOpenList] = useState(false);
   const [list, setList] = useState([]);
   const listRef = useRef();
@@ -41,8 +42,9 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
     setOpenList((prev) => !prev);
   };
 
-  const handleClickButton = (type) => {
+  const handleClickButton = (type, fieldValue) => {
     formik.setFieldValue(name, type);
+    setValue(fieldValue);
     setOpenList(false);
   };
 
@@ -56,7 +58,8 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
             name={name}
             type={type}
             onChange={formik.handleChange}
-            value={formik.values[name]}
+            // value={formik.values[name]}
+            value={value}
             readOnly
           />
           <Button type="button" onClick={handleClickOpenList}>
@@ -72,9 +75,14 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
                 <ListItem key={item.id}>
                   <ButtonList
                     type="button"
-                    onClick={() => handleClickButton(item[name])}
+                    onClick={() => {
+                      const fieldValue = item.fieldName
+                        ? item.fieldName
+                        : item[name];
+                      handleClickButton(item[name], fieldValue);
+                    }}
                   >
-                    {item[name]}
+                    {item.fieldName ? item.fieldName : item[name]}
                   </ButtonList>
                 </ListItem>
               ))}

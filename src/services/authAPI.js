@@ -22,6 +22,7 @@ export const signin = async (user) => {
 export const getCurrentUser = async () => {
   try {
     const { data } = await apiPrivate.get("/api/auth/current");
+
     return data;
   } catch (error) {
     throw new Error(error.message);

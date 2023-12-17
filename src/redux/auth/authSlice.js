@@ -51,6 +51,7 @@ const authSlice = createSlice({
       state.user.name = payload.data.name;
       state.token = payload.token;
       state.user.isLogin = true;
+      state.user.theme = payload.data.theme;
     },
   },
   extraReducers: (builder) => {

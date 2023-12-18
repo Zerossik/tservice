@@ -50,8 +50,12 @@ export const IconSettings = styled(HiCog6Tooth)`
 `;
 
 export const DropDownList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   min-width: 150px;
-  border: 2px solid ${({ theme }) => theme.color.border};
+  padding: 20px;
+  border: 1px solid ${({ theme }) => theme.color.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   background-color: ${({ theme }) => theme.color.dropDownBg};
   box-shadow: ${({ theme }) => theme.color.shadow};
@@ -59,7 +63,12 @@ export const DropDownList = styled.ul`
 `;
 
 export const DropDownItem = styled.li`
-  &:hover {
-    background-color: ${({ theme }) => theme.color.dropDownHover};
+  &:last-child {
+    padding-top: 16px;
+    border-top: 1px solid ${({ theme }) => theme.color.border};
   }
+`;
+
+export const ItemTitle = styled.p`
+  margin-bottom: 8px;
 `;

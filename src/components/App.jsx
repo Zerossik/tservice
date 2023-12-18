@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // theme style
@@ -18,6 +18,7 @@ import { LoaderPretty } from "./LoaderPretty";
 import { ResetPassForm } from "./AuthResetPass";
 import { NewPassForm } from "./NewPassForm";
 import { ErrorPage } from "../pages/ErrorPage";
+import { selectTheme } from "../redux/auth/selectors";
 // loaders
 import { loader as loaderAuthLayout } from "./AuthLayout";
 import { loader as loaderWorkTable } from "./WorkTable";
@@ -25,11 +26,7 @@ import { loader as authRequiredLoader } from "./AuthRequired";
 import { loader as newPassFormLoader } from "./NewPassForm";
 
 export const App = () => {
-  const [currentTheme, setCurrentTheme] = useState("light");
-
-  const toggleTheme = () => {
-    setCurrentTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  const currentTheme = useSelector(selectTheme);
 
   const router = createBrowserRouter(
     [
@@ -52,7 +49,7 @@ export const App = () => {
       },
       {
         path: PATHS.SERVICES,
-        element: <ServicePage toggleTheme={toggleTheme} />,
+        element: <ServicePage />,
         loader: authRequiredLoader,
         children: [
           { index: true, element: <WorkTable />, loader: loaderWorkTable },

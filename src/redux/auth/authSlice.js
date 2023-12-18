@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authInitialState } from "../initialState";
-import { getCurrentUserThunk, loginThunk, logoutThink } from "./authThunks";
+import {
+  changeThemeThunk,
+  getCurrentUserThunk,
+  loginThunk,
+  logoutThink,
+} from "./authThunks";
 
 const handleLogin = (state, { payload }) => {
   state.token = payload.token;
@@ -24,6 +29,10 @@ const handleGetCurrent = ({ user }, { payload }) => {
   user.email = payload.email;
   user.name = payload.name;
   user.isLogin = true;
+};
+
+const handleChangeTheme = (state, { payload }) => {
+  state.user.theme = payload.theme;
 };
 
 const handleFulfilled = (state) => {
@@ -59,6 +68,7 @@ const authSlice = createSlice({
       .addCase(loginThunk.fulfilled, handleLogin)
       .addCase(logoutThink.fulfilled, handleLogout)
       .addCase(getCurrentUserThunk.fulfilled, handleGetCurrent)
+      .addCase(changeThemeThunk.fulfilled, handleChangeTheme)
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled

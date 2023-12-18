@@ -25,7 +25,7 @@ export const LogOut = () => {
 
   return (
     <Button type="button" onClick={handleClickLogOut} disabled={isLoading}>
-      LogOut
+      Вийти
       <IconLogOut />
     </Button>
   );

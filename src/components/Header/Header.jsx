@@ -13,6 +13,7 @@ import {
   IconSettings,
   DropDownList,
   DropDownItem,
+  ItemTitle,
 } from "./Header.styled";
 // components
 import { Loader } from "../Loader";
@@ -61,6 +62,7 @@ export const Header = ({ toggleTheme }) => {
               >
                 <DropDownList ref={dropDownRef}>
                   <DropDownItem>
+                    <ItemTitle>Тема</ItemTitle>
                     <ToggleTheme onToggleTheme={toggleTheme} />
                   </DropDownItem>
                   <DropDownItem>

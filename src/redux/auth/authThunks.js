@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getCurrentUser, logout, signin } from "../../services/authAPI";
+import { changeTheme } from "../../services/settingsUser";
 
 export const loginThunk = createAsyncThunk(
   "TService/login",
@@ -36,6 +37,18 @@ export const logoutThink = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await logout();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const changeThemeThunk = createAsyncThunk(
+  "TService/changeTheme",
+  async (theme, { rejectWithValue }) => {
+    try {
+      const { data } = await changeTheme(theme);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

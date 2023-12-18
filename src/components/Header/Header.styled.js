@@ -71,4 +71,5 @@ export const DropDownItem = styled.li`
 
 export const ItemTitle = styled.p`
   margin-bottom: 8px;
+  color: ${({ theme }) => theme.color.primary};
 `;

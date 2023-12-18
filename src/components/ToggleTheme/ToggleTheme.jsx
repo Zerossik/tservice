@@ -1,15 +1,19 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 // style
 import { Wrapper, Button, IconSun, IconMoon } from "./ToggleTheme.styled";
 // components
 import { changeThemeThunk } from "../../redux/auth/authThunks";
+import { selectTheme } from "../../redux/auth/selectors";
 
 export const ToggleTheme = ({ style }) => {
   const dispatch = useDispatch();
+  const currentTheme = useSelector(selectTheme);
 
   const handleClick = (theme) => {
+    if (currentTheme === theme) return;
+
     dispatch(changeThemeThunk(theme))
       .unwrap()
       .then()

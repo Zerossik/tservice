@@ -75,6 +75,24 @@ img {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+// styling for react-phone-input-2
+.selected-flag {
+  background-color: ${({ theme }) => theme.color.bgSecondary};
+  overflow: hidden;
+}
+
+.country-list > .country:hover {
+  background-color: ${({ theme }) => theme.color.dropDownHover};
+}
+
+.react-tel-input .country-list .country.highlight {
+  background-color: ${({ theme }) => theme.color.dropDownHover};
+}
+
+.country > span {
+  color: ${({ theme }) => theme.color.primary};
+}
 `;
 
 // z-indexes in this project

@@ -22,8 +22,21 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
   const [list, setList] = useState([]);
   const listRef = useRef();
 
+  const defaultValue = (list) => {
+    list.map((item) => {
+      if ("default" in item && item.default) {
+        const fieldValue = item.fieldName ? item.fieldName : item[name];
+        formik.setFieldValue(name, item[name]);
+        setValue(fieldValue);
+      }
+    });
+  };
+
   useEffect(() => {
-    setList(fildsList);
+    if (fildsList.length !== 0) {
+      setList(fildsList);
+      defaultValue(fildsList);
+    }
 
     const handleClickAway = (e) => {
       if (listRef.current && !listRef.current.contains(e.target)) {

@@ -35,10 +35,10 @@ const listOfTypes = [
 ];
 
 const listOfStatus = [
-  { id: 1, status: "Accepted", fieldName: "Прийнято" },
-  { id: 2, status: "Repairing", fieldName: "В роботі" },
-  { id: 3, status: "Finished", fieldName: "Закінчено" },
-  { id: 4, status: "Issued", fieldName: "Видано" },
+  { id: 1, status: "Accepted", fieldName: "Прийнято", default: true },
+  { id: 2, status: "Repairing", fieldName: "В роботі", default: false },
+  { id: 3, status: "Finished", fieldName: "Закінчено", default: false },
+  { id: 4, status: "Issued", fieldName: "Видано", default: false },
 ];
 
 const listOfMastersName = [
@@ -63,7 +63,7 @@ export const OrderForm = () => {
       customerName: "",
       phoneNumber: "",
       price: 0,
-      status: "Accepted",
+      status: "",
       masterName: "",
       description: "",
       failure: "",
@@ -127,13 +127,15 @@ export const OrderForm = () => {
             <InputPhoneWrapper>
               <Label htmlFor="phoneNumber" labelText="Номер телефона" />
               <PhoneInput
-                country={"ua"}
+                country="ua"
+                regions={["america", "europe"]}
                 value={formik.values.phoneNumber}
                 onChange={(phone) => formik.setFieldValue("phoneNumber", phone)}
                 inputProps={{ name: "phoneNumber", id: "phoneNumber" }}
                 containerStyle={
                   {
-                    // backgroundColor: "red",
+                    // borderRadius: theme.borderRadius.extraSmall,
+                    // overflow: "hidden",
                   }
                 }
                 inputStyle={{
@@ -157,8 +159,6 @@ export const OrderForm = () => {
                   borderRadius: theme.borderRadius.extraSmall,
                   backgroundColor: theme.color.dropDownBg,
                   boxShadow: theme.color.shadow,
-                  // hover: { backgroundColor: theme.color.dropDownHover },
-                  overflow: "hidden",
                 }}
                 searchStyle={{
                   backgroundColor: "green",

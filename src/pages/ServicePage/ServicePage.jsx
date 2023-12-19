@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 // styled
 import { Wrapper, Container, Main } from "./ServicePage.styled";
 // components
@@ -11,12 +10,12 @@ import { Filter } from "../../components/Filter/Filter";
 import { Loader } from "../../components/Loader";
 import { selectIsLoading } from "../../redux/auth/selectors";
 
-export const ServicePage = ({ toggleTheme }) => {
+export const ServicePage = () => {
   const isLoading = useSelector(selectIsLoading);
 
   return (
     <Wrapper>
-      <Header toggleTheme={toggleTheme} />
+      <Header />
       <Main>
         <Container>
           <Filter />
@@ -28,8 +27,4 @@ export const ServicePage = ({ toggleTheme }) => {
       <Footer />
     </Wrapper>
   );
-};
-
-ServicePage.propTypes = {
-  toggleTheme: PropTypes.func,
 };

@@ -35,10 +35,10 @@ const listOfTypes = [
 ];
 
 const listOfStatus = [
-  { id: 1, status: "Accepted", fieldName: "Прийнято" },
-  { id: 2, status: "Repairing", fieldName: "В роботі" },
-  { id: 3, status: "Finished", fieldName: "Закінчено" },
-  { id: 4, status: "Issued", fieldName: "Видано" },
+  { id: 1, status: "Accepted", fieldName: "Прийнято", default: true },
+  { id: 2, status: "Repairing", fieldName: "В роботі", default: false },
+  { id: 3, status: "Finished", fieldName: "Закінчено", default: false },
+  { id: 4, status: "Issued", fieldName: "Видано", default: false },
 ];
 
 const listOfMastersName = [
@@ -63,13 +63,14 @@ export const OrderForm = () => {
       customerName: "",
       phoneNumber: "",
       price: 0,
-      status: "Accepted",
+      status: "",
       masterName: "",
       description: "",
       failure: "",
     },
     validationSchema: MakeOrderSchema,
     onSubmit: (values) => {
+      console.log(values);
       dispatch(addContactThunk(values))
         .unwrap()
         .then(() => toast.success(`We added your data`))

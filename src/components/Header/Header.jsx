@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 // styled
 import {
   HeaderStyled,
@@ -23,7 +22,7 @@ import { DropDown } from "../DropDown";
 import { ToggleTheme } from "../ToggleTheme";
 import { Modal } from "../Modal";
 
-export const Header = ({ toggleTheme }) => {
+export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector(selectUser);
@@ -63,7 +62,7 @@ export const Header = ({ toggleTheme }) => {
                 <DropDownList ref={dropDownRef}>
                   <DropDownItem>
                     <ItemTitle>Тема</ItemTitle>
-                    <ToggleTheme onToggleTheme={toggleTheme} />
+                    <ToggleTheme />
                   </DropDownItem>
                   <DropDownItem>
                     <LogOut />
@@ -81,8 +80,4 @@ export const Header = ({ toggleTheme }) => {
       )}
     </>
   );
-};
-
-Header.propTypes = {
-  toggleTheme: PropTypes.func,
 };

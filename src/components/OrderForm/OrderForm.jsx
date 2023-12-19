@@ -70,7 +70,6 @@ export const OrderForm = () => {
     },
     validationSchema: MakeOrderSchema,
     onSubmit: (values) => {
-      console.log(values);
       dispatch(addContactThunk(values))
         .unwrap()
         .then(() => toast.success(`We added your data`))
@@ -128,7 +127,8 @@ export const OrderForm = () => {
             <InputPhoneWrapper>
               <Label htmlFor="phoneNumber" labelText="Номер телефона" />
               <PhoneInput
-                country={"ua"}
+                country="ua"
+                regions={["america", "europe"]}
                 value={formik.values.phoneNumber}
                 onChange={(phone) => formik.setFieldValue("phoneNumber", phone)}
                 inputProps={{ name: "phoneNumber", id: "phoneNumber" }}
@@ -159,7 +159,7 @@ export const OrderForm = () => {
                   backgroundColor: theme.color.dropDownBg,
                   boxShadow: theme.color.shadow,
                   // hover: { backgroundColor: theme.color.dropDownHover },
-                  overflow: "hidden",
+                  // overflow: "hidden",
                 }}
                 searchStyle={{
                   backgroundColor: "green",

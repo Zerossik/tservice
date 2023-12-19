@@ -134,7 +134,8 @@ export const OrderForm = () => {
                 inputProps={{ name: "phoneNumber", id: "phoneNumber" }}
                 containerStyle={
                   {
-                    // backgroundColor: "red",
+                    // borderRadius: theme.borderRadius.extraSmall,
+                    // overflow: "hidden",
                   }
                 }
                 inputStyle={{
@@ -158,8 +159,6 @@ export const OrderForm = () => {
                   borderRadius: theme.borderRadius.extraSmall,
                   backgroundColor: theme.color.dropDownBg,
                   boxShadow: theme.color.shadow,
-                  // hover: { backgroundColor: theme.color.dropDownHover },
-                  // overflow: "hidden",
                 }}
                 searchStyle={{
                   backgroundColor: "green",

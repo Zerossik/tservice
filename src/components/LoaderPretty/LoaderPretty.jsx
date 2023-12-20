@@ -15,7 +15,7 @@ export const LoaderPretty = () => {
         <SpanStyle $time="8"></SpanStyle>
         <SpanStyle $time="9"></SpanStyle>
         <SpanStyle $time="10"></SpanStyle>
-        <SpanStyle $time="11"></SpanStyle>
+        {/* <SpanStyle $time="11"></SpanStyle>
         <SpanStyle $time="12"></SpanStyle>
         <SpanStyle $time="13"></SpanStyle>
         <SpanStyle $time="14"></SpanStyle>
@@ -24,7 +24,7 @@ export const LoaderPretty = () => {
         <SpanStyle $time="17"></SpanStyle>
         <SpanStyle $time="18"></SpanStyle>
         <SpanStyle $time="19"></SpanStyle>
-        <SpanStyle $time="20"></SpanStyle>
+        <SpanStyle $time="20"></SpanStyle> */}
       </Wrapper>
     </BackDrop>
   );

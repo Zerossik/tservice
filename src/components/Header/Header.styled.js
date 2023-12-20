@@ -73,3 +73,24 @@ export const ItemTitle = styled.p`
   margin-bottom: 8px;
   color: ${({ theme }) => theme.color.primary};
 `;
+
+export const TitleSettings = styled.h2`
+  margin-bottom: 16px;
+  padding: 10px 0;
+  text-align: center;
+  color: ${({ theme }) => theme.color.primary};
+  border-bottom: 1px solid ${({ theme }) => theme.color.border};
+  /* border-top-right-radius: ${({ theme }) => theme.borderRadius.small};
+  border-top-left-radius: ${({ theme }) => theme.borderRadius.small};
+  background-color: ${({ theme }) => theme.color.secondary}; */
+`;
+
+export const ListSettings = styled.ul``;
+
+export const ItemListSettings = styled.li`
+  padding: 10px 0;
+
+  &:not(:last-child) {
+    /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */
+  }
+`;

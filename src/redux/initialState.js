@@ -10,3 +10,9 @@ export const contactsInitialState = {
   contacts: [],
   isLoading: false,
 };
+
+export const settingsInitialState = {
+  error: null,
+  masters: [],
+  isLoading: false,
+};

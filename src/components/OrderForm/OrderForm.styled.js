@@ -1,6 +1,22 @@
 import styled from "styled-components";
 
-export const FormStyled = styled.form``;
+export const FormStyled = styled.form`
+  height: calc(95vh - 82px);
+  max-height: 800px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px; /* ширина для вертикального скролла */
+    height: 4px; /* высота для горизонтального скролла */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1; /* Цвет скролла */
+  }
+
+  @media screen and (max-width: 767px) {
+    height: calc(95dvh - 82px);
+  }
+`;
 
 export const List = styled.ul`
   display: grid;

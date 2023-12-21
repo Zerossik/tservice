@@ -24,11 +24,11 @@ const handleLogout = (state) => {
 };
 
 const handleGetCurrent = ({ user }, { payload }) => {
-  console.log(payload);
   user.id = payload.id;
   user.email = payload.email;
   user.name = payload.name;
   user.isLogin = true;
+  user.theme = payload.theme;
 };
 
 const handleChangeTheme = (state, { payload }) => {

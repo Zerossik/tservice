@@ -22,22 +22,21 @@ export const AddMasterForm = () => {
     },
     validationSchema: AddMaster,
     onSubmit: async (values) => {
-      console.log(values);
-      dispatch(
-        addMasterThunk(values)
-          .unwrap()
-          .then(() => {
-            toast.success("Майстер доданий");
-          })
-          .catch(() => {
-            toast.warning("Щось пішло не так, спробуйте ще раз");
-          })
-      );
+      dispatch(addMasterThunk(values))
+        .unwrap()
+        .then(() => {
+          toast.success("Майстер доданий");
+          formik.resetForm();
+        })
+        .catch(() => {
+          toast.warning("Щось пішло не так, спробуйте ще раз");
+        });
     },
   });
 
   return (
     <>
+      {isLoading && <Loader isLoading={isLoading} />}
       <Title>Додати майстра</Title>
       <FormStyled onSubmit={formik.handleSubmit}>
         <Input name="firstName" type="text" formik={formik} labelText="Ім'я" />
@@ -53,7 +52,6 @@ export const AddMasterForm = () => {
           buttonName="Додати"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-        {isLoading && <Loader isLoading={isLoading} />}
       </FormStyled>
     </>
   );

@@ -33,7 +33,7 @@ const settingsSlice = createSlice({
       .addCase(getAllSettingsThunk.fulfilled, handleGetAllSettings)
       .addCase(addMasterThunk.fulfilled, handleAddMaster)
       .addMatcher(
-        (action) => action.type.endsWith("/filfilled"),
+        (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled
       )
       .addMatcher((action) => action.type.endsWith("/pending"), handlePending)

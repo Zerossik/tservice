@@ -7,7 +7,7 @@ import { AuthForm } from "../AuthForm/AuthForm";
 import { ResetPassSchema } from "../../validation";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
-import { Loader } from "../Loader";
+import { LoaderPretty } from "../LoaderPretty";
 import { PATHS } from "../../constants";
 
 export const ResetPassForm = () => {
@@ -34,7 +34,7 @@ export const ResetPassForm = () => {
 
   return (
     <>
-      {loading && <Loader isLoading={loading} />}
+      {loading && <LoaderPretty isLoading={loading} />}
       <AuthForm
         formik={formik}
         title="Відновлення паролю"

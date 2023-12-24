@@ -73,3 +73,22 @@ export const ItemTitle = styled.p`
   margin-bottom: 8px;
   color: ${({ theme }) => theme.color.primary};
 `;
+
+export const TitleSettings = styled.h2`
+  margin-bottom: 16px;
+  padding: 10px 0;
+  text-align: center;
+  color: ${({ theme }) => theme.color.primary};
+  border-bottom: 1px solid ${({ theme }) => theme.color.border};
+`;
+
+export const ListSettings = styled.ul``;
+
+export const ItemListSettings = styled.li`
+  position: relative;
+  padding: 10px 0;
+
+  &:not(:last-child) {
+    /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */
+  }
+`;

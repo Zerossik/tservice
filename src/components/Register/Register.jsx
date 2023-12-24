@@ -9,7 +9,7 @@ import { signup } from "../../services/authAPI";
 import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
-import { Loader } from "../Loader";
+import { LoaderPretty } from "../LoaderPretty";
 
 export const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export const Register = () => {
 
   return (
     <>
-      {loading && <Loader isLoading={loading} />}
+      {loading && <LoaderPretty isLoading={loading} />}
       <AuthForm
         formik={formik}
         title="Реєстрація"

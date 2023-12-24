@@ -13,7 +13,6 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import { ServicePage } from "../pages/ServicePage";
 import { WorkTable } from "./WorkTable";
-// import { Loader } from "./Loader";
 import { LoaderPretty } from "./LoaderPretty";
 import { ResetPassForm } from "./AuthResetPass";
 import { NewPassForm } from "./NewPassForm";

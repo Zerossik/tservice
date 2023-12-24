@@ -11,7 +11,7 @@ import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
 import { NavLinkForm } from "../NavLinkForm";
 import { ButtonForm } from "../ButtonForm";
-import { Loader } from "../Loader";
+import { LoaderPretty } from "../LoaderPretty";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ export const Login = () => {
 
   return (
     <>
-      {isLoading && <Loader isLoading={isLoading} />}
+      {isLoading && <LoaderPretty isLoading={isLoading} />}
       <AuthForm
         formik={formik}
         title="Авторизація"

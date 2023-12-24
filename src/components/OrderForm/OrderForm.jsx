@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 // style
 import {
   FormStyled,
-  // FormButton,
   InputPhoneWrapper,
   List,
   ListItemArea,
@@ -24,8 +23,9 @@ import { ErrorInput } from "../ErrorInput";
 import { ButtonForm } from "../ButtonForm";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
-import { Loader } from "../Loader";
+import { LoaderPretty } from "../LoaderPretty";
 import { MakeOrderSchema } from "../../validation";
+import { selectMasters } from "../../redux/auth/selectors";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },
@@ -41,18 +41,27 @@ const listOfStatus = [
   { id: 4, status: "Issued", fieldName: "Видано", default: false },
 ];
 
-const listOfMastersName = [
-  { id: 1, masterName: "Viktor Victor" },
-  { id: 2, masterName: "Vlad Vlad " },
-  { id: 3, masterName: "Devid Green" },
-];
+// const listOfMastersName = [
+//   { id: 1, masterName: "Viktor Victor" },
+//   { id: 2, masterName: "Vlad Vlad " },
+//   { id: 3, masterName: "Devid Green" },
+// ];
 
 export const OrderForm = () => {
+  // const [masters, setMasters] = useState([]);
   const dispatch = useDispatch();
+  const masters = useSelector(selectMasters);
   const isLoading = useSelector(selectIsContactsLoading);
   const theme = useTheme();
 
   useEffect(() => {}, []);
+
+  const createListOfMasters = (list) => {
+    return list.map(({ id, firstName, lastName }) => ({
+      id,
+      masterName: `${firstName} ${lastName}`,
+    }));
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -79,7 +88,7 @@ export const OrderForm = () => {
 
   return (
     <>
-      {isLoading && <Loader isLoading={isLoading} />}
+      {isLoading && <LoaderPretty isLoading={isLoading} />}
       <FormStyled onSubmit={formik.handleSubmit}>
         <List>
           <li>
@@ -199,7 +208,7 @@ export const OrderForm = () => {
               type="text"
               formik={formik}
               labelText="Ім'я майстра"
-              fildsList={listOfMastersName}
+              fildsList={createListOfMasters(masters)}
             />
           </li>
           <ListItemArea>

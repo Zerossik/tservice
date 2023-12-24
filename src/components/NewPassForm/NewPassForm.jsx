@@ -9,7 +9,7 @@ import { ButtonForm } from "../ButtonForm";
 import { NewPassSchema } from "../../validation";
 import { PATHS } from "../../constants";
 import { setNewPassword } from "../../services/authAPI";
-import { Loader } from "../Loader";
+import { LoaderPretty } from "../LoaderPretty";
 
 export const NewPassForm = () => {
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,7 @@ export const NewPassForm = () => {
 
   return (
     <>
-      {loading && <Loader isLoading={loading} />}
+      {loading && <LoaderPretty isLoading={loading} />}
       <AuthForm
         formik={formik}
         title="Змінити пароль"

@@ -10,5 +10,5 @@ export const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.color.backDrop};
+  /* background-color: ${({ theme }) => theme.color.backDrop}; */
 `;

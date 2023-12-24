@@ -13,14 +13,18 @@ import {
   DropDownList,
   DropDownItem,
   ItemTitle,
+  TitleSettings,
+  ListSettings,
+  ItemListSettings,
 } from "./Header.styled";
 // components
-import { Loader } from "../Loader";
 import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
 import { LogOut } from "../LogOut/LogOut";
 import { DropDown } from "../DropDown";
 import { ToggleTheme } from "../ToggleTheme";
 import { Modal } from "../Modal";
+import { AddMasterForm } from "../AddMasterForm/AddMasterForm";
+import { LoaderPretty } from "../LoaderPretty";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -39,7 +43,7 @@ export const Header = () => {
 
   return (
     <>
-      {isLoading && <Loader isLoading={isLoading} />}
+      {isLoading && <LoaderPretty />}
       <HeaderStyled>
         <HeaderContainer>
           <Logo>TService</Logo>
@@ -73,9 +77,15 @@ export const Header = () => {
           </ButtonWrapper>
         </HeaderContainer>
       </HeaderStyled>
+
       {isModalOpen && (
         <Modal onToggleModal={toggleModal}>
-          <p>Settings is open</p>
+          <TitleSettings>Service settings</TitleSettings>
+          <ListSettings>
+            <ItemListSettings>
+              <AddMasterForm />
+            </ItemListSettings>
+          </ListSettings>
         </Modal>
       )}
     </>

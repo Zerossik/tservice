@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authInitialState } from "../initialState";
 import {
+  addMasterThunk,
   changeThemeThunk,
+  deleteMasterThunk,
   getCurrentUserThunk,
   loginThunk,
   logoutThink,
@@ -24,15 +26,24 @@ const handleLogout = (state) => {
 };
 
 const handleGetCurrent = ({ user }, { payload }) => {
-  console.log(payload);
   user.id = payload.id;
   user.email = payload.email;
   user.name = payload.name;
   user.isLogin = true;
+  user.theme = payload.theme;
 };
 
 const handleChangeTheme = (state, { payload }) => {
   state.user.theme = payload.theme;
+};
+
+const handleAddMaster = (state, { payload }) => {
+  state.user.masters.push(payload);
+};
+
+const handleDeleteMaster = (state, { payload }) => {
+  const masters = state.user.masters.filter((item) => item.id !== payload.id);
+  state.user.masters = masters;
 };
 
 const handleFulfilled = (state) => {
@@ -55,12 +66,9 @@ const authSlice = createSlice({
       state.token = "";
     },
     setUser: (state, { payload }) => {
-      state.user.id = payload.data.id;
-      state.user.email = payload.data.email;
-      state.user.name = payload.data.name;
+      state.user = payload.data;
       state.token = payload.token;
       state.user.isLogin = true;
-      state.user.theme = payload.data.theme;
     },
   },
   extraReducers: (builder) => {
@@ -69,6 +77,8 @@ const authSlice = createSlice({
       .addCase(logoutThink.fulfilled, handleLogout)
       .addCase(getCurrentUserThunk.fulfilled, handleGetCurrent)
       .addCase(changeThemeThunk.fulfilled, handleChangeTheme)
+      .addCase(addMasterThunk.fulfilled, handleAddMaster)
+      .addCase(deleteMasterThunk.fulfilled, handleDeleteMaster)
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled

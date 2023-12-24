@@ -25,7 +25,7 @@ import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { LoaderPretty } from "../LoaderPretty";
 import { MakeOrderSchema } from "../../validation";
-import { selectMasters } from "../../redux/settings/selectors";
+import { selectMasters } from "../../redux/auth/selectors";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },

@@ -7,12 +7,12 @@ import { Title, FormStyled } from "./AddMasterForm.styled";
 import { AddMaster } from "../../validation";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
-import { selectIsSettingsLoading } from "../../redux/settings/selectors";
-import { addMasterThunk } from "../../redux/settings/settingsThunk";
 import { Loader } from "../Loader";
+import { selectIsLoading } from "../../redux/auth/selectors";
+import { addMasterThunk } from "../../redux/auth/authThunks";
 
 export const AddMasterForm = () => {
-  const isLoading = useSelector(selectIsSettingsLoading);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
   const formik = useFormik({

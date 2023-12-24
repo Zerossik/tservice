@@ -9,8 +9,6 @@ import { persistor } from "./redux/store.js";
 import { injectStore } from "./services/baseAPI.js";
 injectStore(store);
 
-console.log(store.getState());
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <Provider store={store}>

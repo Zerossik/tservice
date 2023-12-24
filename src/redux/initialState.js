@@ -1,6 +1,13 @@
 export const authInitialState = {
   error: null,
-  user: { id: "", name: "", email: "", isLogin: false, theme: "light" },
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    isLogin: false,
+    theme: "light",
+    masters: [],
+  },
   isLoading: false,
   token: "",
 };
@@ -8,11 +15,5 @@ export const authInitialState = {
 export const contactsInitialState = {
   error: null,
   contacts: [],
-  isLoading: false,
-};
-
-export const settingsInitialState = {
-  error: null,
-  masters: [],
   isLoading: false,
 };

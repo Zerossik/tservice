@@ -6,7 +6,7 @@ import {
 } from "../../services/contactsAPI";
 
 export const getAllThunk = createAsyncThunk(
-  "TService/getAllContacts",
+  "contacts/getAllContacts",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await getAllContacts();
@@ -19,7 +19,7 @@ export const getAllThunk = createAsyncThunk(
 );
 
 export const addContactThunk = createAsyncThunk(
-  "TService/addContact",
+  "contacts/addContact",
   async (body, { rejectWithValue }) => {
     try {
       const { data } = await addcontact(body);
@@ -32,7 +32,7 @@ export const addContactThunk = createAsyncThunk(
 );
 
 export const deleteContactThunk = createAsyncThunk(
-  "TService/deleteContact",
+  "contacts/deleteContact",
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await deleteContactById(id);

@@ -53,6 +53,7 @@ const handleFulfilled = (state) => {
 const handlePending = (state) => {
   state.isLoading = true;
 };
+
 const handleRejected = (state, { payload }) => {
   state.error = payload;
   state.isLoading = false;
@@ -83,7 +84,11 @@ const authSlice = createSlice({
         (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled
       )
-      .addMatcher((action) => action.type.endsWith("/pending"), handlePending)
+      .addMatcher((action) => {
+        if (action.type.includes("auth") && action.type.endsWith("/pending")) {
+          return true;
+        }
+      }, handlePending)
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         handleRejected

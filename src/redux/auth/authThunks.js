@@ -7,7 +7,7 @@ import {
 } from "../../services/settingsUserAPI.js";
 
 export const loginThunk = createAsyncThunk(
-  "TService/login",
+  "auth/login",
   async (user, { rejectWithValue }) => {
     try {
       const data = await signin(user);
@@ -19,14 +19,8 @@ export const loginThunk = createAsyncThunk(
 );
 
 export const getCurrentUserThunk = createAsyncThunk(
-  "TService/getCurrentUser",
+  "auth/getCurrentUser",
   async (_, { rejectWithValue }) => {
-    // const state = getState();
-
-    // if (!state.token) {
-    //   return rejectWithValue("Unable to fetch user");
-    // }
-
     try {
       const { data } = await getCurrentUser();
       return data.data;
@@ -37,7 +31,7 @@ export const getCurrentUserThunk = createAsyncThunk(
 );
 
 export const logoutThink = createAsyncThunk(
-  "TService/logout",
+  "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
       await logout();
@@ -48,7 +42,7 @@ export const logoutThink = createAsyncThunk(
 );
 
 export const changeThemeThunk = createAsyncThunk(
-  "TService/changeTheme",
+  "auth/changeTheme",
   async (theme, { rejectWithValue }) => {
     try {
       const { data } = await changeTheme(theme);
@@ -60,7 +54,7 @@ export const changeThemeThunk = createAsyncThunk(
 );
 
 export const addMasterThunk = createAsyncThunk(
-  "TService/addMaster",
+  "auth/addMaster",
   async (body, { rejectWithValue }) => {
     try {
       const { data } = await addMaster(body);
@@ -72,7 +66,7 @@ export const addMasterThunk = createAsyncThunk(
 );
 
 export const deleteMasterThunk = createAsyncThunk(
-  "TService/deleteMaster",
+  "auth/deleteMaster",
   async (body, { rejectWithValue }) => {
     try {
       const { data } = await deleteMaster(body);

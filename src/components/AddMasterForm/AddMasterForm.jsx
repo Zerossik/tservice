@@ -7,7 +7,6 @@ import { Title, FormStyled } from "./AddMasterForm.styled";
 import { AddMaster } from "../../validation";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
-import { Loader } from "../Loader";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { addMasterThunk } from "../../redux/auth/authThunks";
 
@@ -36,7 +35,6 @@ export const AddMasterForm = () => {
 
   return (
     <>
-      {isLoading && <Loader isLoading={isLoading} />}
       <Title>Додати майстра</Title>
       <FormStyled onSubmit={formik.handleSubmit}>
         <Input name="firstName" type="text" formik={formik} labelText="Ім'я" />

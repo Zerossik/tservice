@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useTheme } from "styled-components";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 // style
 import {
@@ -12,20 +12,18 @@ import {
   List,
   ListItemArea,
   ListItemLast,
-} from "./OrderForm.styled";
+} from "./EditOrderForm.styled";
 // components
-import { Label } from "../Label";
+import { EditOrderSchema } from "../../validation/EditOrderSchema";
 import { Input } from "../Input";
 import { Select } from "../Select";
-import { SelectConst } from "../SelectConst";
-import { TextArea } from "../TextArea/TextArea";
+import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
+import { TextArea } from "../TextArea/TextArea";
+import { SelectConst } from "../SelectConst";
 import { ButtonForm } from "../ButtonForm";
-import { selectIsContactsLoading } from "../../redux/contacts/selectors";
-import { addContactThunk } from "../../redux/contacts/contactsThunks";
-import { LoaderPretty } from "../LoaderPretty";
-import { MakeOrderSchema } from "../../validation";
 import { selectMasters } from "../../redux/auth/selectors";
+import { updateContactByIdThunk } from "../../redux/contacts/contactsThunks";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },
@@ -35,26 +33,42 @@ const listOfTypes = [
 ];
 
 const listOfStatus = [
-  { id: 1, status: "Accepted", fieldName: "Прийнято", default: true },
-  { id: 2, status: "Repairing", fieldName: "В роботі", default: false },
-  { id: 3, status: "Finished", fieldName: "Закінчено", default: false },
-  { id: 4, status: "Issued", fieldName: "Видано", default: false },
+  { id: 1, status: "Прийнято" },
+  { id: 2, status: "В роботі" },
+  { id: 3, status: "Закінчено" },
+  { id: 4, status: "Видано" },
 ];
 
-// const listOfMastersName = [
-//   { id: 1, masterName: "Viktor Victor" },
-//   { id: 2, masterName: "Vlad Vlad " },
-//   { id: 3, masterName: "Devid Green" },
-// ];
+const compareData = (oldObj, newObj) => {
+  let objValues = {};
 
-export const OrderForm = () => {
-  // const [masters, setMasters] = useState([]);
+  for (const property in oldObj) {
+    if (oldObj[property] !== newObj[property]) {
+      objValues = { ...objValues, [property]: newObj[property] };
+    }
+  }
+
+  return objValues;
+};
+
+export const EditOrderForm = ({ id, order }) => {
   const dispatch = useDispatch();
   const masters = useSelector(selectMasters);
-  const isLoading = useSelector(selectIsContactsLoading);
   const theme = useTheme();
 
-  useEffect(() => {}, []);
+  const formik = useFormik({
+    initialValues: order,
+    enableReinitialize: true,
+    validationSchema: EditOrderSchema,
+    onSubmit: (values) => {
+      const body = compareData(order, values);
+
+      dispatch(updateContactByIdThunk({ id, body }))
+        .unwrap()
+        .then(() => toast.success("Замовлення оновлено"))
+        .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
+    },
+  });
 
   const createListOfMasters = (list) => {
     return list.map(({ id, firstName, lastName }) => ({
@@ -63,32 +77,9 @@ export const OrderForm = () => {
     }));
   };
 
-  const formik = useFormik({
-    initialValues: {
-      type: "",
-      manufacturer: "",
-      model: "",
-      deviceID: "",
-      customerName: "",
-      phoneNumber: "",
-      price: 0,
-      status: "",
-      masterName: "",
-      description: "",
-      failure: "",
-    },
-    validationSchema: MakeOrderSchema,
-    onSubmit: (values) => {
-      dispatch(addContactThunk(values))
-        .unwrap()
-        .then(() => toast.success("Замовлення додано"))
-        .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
-    },
-  });
-
   return (
     <>
-      {isLoading && <LoaderPretty isLoading={isLoading} />}
+      {}
       <FormStyled onSubmit={formik.handleSubmit}>
         <List>
           <li>
@@ -222,6 +213,12 @@ export const OrderForm = () => {
           </ListItemLast>
         </List>
       </FormStyled>
+      {}
     </>
   );
+};
+
+EditOrderForm.propTypes = {
+  id: PropTypes.string.isRequired,
+  order: PropTypes.object.isRequired,
 };

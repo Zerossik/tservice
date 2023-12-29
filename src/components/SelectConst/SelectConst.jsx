@@ -17,25 +17,23 @@ import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 
 export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
-  const [value, setValue] = useState("");
   const [openList, setOpenList] = useState(false);
   const [list, setList] = useState([]);
   const listRef = useRef();
 
-  const defaultValue = (list) => {
-    list.map((item) => {
-      if ("default" in item && item.default) {
-        const fieldValue = item.fieldName ? item.fieldName : item[name];
-        formik.setFieldValue(name, item[name]);
-        setValue(fieldValue);
-      }
-    });
-  };
+  // const defaultValue = (list) => {
+  //   list.map((item) => {
+  //     if ("default" in item && item.default) {
+  //       const fieldValue = item.fieldName ? item.fieldName : item[name];
+  //       formik.setFieldValue(name, item[name]);
+  //       setValue(fieldValue);
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     if (fildsList.length !== 0) {
       setList(fildsList);
-      defaultValue(fildsList);
     }
 
     const handleClickAway = (e) => {
@@ -55,9 +53,8 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
     setOpenList((prev) => !prev);
   };
 
-  const handleClickButton = (type, fieldValue) => {
-    formik.setFieldValue(name, type);
-    setValue(fieldValue);
+  const handleClickButton = (field, value) => {
+    formik.setFieldValue(field, value);
     setOpenList(false);
   };
 
@@ -71,8 +68,7 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
             name={name}
             type={type}
             onChange={formik.handleChange}
-            // value={formik.values[name]}
-            value={value}
+            value={formik.values[name]}
             readOnly
           />
           <Button type="button" onClick={handleClickOpenList}>
@@ -86,7 +82,7 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
             <List ref={listRef}>
               {list.map((item) => (
                 <ListItem key={item.id}>
-                  <ButtonList
+                  {/* <ButtonList
                     type="button"
                     onClick={() => {
                       const fieldValue = item.fieldName
@@ -96,6 +92,12 @@ export const SelectConst = ({ name, type, formik, labelText, fildsList }) => {
                     }}
                   >
                     {item.fieldName ? item.fieldName : item[name]}
+                  </ButtonList> */}
+                  <ButtonList
+                    type="button"
+                    onClick={() => handleClickButton(name, item[name])}
+                  >
+                    {item[name]}
                   </ButtonList>
                 </ListItem>
               ))}

@@ -1,6 +1,5 @@
+import { useState } from "react";
 // import { useLoaderData } from "react-router-dom";
-// component
-import { Modal } from "../Modal";
 // style
 import {
   Table,
@@ -12,11 +11,28 @@ import {
   ButtonIconDelete,
   IconDelete,
 } from "./WorkTable.styled";
+// component
+import { Modal } from "../Modal";
+import { EditOrderForm } from "../EditOrderForm/EditOrderForm";
 // data
 import { tableHeader } from "../../fakeData";
-import { useState } from "react";
 
 const tableHeaderFiltered = tableHeader.filter((item) => item.isVisible);
+
+const data = {
+  type: "Laptop",
+  manufacturer: "Samsung",
+  model: "S21 ULTRA",
+  customerName: "customerName",
+  phoneNumber: "380456783648",
+  failure: "failure description",
+  deviceID: "device IMAI or SN",
+  price: 200,
+  status: "Прийнято",
+  masterName: "Mark Hren",
+  endDate: "end repair date",
+  description: "Your description",
+};
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,9 +73,10 @@ export const WorkTable = () => {
           </Row>
         </tbody>
       </Table>
+
       {isModalOpen && (
         <Modal onToggleModal={toggleModal}>
-          <p>Edit some card of appliance</p>
+          <EditOrderForm id="6584a1e84275aea9779bde16" order={data} />
         </Modal>
       )}
     </>

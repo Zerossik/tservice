@@ -20,7 +20,7 @@ export const Filter = () => {
         </ButtonIconPlus>
       </Wrapper>
       {isModalOpen && (
-        <Modal onToggleModal={toggleModal}>
+        <Modal title="Нове замовлення" onToggleModal={toggleModal}>
           <OrderForm />
         </Modal>
       )}

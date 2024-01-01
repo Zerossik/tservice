@@ -1,12 +1,20 @@
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 // style
-import { BackDrop, ModalWindow, ButtonClose, IconClose } from "./Modal.styled";
+import {
+  BackDrop,
+  ModalWindow,
+  ModalHeader,
+  ModalTitle,
+  ButtonClose,
+  ModalBody,
+  IconClose,
+} from "./Modal.styled";
 import { useEffect } from "react";
 
 const modalRoot = document.querySelector("#modal-root");
 
-export const Modal = ({ onToggleModal, children }) => {
+export const Modal = ({ onToggleModal, title, children }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === "Escape") {
@@ -32,10 +40,14 @@ export const Modal = ({ onToggleModal, children }) => {
   return createPortal(
     <BackDrop onClick={handleBackDropClick}>
       <ModalWindow>
-        <ButtonClose onClick={onToggleModal}>
-          <IconClose />
-        </ButtonClose>
-        {children}
+        <ModalHeader>
+          <ModalTitle>{title}</ModalTitle>
+          <ButtonClose onClick={onToggleModal}>
+            <IconClose />
+          </ButtonClose>
+        </ModalHeader>
+
+        <ModalBody>{children}</ModalBody>
       </ModalWindow>
     </BackDrop>,
     modalRoot
@@ -43,6 +55,7 @@ export const Modal = ({ onToggleModal, children }) => {
 };
 
 Modal.propTypes = {
+  title: PropTypes.string.isRequired,
   onToggleModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };

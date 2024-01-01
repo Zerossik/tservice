@@ -8,9 +8,9 @@ export const MakeOrderSchema = Yup.object({
   deviceID: Yup.string(),
   customerName: Yup.string().required("Required"),
   phoneNumber: Yup.string().required("Required"),
-  price: Yup.number().required("Required"),
-  status: Yup.string().required("Required"),
-  masterName: Yup.string(),
+  // price: Yup.number().required("Required"),
+  // status: Yup.string().required("Required"),
+  // masterName: Yup.string(),
   description: Yup.string(),
-  failure: Yup.string(),
+  // failure: Yup.string(),
 });

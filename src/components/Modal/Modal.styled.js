@@ -5,38 +5,68 @@ export const BackDrop = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
+  padding: 10px;
   z-index: 90;
   background-color: ${({ theme }) => theme.color.backDrop};
-  overflow-y: scroll;
 `;
 
 export const ModalWindow = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
   width: 100%;
   max-width: 960px;
-  padding: 40px;
+  overflow: auto;
+
   border: 1px solid ${({ theme }) => theme.color.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   background-color: ${({ theme }) => theme.color.modalBg};
   box-shadow: ${({ theme }) => theme.color.shadow};
+`;
 
-  @media screen and (max-width: 1021px) {
-    width: calc(100% - 30px);
+export const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 40px;
+  border-bottom: 1px solid ${({ theme }) => theme.color.border};
+`;
+
+export const ModalBody = styled.div`
+  padding: 29px 40px 24px 40px;
+  max-height: 100%;
+  overflow-y: auto;
+  margin: 1px 0 6px 0;
+
+  &::-webkit-scrollbar {
+    width: 8px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    // firefox
+    scrollbar-width: thin;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
+    background-color: ${({ theme }) =>
+      theme.color.bgSecondary}; /* Цвет скролла */
+    // firefox
+    scrollbar-color: ${({ theme }) => theme.color.bgSecondary} transparent;
   }
 `;
 
+export const ModalTitle = styled.h2`
+  color: ${({ theme }) => theme.color.primary};
+`;
+
 export const ButtonClose = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
   width: 24px;
   height: 24px;
-  z-index: 91;
   color: ${({ theme }) => theme.color.iconMain};
   background-color: transparent;
   cursor: pointer;

@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -17,7 +16,6 @@ import {
 import { Label } from "../Label";
 import { Input } from "../Input";
 import { Select } from "../Select";
-import { SelectConst } from "../SelectConst";
 import { TextArea } from "../TextArea/TextArea";
 import { ErrorInput } from "../ErrorInput";
 import { ButtonForm } from "../ButtonForm";
@@ -25,7 +23,6 @@ import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { LoaderPretty } from "../LoaderPretty";
 import { MakeOrderSchema } from "../../validation";
-import { selectMasters } from "../../redux/auth/selectors";
 
 const listOfTypes = [
   { id: 1, type: "Phone" },
@@ -34,34 +31,10 @@ const listOfTypes = [
   { id: 4, type: "TV-set" },
 ];
 
-const listOfStatus = [
-  { id: 1, status: "Accepted", fieldName: "Прийнято", default: true },
-  { id: 2, status: "Repairing", fieldName: "В роботі", default: false },
-  { id: 3, status: "Finished", fieldName: "Закінчено", default: false },
-  { id: 4, status: "Issued", fieldName: "Видано", default: false },
-];
-
-// const listOfMastersName = [
-//   { id: 1, masterName: "Viktor Victor" },
-//   { id: 2, masterName: "Vlad Vlad " },
-//   { id: 3, masterName: "Devid Green" },
-// ];
-
 export const OrderForm = () => {
-  // const [masters, setMasters] = useState([]);
   const dispatch = useDispatch();
-  const masters = useSelector(selectMasters);
   const isLoading = useSelector(selectIsContactsLoading);
   const theme = useTheme();
-
-  useEffect(() => {}, []);
-
-  const createListOfMasters = (list) => {
-    return list.map(({ id, firstName, lastName }) => ({
-      id,
-      masterName: `${firstName} ${lastName}`,
-    }));
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -71,11 +44,7 @@ export const OrderForm = () => {
       deviceID: "",
       customerName: "",
       phoneNumber: "",
-      price: 0,
-      status: "",
-      masterName: "",
       description: "",
-      failure: "",
     },
     validationSchema: MakeOrderSchema,
     onSubmit: (values) => {
@@ -141,12 +110,6 @@ export const OrderForm = () => {
                 value={formik.values.phoneNumber}
                 onChange={(phone) => formik.setFieldValue("phoneNumber", phone)}
                 inputProps={{ name: "phoneNumber", id: "phoneNumber" }}
-                containerStyle={
-                  {
-                    // borderRadius: theme.borderRadius.extraSmall,
-                    // overflow: "hidden",
-                  }
-                }
                 inputStyle={{
                   width: "100%",
                   height: "40px",
@@ -184,35 +147,6 @@ export const OrderForm = () => {
               formik={formik}
               labelText="Опис від клієнта"
             />
-          </ListItemArea>
-          <li>
-            <Input
-              name="price"
-              type="text"
-              formik={formik}
-              labelText="Сума до сплати"
-            />
-          </li>
-          <li>
-            <SelectConst
-              name="status"
-              type="text"
-              formik={formik}
-              labelText="Статус"
-              fildsList={listOfStatus}
-            />
-          </li>
-          <li>
-            <SelectConst
-              name="masterName"
-              type="text"
-              formik={formik}
-              labelText="Ім'я майстра"
-              fildsList={createListOfMasters(masters)}
-            />
-          </li>
-          <ListItemArea>
-            <TextArea name="failure" formik={formik} labelText="Несправність" />
           </ListItemArea>
           <ListItemLast>
             <ButtonForm

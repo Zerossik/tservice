@@ -45,6 +45,7 @@ export const OrderForm = () => {
       customerName: "",
       phoneNumber: "",
       description: "",
+      failure: "",
     },
     validationSchema: MakeOrderSchema,
     onSubmit: (values) => {
@@ -147,6 +148,9 @@ export const OrderForm = () => {
               formik={formik}
               labelText="Опис від клієнта"
             />
+          </ListItemArea>
+          <ListItemArea>
+            <TextArea name="failure" formik={formik} labelText="Несправність" />
           </ListItemArea>
           <ListItemLast>
             <ButtonForm

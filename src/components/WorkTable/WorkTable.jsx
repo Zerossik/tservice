@@ -75,7 +75,7 @@ export const WorkTable = () => {
       </Table>
 
       {isModalOpen && (
-        <Modal onToggleModal={toggleModal}>
+        <Modal title={`Редагування замовлення #`} onToggleModal={toggleModal}>
           <EditOrderForm id="6584a1e84275aea9779bde16" order={data} />
         </Modal>
       )}

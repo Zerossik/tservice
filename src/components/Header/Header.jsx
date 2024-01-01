@@ -13,7 +13,6 @@ import {
   DropDownList,
   DropDownItem,
   ItemTitle,
-  TitleSettings,
   ListSettings,
   ItemListSettings,
 } from "./Header.styled";
@@ -79,8 +78,7 @@ export const Header = () => {
       </HeaderStyled>
 
       {isModalOpen && (
-        <Modal onToggleModal={toggleModal}>
-          <TitleSettings>Service settings</TitleSettings>
+        <Modal title="Налаштування" onToggleModal={toggleModal}>
           <ListSettings>
             <ItemListSettings>
               <AddMasterForm />

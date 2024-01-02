@@ -1,3 +1,5 @@
+import { tableHeader } from "../fakeData";
+
 export const authInitialState = {
   error: null,
   user: {
@@ -15,5 +17,6 @@ export const authInitialState = {
 export const contactsInitialState = {
   error: null,
   contacts: [],
+  tableHeader: tableHeader,
   isLoading: false,
 };

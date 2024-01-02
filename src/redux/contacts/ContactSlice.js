@@ -16,9 +16,9 @@ const handleAddContact = (state, { payload }) => {
 };
 
 const handleUpdateContact = (state, { payload }) => {
-  console.log(payload);
-  const idx = state.contacts.indexOf(payload._id);
-  state.contacts.splice(idx, 1, payload);
+  state.contacts = state.contacts.map((item) =>
+    item._id === payload._id ? payload : item
+  );
 };
 
 const handleDeleteContact = (state, { payload }) => {
@@ -41,7 +41,11 @@ const handleRejected = (state, { payload }) => {
 const contactSlice = createSlice({
   name: "contactSlice",
   initialState: contactsInitialState,
-  reducers: {},
+  reducers: {
+    getAllContacts: (state, { payload }) => {
+      state.contacts = payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(getAllThunk.fulfilled, handleGetAll)
@@ -66,4 +70,5 @@ const contactSlice = createSlice({
       ),
 });
 
+export const { getAllContacts } = contactSlice.actions;
 export const contactReducer = contactSlice.reducer;

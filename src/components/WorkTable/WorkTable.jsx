@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 // style
 import {
   Table,
@@ -20,6 +21,7 @@ import {
   selectContacts,
   selectTableHeader,
 } from "../../redux/contacts/selectors";
+import { getAllListThunk } from "../../redux/settingsUser/settingsUserThunks";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +35,11 @@ export const WorkTable = () => {
     if (orderList) {
       dispatch(getAllContacts(orderList));
     }
+
+    dispatch(getAllListThunk())
+      .unwrap()
+      .then()
+      .catch(() => toast.warning("Будь ласка, перезавантажте сторінку)"));
   }, [dispatch, orderList]);
 
   const tableHeaderFiltered = tableHeader

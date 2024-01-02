@@ -12,6 +12,7 @@ import {
 // components
 import { authReducer } from "./auth/authSlice";
 import { contactReducer } from "./contacts/ContactSlice";
+import { settingsUserReducer } from "./settingsUser/settingsUserSlice";
 
 const persistConfig = {
   key: "TService",
@@ -25,6 +26,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedReducer,
     contacts: contactReducer,
+    settingsUser: settingsUserReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

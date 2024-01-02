@@ -16,7 +16,14 @@ export const authInitialState = {
 
 export const contactsInitialState = {
   error: null,
+  isLoading: false,
   contacts: [],
   tableHeader: tableHeader,
+};
+
+export const settingsUserInitialState = {
+  error: null,
   isLoading: false,
+  deviceManufacturers: [],
+  deviceTypes: [],
 };

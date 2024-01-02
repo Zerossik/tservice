@@ -23,18 +23,21 @@ import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { LoaderPretty } from "../LoaderPretty";
 import { MakeOrderSchema } from "../../validation";
-
-const listOfTypes = [
-  { id: 1, type: "Phone" },
-  { id: 2, type: "Laptop" },
-  { id: 3, type: "Watch" },
-  { id: 4, type: "TV-set" },
-];
+import {
+  selectDeviceManufacturers,
+  selectDeviceTypes,
+} from "../../redux/settingsUser/selectors";
 
 export const OrderForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsContactsLoading);
+  const deviceManufacturers = useSelector(selectDeviceManufacturers);
+  const deviceTypes = useSelector(selectDeviceTypes);
   const theme = useTheme();
+
+  const rewriteDeviceTypeArr = (arr) => {
+    return arr.map(({ id, deviceType }) => ({ id: id, type: deviceType }));
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -67,15 +70,16 @@ export const OrderForm = () => {
               type="text"
               formik={formik}
               labelText="Тип техніки"
-              fildsList={listOfTypes}
+              fildsList={rewriteDeviceTypeArr(deviceTypes)}
             />
           </li>
           <li>
-            <Input
+            <Select
               name="manufacturer"
               type="text"
               formik={formik}
               labelText="Виробник"
+              fildsList={deviceManufacturers}
             />
           </li>
           <li>

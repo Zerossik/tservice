@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -14,30 +15,22 @@ import {
   ListItemLast,
 } from "./EditOrderForm.styled";
 // components
-import { EditOrderSchema } from "../../validation/EditOrderSchema";
+import { editOrderSchema } from "../../validation";
 import { Input } from "../Input";
 import { Select } from "../Select";
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 import { TextArea } from "../TextArea/TextArea";
-import { SelectConst } from "../SelectConst";
+// import { SelectConst } from "../SelectConst";
 import { ButtonForm } from "../ButtonForm";
 import { selectMasters } from "../../redux/auth/selectors";
 import { updateContactByIdThunk } from "../../redux/contacts/contactsThunks";
-
-const listOfTypes = [
-  { id: 1, type: "Phone" },
-  { id: 2, type: "Laptop" },
-  { id: 3, type: "Watch" },
-  { id: 4, type: "TV-set" },
-];
-
-const listOfStatus = [
-  { id: 1, status: "Прийнято" },
-  { id: 2, status: "В роботі" },
-  { id: 3, status: "Закінчено" },
-  { id: 4, status: "Видано" },
-];
+import {
+  selectDeviceManufacturers,
+  selectDeviceTypes,
+  selectStatuses,
+} from "../../redux/settingsUser/selectors";
+import { rewriteDeviceTypeArr } from "../../utils";
 
 const compareData = (oldObj, newObj) => {
   let objValues = {};
@@ -54,7 +47,12 @@ const compareData = (oldObj, newObj) => {
 export const EditOrderForm = ({ id, order }) => {
   const dispatch = useDispatch();
   const masters = useSelector(selectMasters);
+  const deviceManufacturers = useSelector(selectDeviceManufacturers);
+  const deviceTypes = useSelector(selectDeviceTypes);
+  const statusList = useSelector(selectStatuses);
   const theme = useTheme();
+
+  const EditOrderSchema = useMemo(() => editOrderSchema(), []);
 
   const formik = useFormik({
     initialValues: order,
@@ -71,9 +69,9 @@ export const EditOrderForm = ({ id, order }) => {
   });
 
   const createListOfMasters = (list) => {
-    return list.map(({ id, firstName, lastName }) => ({
-      id,
-      masterName: `${firstName} ${lastName}`,
+    return list.map(({ _id, firstName, lastName }) => ({
+      _id,
+      masterName: `${lastName} ${firstName}`,
     }));
   };
 
@@ -88,15 +86,16 @@ export const EditOrderForm = ({ id, order }) => {
               type="text"
               formik={formik}
               labelText="Тип техніки"
-              fildsList={listOfTypes}
+              fildsList={rewriteDeviceTypeArr(deviceTypes)}
             />
           </li>
           <li>
-            <Input
+            <Select
               name="manufacturer"
               type="text"
               formik={formik}
               labelText="Виробник"
+              fildsList={deviceManufacturers}
             />
           </li>
           <li>
@@ -185,16 +184,16 @@ export const EditOrderForm = ({ id, order }) => {
             />
           </li>
           <li>
-            <SelectConst
+            <Select
               name="status"
               type="text"
               formik={formik}
               labelText="Статус"
-              fildsList={listOfStatus}
+              fildsList={statusList}
             />
           </li>
           <li>
-            <SelectConst
+            <Select
               name="masterName"
               type="text"
               formik={formik}

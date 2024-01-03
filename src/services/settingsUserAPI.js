@@ -26,3 +26,36 @@ export const deleteMaster = async (body) => {
     throw new Error(error.message);
   }
 };
+
+export const getAllList = async () => {
+  try {
+    const { data } = await apiPrivate.get("/api/user/deviceSettings");
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const addDeviceType = async (body) => {
+  try {
+    const { data } = await apiPrivate.post(
+      "/api/user/deviceSettingsType",
+      body
+    );
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const addDeviceManufacturer = async (body) => {
+  try {
+    const { data } = await apiPrivate.post(
+      "/api/user/deviceSettingsManufacturer",
+      body
+    );
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

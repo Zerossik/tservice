@@ -1,4 +1,4 @@
-import { tableHeader } from "../fakeData";
+import { tableHeader, listOfStatus } from "../fakeData";
 
 export const authInitialState = {
   error: null,
@@ -16,7 +16,15 @@ export const authInitialState = {
 
 export const contactsInitialState = {
   error: null,
+  isLoading: false,
   contacts: [],
   tableHeader: tableHeader,
+};
+
+export const settingsUserInitialState = {
+  error: null,
   isLoading: false,
+  deviceManufacturers: [],
+  deviceTypes: [],
+  statuses: listOfStatus,
 };

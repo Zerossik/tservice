@@ -16,6 +16,7 @@ import {
 import { Modal } from "../Modal";
 import { EditOrderForm } from "../EditOrderForm/EditOrderForm";
 import { getAllContacts } from "../../redux/contacts/ContactSlice";
+import { getAllLists } from "../../redux/settingsUser/settingsUserSlice";
 import {
   selectContacts,
   selectTableHeader,
@@ -25,15 +26,19 @@ export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [order, setOrder] = useState({});
   const dispatch = useDispatch();
-  const orderList = useLoaderData();
+  const data = useLoaderData();
   const contacts = useSelector(selectContacts);
   const tableHeader = useSelector(selectTableHeader);
 
   useEffect(() => {
-    if (orderList) {
-      dispatch(getAllContacts(orderList));
+    if (data) {
+      data.map(({ data }) => {
+        Array.isArray(data)
+          ? dispatch(getAllContacts(data))
+          : dispatch(getAllLists(data));
+      });
     }
-  }, [dispatch, orderList]);
+  }, [dispatch, data]);
 
   const tableHeaderFiltered = tableHeader
     .filter((item) => item.isVisible)

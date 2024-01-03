@@ -53,6 +53,7 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
 
   const handleClickButton = (type) => {
     setSearch(type);
+    // console.log(name, type);
     formik.setFieldValue(name, type);
     setOpenList(false);
   };
@@ -97,7 +98,7 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
             <BackDrop />
             <List ref={listRef}>
               {filteredTypes.map((item) => (
-                <ListItem key={item.id}>
+                <ListItem key={item._id}>
                   <ButtonList
                     type="button"
                     onClick={() => handleClickButton(item[name])}

@@ -12,8 +12,6 @@ export const makeOrderSchema = () => {
   const message = "Виберіть зі списку";
   const required = "Обов'язково";
 
-  console.log("MakeOrderSchema", typeList);
-
   return Yup.object({
     type: Yup.string().oneOf(typeList, message).required(required),
     manufacturer: Yup.string()

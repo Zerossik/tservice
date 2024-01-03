@@ -9,12 +9,18 @@ import {
   Button,
   UserName,
   IconUser,
-  IconSettings,
+  // IconSettings,
   DropDownList,
   DropDownItem,
   ItemTitle,
   ListSettings,
   ItemListSettings,
+  ListOfButtons,
+  ItemOfButtons,
+  ButtonSetting,
+  IconType,
+  IconManufacturer,
+  IconMaster,
 } from "./Header.styled";
 // components
 import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
@@ -47,10 +53,28 @@ export const Header = () => {
         <HeaderContainer>
           <Logo>TService</Logo>
 
+          <ListOfButtons>
+            <ItemOfButtons>
+              <ButtonSetting type="button">
+                <IconType />
+              </ButtonSetting>
+            </ItemOfButtons>
+            <ItemOfButtons>
+              <ButtonSetting type="button">
+                <IconManufacturer />
+              </ButtonSetting>
+            </ItemOfButtons>
+            <ItemOfButtons>
+              <ButtonSetting type="button" onClick={toggleModal}>
+                <IconMaster />
+              </ButtonSetting>
+            </ItemOfButtons>
+          </ListOfButtons>
+
           <ButtonWrapper>
-            <Button type="button" onClick={toggleModal}>
+            {/* <Button type="button" onClick={toggleModal}>
               <IconSettings />
-            </Button>
+            </Button> */}
             <UserName>{user ? user.name : "Anonimus"}</UserName>
             <Button type="button" onClick={toggleUserDropDown}>
               <IconUser />

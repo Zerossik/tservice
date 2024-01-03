@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -22,11 +23,12 @@ import { ButtonForm } from "../ButtonForm";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { addContactThunk } from "../../redux/contacts/contactsThunks";
 import { LoaderPretty } from "../LoaderPretty";
-import { MakeOrderSchema } from "../../validation";
+import { makeOrderSchema } from "../../validation";
 import {
   selectDeviceManufacturers,
   selectDeviceTypes,
 } from "../../redux/settingsUser/selectors";
+import { rewriteDeviceTypeArr } from "../../utils";
 
 export const OrderForm = () => {
   const dispatch = useDispatch();
@@ -35,9 +37,7 @@ export const OrderForm = () => {
   const deviceTypes = useSelector(selectDeviceTypes);
   const theme = useTheme();
 
-  const rewriteDeviceTypeArr = (arr) => {
-    return arr.map(({ id, deviceType }) => ({ id: id, type: deviceType }));
-  };
+  const MakeOrderSchema = useMemo(() => makeOrderSchema(), []);
 
   const formik = useFormik({
     initialValues: {

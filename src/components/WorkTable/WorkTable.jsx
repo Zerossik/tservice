@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
-import { toast } from "react-toastify";
 // style
 import {
   Table,
@@ -17,30 +16,29 @@ import {
 import { Modal } from "../Modal";
 import { EditOrderForm } from "../EditOrderForm/EditOrderForm";
 import { getAllContacts } from "../../redux/contacts/ContactSlice";
+import { getAllLists } from "../../redux/settingsUser/settingsUserSlice";
 import {
   selectContacts,
   selectTableHeader,
 } from "../../redux/contacts/selectors";
-import { getAllListThunk } from "../../redux/settingsUser/settingsUserThunks";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [order, setOrder] = useState({});
   const dispatch = useDispatch();
-  const orderList = useLoaderData();
+  const data = useLoaderData();
   const contacts = useSelector(selectContacts);
   const tableHeader = useSelector(selectTableHeader);
 
   useEffect(() => {
-    if (orderList) {
-      dispatch(getAllContacts(orderList));
+    if (data) {
+      data.map(({ data }) => {
+        Array.isArray(data)
+          ? dispatch(getAllContacts(data))
+          : dispatch(getAllLists(data));
+      });
     }
-
-    dispatch(getAllListThunk())
-      .unwrap()
-      .then()
-      .catch(() => toast.warning("Будь ласка, перезавантажте сторінку)"));
-  }, [dispatch, orderList]);
+  }, [dispatch, data]);
 
   const tableHeaderFiltered = tableHeader
     .filter((item) => item.isVisible)

@@ -36,9 +36,24 @@ export const getAllList = async () => {
   }
 };
 
-export const addDeviceOrManufacturer = async (body) => {
+export const addDeviceType = async (body) => {
   try {
-    const { data } = await apiPrivate.post("/api/user/deviceSettings", body);
+    const { data } = await apiPrivate.post(
+      "/api/user/deviceSettingsType",
+      body
+    );
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const addDeviceManufacturer = async (body) => {
+  try {
+    const { data } = await apiPrivate.post(
+      "/api/user/deviceSettingsManufacturer",
+      body
+    );
     return data;
   } catch (error) {
     throw new Error(error.message);

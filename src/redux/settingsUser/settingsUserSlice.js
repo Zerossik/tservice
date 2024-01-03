@@ -1,19 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { settingsUserInitialState } from "../initialState";
 import {
-  addDeviceOrManufacturerThunk,
+  addDeviceManufacturerThunk,
+  addDeviceTypeThunk,
   getAllListThunk,
 } from "./settingsUserThunks";
 
 const handlegetAllList = (state, { payload }) => {
-  console.log(payload);
   state.deviceManufacturers = payload.deviceManufacturers;
   state.deviceTypes = payload.deviceTypes;
 };
 
-const handleAddDeviceOrManufacturer = (state, { payload }) => {
-  state.deviceManufacturers = payload.deviceManufacturers;
-  state.deviceTypes = payload.deviceTypes;
+const handleAddDeviceType = (state, { payload }) => {
+  state.deviceTypes = payload;
+};
+
+const handleAddDeviceManufacturer = (state, { payload }) => {
+  state.deviceManufacturers = payload;
 };
 
 const handleFulfilled = (state) => {
@@ -33,22 +36,20 @@ const settingsUserSlice = createSlice({
   name: "settingsUser",
   initialState: settingsUserInitialState,
   reducers: {
-    // deleteToken: (state) => {
-    //   state.token = "";
-    // },
-    // setUser: (state, { payload }) => {
-    //   state.user = payload.data;
-    //   state.token = payload.token;
-    //   state.user.isLogin = true;
-    // },
+    getAllLists: (state, { payload }) => {
+      state.deviceManufacturers = payload.deviceManufacturers;
+      state.deviceTypes = payload.deviceTypes;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getAllListThunk.fulfilled, handlegetAllList)
+      .addCase(addDeviceTypeThunk.fulfilled, handleAddDeviceType)
       .addCase(
-        addDeviceOrManufacturerThunk.fulfilled,
-        handleAddDeviceOrManufacturer
+        addDeviceManufacturerThunk.fulfilled,
+        handleAddDeviceManufacturer
       )
+
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled
@@ -68,4 +69,5 @@ const settingsUserSlice = createSlice({
   },
 });
 
+export const { getAllLists } = settingsUserSlice.actions;
 export const settingsUserReducer = settingsUserSlice.reducer;

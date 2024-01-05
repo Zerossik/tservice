@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { HiCpuChip, HiMiniUsers, HiMiniInboxArrowDown } from "react-icons/hi2";
 // styled
 import {
   HeaderStyled,
@@ -9,18 +10,13 @@ import {
   Button,
   UserName,
   IconUser,
-  // IconSettings,
   DropDownList,
   DropDownItem,
   ItemTitle,
-  ListSettings,
-  ItemListSettings,
+  // ListSettings,
+  // ItemListSettings,
   ListOfButtons,
   ItemOfButtons,
-  ButtonSetting,
-  IconType,
-  IconManufacturer,
-  IconMaster,
 } from "./Header.styled";
 // components
 import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
@@ -30,6 +26,7 @@ import { ToggleTheme } from "../ToggleTheme";
 import { Modal } from "../Modal";
 import { AddMasterForm } from "../AddMasterForm/AddMasterForm";
 import { LoaderPretty } from "../LoaderPretty";
+import { SettingsBtn } from "../SettingsBtn/SettingsBtn";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -46,6 +43,33 @@ export const Header = () => {
     setIsModalOpen((prev) => !prev);
   };
 
+  const btns = [
+    {
+      id: "1",
+      icon: <HiCpuChip />,
+      forms: [
+        { id: "f1", form: <AddMasterForm /> },
+        { id: "f2", form: <AddMasterForm /> },
+      ],
+    },
+    {
+      id: "2",
+      icon: <HiMiniInboxArrowDown />,
+      forms: [
+        { id: "f1", form: <AddMasterForm /> },
+        { id: "f2", form: <AddMasterForm /> },
+      ],
+    },
+    {
+      id: "3",
+      icon: <HiMiniUsers />,
+      forms: [
+        { id: "f1", form: <AddMasterForm /> },
+        { id: "f2", form: <AddMasterForm /> },
+      ],
+    },
+  ];
+
   return (
     <>
       {isLoading && <LoaderPretty />}
@@ -54,21 +78,11 @@ export const Header = () => {
           <Logo>TService</Logo>
 
           <ListOfButtons>
-            <ItemOfButtons>
-              <ButtonSetting type="button">
-                <IconType />
-              </ButtonSetting>
-            </ItemOfButtons>
-            <ItemOfButtons>
-              <ButtonSetting type="button">
-                <IconManufacturer />
-              </ButtonSetting>
-            </ItemOfButtons>
-            <ItemOfButtons>
-              <ButtonSetting type="button" onClick={toggleModal}>
-                <IconMaster />
-              </ButtonSetting>
-            </ItemOfButtons>
+            {btns.map(({ id, icon, forms }) => (
+              <ItemOfButtons key={id}>
+                <SettingsBtn icon={icon} forms={forms} />
+              </ItemOfButtons>
+            ))}
           </ListOfButtons>
 
           <ButtonWrapper>
@@ -102,13 +116,7 @@ export const Header = () => {
       </HeaderStyled>
 
       {isModalOpen && (
-        <Modal title="Налаштування" onToggleModal={toggleModal}>
-          <ListSettings>
-            <ItemListSettings>
-              <AddMasterForm />
-            </ItemListSettings>
-          </ListSettings>
-        </Modal>
+        <Modal title="Налаштування" onToggleModal={toggleModal}></Modal>
       )}
     </>
   );

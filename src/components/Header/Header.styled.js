@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { HiUserCircle, HiCog6Tooth } from "react-icons/hi2";
 import { Container } from "../../pages/ServicePage/ServicePage.styled";
-import { HiCpuChip, HiMiniUsers, HiMiniInboxArrowDown } from "react-icons/hi2";
 
 export const HeaderStyled = styled.header`
   width: 100%;
@@ -24,45 +23,11 @@ export const Logo = styled.h2`
 export const ListOfButtons = styled.ul`
   display: flex;
   gap: 14px;
-  /* color: ${({ theme }) => theme.color.logo}; */
 `;
 
 export const ItemOfButtons = styled.li`
   width: 60px;
   height: 60px;
-`;
-
-export const ButtonSetting = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  color: ${({ theme }) => theme.color.iconMain};
-  background-color: transparent;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  border: 1px solid ${({ theme }) => theme.color.border};
-`;
-
-export const IconType = styled(HiCpuChip)`
-  width: 43px;
-  height: 43px;
-  fill: currentColor;
-  opacity: 0.5;
-`;
-
-export const IconManufacturer = styled(HiMiniInboxArrowDown)`
-  width: 43px;
-  height: 43px;
-  fill: ${({ theme }) => theme.color.iconMain};
-  opacity: 0.5;
-`;
-
-export const IconMaster = styled(HiMiniUsers)`
-  width: 43px;
-  height: 43px;
-  fill: ${({ theme }) => theme.color.iconMain};
-  opacity: 0.5;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -119,13 +84,13 @@ export const ItemTitle = styled.p`
   color: ${({ theme }) => theme.color.primary};
 `;
 
-export const ListSettings = styled.ul``;
+// export const ListSettings = styled.ul``;
 
-export const ItemListSettings = styled.li`
-  position: relative;
-  padding: 10px 0;
+// export const ItemListSettings = styled.li`
+//   position: relative;
+//   padding: 10px 0;
 
-  &:not(:last-child) {
-    /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */
-  }
-`;
+//   &:not(:last-child) {
+//     /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */
+//   }
+// `;

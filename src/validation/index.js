@@ -6,3 +6,8 @@ export { makeOrderSchema } from "./makeOrderSchema";
 export { editOrderSchema } from "./EditOrderSchema";
 export { deleteMasterSchema, AddMasterSchema } from "./masterSchema";
 export { AddTypeSchema, editTypeSchema, deleteTypeSchema } from "./typeSchema";
+export {
+  AddManufacturerSchema,
+  editManufacturerSchema,
+  deleteManufacturerSchema,
+} from "./manufacturerSchema";

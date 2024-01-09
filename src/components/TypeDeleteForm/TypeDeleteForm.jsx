@@ -12,6 +12,7 @@ import { Select } from "../Select";
 import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
 import { rewriteDeviceTypeArr } from "../../utils";
 import { deleteTypeSchema } from "../../validation";
+import { deleteDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
 
 export const TypeDeleteForm = () => {
   const isLoading = useSelector(selectIsLoading);
@@ -28,15 +29,15 @@ export const TypeDeleteForm = () => {
     validationSchema: DeleteTypeSchema,
     onSubmit: async (values) => {
       console.log(values);
-      //   dispatch()
-      //     .unwrap()
-      //     .then(() => {
-      //       toast.success("Тип техніки змінено");
-      //       formik.resetForm();
-      //     })
-      //     .catch(() => {
-      //       toast.warning("Щось пішло не так, спробуйте ще раз");
-      //     });
+      dispatch(deleteDeviceTypeThunk(values))
+        .unwrap()
+        .then(() => {
+          toast.success("Тип техніки видалено");
+          formik.resetForm();
+        })
+        .catch(() => {
+          toast.warning("Щось пішло не так, спробуйте ще раз");
+        });
     },
   });
 

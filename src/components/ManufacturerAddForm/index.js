@@ -1,0 +1,1 @@
+export { ManufacturerAddForm } from "./ManufacturerAddForm";

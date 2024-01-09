@@ -31,6 +31,9 @@ import { DeleteMasterForm } from "../DeleteMasterForm/DeleteMasterForm";
 import { TypeAddForm } from "../TypeAddForm/TypeAddForm";
 import { TypeEditForm } from "../TypeEditForm";
 import { TypeDeleteForm } from "../TypeDeleteForm/TypeDeleteForm";
+import { ManufacturerAddForm } from "../ManufacturerAddForm/ManufacturerAddForm";
+import { ManufacturerEditForm } from "../ManufacturerEditForm/ManufacturerEditForm";
+import { ManufacturerDeleteForm } from "../ManufacturerDeleteForm/ManufacturerDeleteForm";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -61,8 +64,9 @@ export const Header = () => {
       id: "2",
       icon: <HiMiniInboxArrowDown />,
       forms: [
-        { id: "f1", form: <AddMasterForm /> },
-        { id: "f2", form: <AddMasterForm /> },
+        { id: "f1", form: <ManufacturerAddForm /> },
+        { id: "f2", form: <ManufacturerEditForm /> },
+        { id: "f3", form: <ManufacturerDeleteForm /> },
       ],
     },
     {

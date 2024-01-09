@@ -5,36 +5,35 @@ import { toast } from "react-toastify";
 // style
 import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
-import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { LoaderPretty } from "../LoaderPretty";
 import { Select } from "../Select";
-import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
-import { editTypeSchema } from "../../validation";
-import { rewriteDeviceTypeArr } from "../../utils";
-import { editDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
+import { selectDeviceManufacturers } from "../../redux/settingsUser/selectors";
+import { Input } from "../Input";
+import { editManufacturerSchema } from "../../validation";
+import { editDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
 
-export const TypeEditForm = () => {
+export const ManufacturerEditForm = () => {
   const isLoading = useSelector(selectIsLoading);
-  const deviceTypes = useSelector(selectDeviceTypes);
+  const deviceManufacturer = useSelector(selectDeviceManufacturers);
   const dispatch = useDispatch();
 
-  const EditTypeSchema = useMemo(() => editTypeSchema(), []);
+  const EditManufacturerSchema = useMemo(() => editManufacturerSchema(), []);
 
   const formik = useFormik({
     initialValues: {
       id: "",
-      type: "",
-      newDeviceType: "",
+      manufacturer: "",
+      newManufacturer: "",
     },
-    validationSchema: EditTypeSchema,
+    validationSchema: EditManufacturerSchema,
     onSubmit: async (values) => {
       console.log(values);
-      dispatch(editDeviceTypeThunk(values))
+      dispatch(editDeviceManufacturerThunk(values))
         .unwrap()
         .then(() => {
-          toast.success("Тип техніки змінено");
+          toast.success("Виробника змінено");
           formik.resetForm();
         })
         .catch(() => {
@@ -46,19 +45,19 @@ export const TypeEditForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Редагувати тип техніки</Title>
+      <Title>Редагувати виробника</Title>
       <FormStyled onSubmit={formik.handleSubmit}>
         <Select
           idFlag
-          name="type"
+          name="manufacturer"
           type="text"
           formik={formik}
-          labelText="Виберіть тип техніки"
-          fildsList={rewriteDeviceTypeArr(deviceTypes)}
+          labelText="Виберіть виробника"
+          fildsList={deviceManufacturer}
         />
 
         <Input
-          name="newDeviceType"
+          name="newManufacturer"
           type="text"
           formik={formik}
           labelText="Нова назва"

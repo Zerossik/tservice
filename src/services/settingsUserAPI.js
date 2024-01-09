@@ -50,12 +50,48 @@ export const addDeviceType = async (body) => {
   }
 };
 
+export const editDeviceType = async (body) => {
+  try {
+    const { data } = await apiPrivate.post("", body);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const deleteDeviceType = async (body) => {
+  try {
+    const { data } = await apiPrivate.delete("", { data: body });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 export const addDeviceManufacturer = async (body) => {
   try {
     const { data } = await apiPrivate.post(
       "/api/user/deviceSettingsManufacturer",
       body
     );
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const editDeviceManufacturer = async (body) => {
+  try {
+    const { data } = await apiPrivate.post("", body);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const deleteDeviceManufacturer = async (body) => {
+  try {
+    const { data } = await apiPrivate.delete("", { data: body });
     return data;
   } catch (error) {
     throw new Error(error.message);

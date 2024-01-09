@@ -3,6 +3,10 @@ import { settingsUserInitialState } from "../initialState";
 import {
   addDeviceManufacturerThunk,
   addDeviceTypeThunk,
+  deleteDeviceManufacturerThunk,
+  deleteDeviceTypeThunk,
+  editDeviceManufacturerThunk,
+  editDeviceTypeThunk,
   getAllListThunk,
 } from "./settingsUserThunks";
 
@@ -15,8 +19,28 @@ const handleAddDeviceType = (state, { payload }) => {
   state.deviceTypes.push(payload);
 };
 
+const handleEditDeviceType = (state, { payload }) => {
+  console.log(payload);
+  // state.deviceTypes.push(payload);
+};
+
+const handleDeleteDeviceType = (state, { payload }) => {
+  console.log(payload);
+  // state.deviceTypes.push(payload);
+};
+
 const handleAddDeviceManufacturer = (state, { payload }) => {
-  state.deviceManufacturers = payload;
+  state.deviceManufacturers.push(payload);
+};
+
+const handleEditDeviceManufacturer = (state, { payload }) => {
+  console.log(payload);
+  // state.deviceManufacturers.push(payload);
+};
+
+const handleDeleteDeviceManufacturer = (state, { payload }) => {
+  console.log(payload);
+  // state.deviceManufacturers.push(payload);
 };
 
 const handleFulfilled = (state) => {
@@ -45,9 +69,19 @@ const settingsUserSlice = createSlice({
     builder
       .addCase(getAllListThunk.fulfilled, handlegetAllList)
       .addCase(addDeviceTypeThunk.fulfilled, handleAddDeviceType)
+      .addCase(editDeviceTypeThunk.fulfilled, handleEditDeviceType)
+      .addCase(deleteDeviceTypeThunk.fulfilled, handleDeleteDeviceType)
       .addCase(
         addDeviceManufacturerThunk.fulfilled,
         handleAddDeviceManufacturer
+      )
+      .addCase(
+        editDeviceManufacturerThunk.fulfilled,
+        handleEditDeviceManufacturer
+      )
+      .addCase(
+        deleteDeviceManufacturerThunk.fulfilled,
+        handleDeleteDeviceManufacturer
       )
 
       .addMatcher(

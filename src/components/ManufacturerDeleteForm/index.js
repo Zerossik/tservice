@@ -1,0 +1,1 @@
+export { ManufacturerDeleteForm } from "./ManufacturerDeleteForm";

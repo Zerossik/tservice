@@ -15,6 +15,7 @@ import {
   ListItemLast,
 } from "./EditOrderForm.styled";
 // components
+// import { editOrderSchema } from "../../validation";
 import { editOrderSchema } from "../../validation";
 import { Input } from "../Input";
 import { Select } from "../Select";
@@ -30,7 +31,7 @@ import {
   selectDeviceTypes,
   selectStatuses,
 } from "../../redux/settingsUser/selectors";
-import { rewriteDeviceTypeArr } from "../../utils";
+import { rewriteDeviceTypeArr, createListOfMasters } from "../../utils";
 
 const compareData = (oldObj, newObj) => {
   let objValues = {};
@@ -67,13 +68,6 @@ export const EditOrderForm = ({ id, order }) => {
         .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
     },
   });
-
-  const createListOfMasters = (list) => {
-    return list.map(({ _id, firstName, lastName }) => ({
-      _id,
-      masterName: `${lastName} ${firstName}`,
-    }));
-  };
 
   return (
     <>

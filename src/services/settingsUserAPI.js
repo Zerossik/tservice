@@ -20,7 +20,9 @@ export const addMaster = async (body) => {
 
 export const deleteMaster = async (body) => {
   try {
-    const { data } = await apiPrivate.post("/api/user/deleteMaster", body);
+    const { data } = await apiPrivate.delete("/api/user/deleteMaster", {
+      data: body,
+    });
     return data;
   } catch (error) {
     throw new Error(error.message);

@@ -1,0 +1,1 @@
+export { TypeAddForm } from "./TypeAddForm";

@@ -42,7 +42,7 @@ const handleAddMaster = (state, { payload }) => {
 };
 
 const handleDeleteMaster = (state, { payload }) => {
-  const masters = state.user.masters.filter((item) => item.id !== payload.id);
+  const masters = state.user.masters.filter((item) => item._id !== payload._id);
   state.user.masters = masters;
 };
 

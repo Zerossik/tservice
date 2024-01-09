@@ -35,7 +35,6 @@ const handlePending = (state) => {
 const handleRejected = (state, { payload }) => {
   state.error = payload;
   state.isLoading = false;
-  console.log(payload);
 };
 
 const contactSlice = createSlice({

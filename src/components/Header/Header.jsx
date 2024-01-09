@@ -27,6 +27,10 @@ import { Modal } from "../Modal";
 import { AddMasterForm } from "../AddMasterForm/AddMasterForm";
 import { LoaderPretty } from "../LoaderPretty";
 import { SettingsBtn } from "../SettingsBtn/SettingsBtn";
+import { DeleteMasterForm } from "../DeleteMasterForm/DeleteMasterForm";
+import { TypeAddForm } from "../TypeAddForm/TypeAddForm";
+import { TypeEditForm } from "../TypeEditForm";
+import { TypeDeleteForm } from "../TypeDeleteForm/TypeDeleteForm";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -48,8 +52,9 @@ export const Header = () => {
       id: "1",
       icon: <HiCpuChip />,
       forms: [
-        { id: "f1", form: <AddMasterForm /> },
-        { id: "f2", form: <AddMasterForm /> },
+        { id: "f1", form: <TypeAddForm /> },
+        { id: "f2", form: <TypeEditForm /> },
+        { id: "f3", form: <TypeDeleteForm /> },
       ],
     },
     {
@@ -65,7 +70,7 @@ export const Header = () => {
       icon: <HiMiniUsers />,
       forms: [
         { id: "f1", form: <AddMasterForm /> },
-        { id: "f2", form: <AddMasterForm /> },
+        { id: "f2", form: <DeleteMasterForm /> },
       ],
     },
   ];

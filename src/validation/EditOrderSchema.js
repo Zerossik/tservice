@@ -2,13 +2,11 @@ import * as Yup from "yup";
 import {
   getArrayDeviceType,
   getArrayDeviceManufacturers,
-  getArrayMasters,
 } from "../utils/getDataFromStore";
 
 export const editOrderSchema = () => {
   const typeList = getArrayDeviceType();
   const manufacturerList = getArrayDeviceManufacturers();
-  const mastersList = getArrayMasters();
 
   const message = "Виберіть зі списку";
   const required = "Обов'язково";
@@ -24,7 +22,7 @@ export const editOrderSchema = () => {
     phoneNumber: Yup.string().required(required),
     price: Yup.number().required(required),
     status: Yup.string().required(required),
-    masterName: Yup.string().oneOf(mastersList, message).required(required),
+    masterName: Yup.string(),
     description: Yup.string(),
     failure: Yup.string().required(required),
   });

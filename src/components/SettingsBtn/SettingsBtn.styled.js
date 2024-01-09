@@ -20,11 +20,17 @@ export const Button = styled.button`
   }
 `;
 
-export const List = styled.ul``;
+export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+`;
 
 export const Item = styled.li`
-  position: relative;
-  padding: 10px 0;
+  flex-grow: 1;
+  /* position: relative; */
+  /* padding: 10px 0; */
 
   &:not(:last-child) {
     /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */

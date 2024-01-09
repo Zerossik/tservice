@@ -33,5 +33,5 @@ export const SettingsBtn = ({ icon, forms }) => {
 
 SettingsBtn.propTypes = {
   icon: PropTypes.node.isRequired,
-  forms: PropTypes.node.isRequired,
+  forms: PropTypes.array.isRequired,
 };

@@ -16,7 +16,14 @@ import {
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 
-export const Select = ({ name, type, formik, labelText, fildsList }) => {
+export const Select = ({
+  idFlag,
+  name,
+  type,
+  formik,
+  labelText,
+  fildsList,
+}) => {
   const [search, setSearch] = useState("");
   const [openList, setOpenList] = useState(false);
   const [filteredTypes, setFilteredTypes] = useState([]);
@@ -51,9 +58,9 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
     setOpenList((prev) => !prev);
   };
 
-  const handleClickButton = (type) => {
+  const handleClickButton = (id, type) => {
     setSearch(type);
-    // console.log(name, type);
+    idFlag && formik.setFieldValue("id", id);
     formik.setFieldValue(name, type);
     setOpenList(false);
   };
@@ -101,7 +108,7 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
                 <ListItem key={item._id}>
                   <ButtonList
                     type="button"
-                    onClick={() => handleClickButton(item[name])}
+                    onClick={() => handleClickButton(item._id, item[name])}
                   >
                     {item[name]}
                   </ButtonList>
@@ -117,6 +124,7 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
 };
 
 Select.propTypes = {
+  idFlag: PropTypes.bool,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   formik: PropTypes.object.isRequired,

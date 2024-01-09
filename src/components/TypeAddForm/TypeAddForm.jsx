@@ -2,30 +2,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "./AddMasterForm.styled";
+import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
-import { AddMasterSchema } from "../../validation";
-import { Input } from "../Input";
-import { ButtonForm } from "../ButtonForm";
-import { selectIsLoading } from "../../redux/auth/selectors";
-import { addMasterThunk } from "../../redux/auth/authThunks";
+import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { LoaderPretty } from "../LoaderPretty";
+import { ButtonForm } from "../ButtonForm";
+import { AddTypeSchema } from "../../validation";
+import { Input } from "../Input";
+import { addDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
 
-export const AddMasterForm = () => {
-  const isLoading = useSelector(selectIsLoading);
+export const TypeAddForm = () => {
+  const isLoading = useSelector(selectIsContactsLoading);
   const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      type: "",
     },
-    validationSchema: AddMasterSchema,
+    validationSchema: AddTypeSchema,
     onSubmit: async (values) => {
-      dispatch(addMasterThunk(values))
+      dispatch(addDeviceTypeThunk(values))
         .unwrap()
         .then(() => {
-          toast.success("Майстер доданий");
+          toast.success("Тип техніки доданий");
           formik.resetForm();
         })
         .catch(() => {
@@ -37,15 +36,13 @@ export const AddMasterForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Додати майстра</Title>
+      <Title>Додати тип техніки</Title>
       <FormStyled onSubmit={formik.handleSubmit}>
-        <Input name="firstName" type="text" formik={formik} labelText="Ім'я" />
-
         <Input
-          name="lastName"
+          name="type"
           type="text"
           formik={formik}
-          labelText="Прізвище"
+          labelText="Тип техніки"
         />
 
         <ButtonForm

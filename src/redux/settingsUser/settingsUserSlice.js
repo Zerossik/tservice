@@ -12,7 +12,7 @@ const handlegetAllList = (state, { payload }) => {
 };
 
 const handleAddDeviceType = (state, { payload }) => {
-  state.deviceTypes = payload;
+  state.deviceTypes.push(payload);
 };
 
 const handleAddDeviceManufacturer = (state, { payload }) => {

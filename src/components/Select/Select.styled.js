@@ -3,6 +3,7 @@ import { HiOutlineChevronUp } from "react-icons/hi2";
 
 export const Wrapper = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 export const InputWrapper = styled.div`

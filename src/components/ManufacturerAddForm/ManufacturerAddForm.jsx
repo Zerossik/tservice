@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { LoaderPretty } from "../LoaderPretty";
@@ -10,6 +9,7 @@ import { ButtonForm } from "../ButtonForm";
 import { Input } from "../Input";
 import { AddManufacturerSchema } from "../../validation";
 import { addDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
+import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const ManufacturerAddForm = () => {
   const isLoading = useSelector(selectIsContactsLoading);
@@ -36,20 +36,20 @@ export const ManufacturerAddForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Додати виробника</Title>
-      <FormStyled onSubmit={formik.handleSubmit}>
+      <SettingsForm formik={formik} legendTitle="Додати виробника">
         <Input
           name="manufacturer"
           type="text"
           formik={formik}
-          labelText="Виробник"
+          // labelText="Додати виробника"
+          // styleLabel={{ fontWeight: 600 }}
         />
 
         <ButtonForm
           buttonName="Додати"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-      </FormStyled>
+      </SettingsForm>
     </>
   );
 };

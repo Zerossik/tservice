@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
 import { ButtonForm } from "../ButtonForm";
 import { selectIsLoading } from "../../redux/auth/selectors";
@@ -12,6 +11,7 @@ import { Select } from "../Select";
 import { selectDeviceManufacturers } from "../../redux/settingsUser/selectors";
 import { deleteManufacturerSchema } from "../../validation";
 import { deleteDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
+import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const ManufacturerDeleteForm = () => {
   const isLoading = useSelector(selectIsLoading);
@@ -46,14 +46,14 @@ export const ManufacturerDeleteForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Видалити виробника</Title>
-      <FormStyled onSubmit={formik.handleSubmit}>
+      <SettingsForm formik={formik} legendTitle="Видалити виробника">
         <Select
           idFlag
           name="manufacturer"
           type="text"
           formik={formik}
-          labelText="Виберіть виробника"
+          // labelText="Видалити виробника"
+          // styleLabel={{ fontWeight: 600 }}
           fildsList={deviceManufacturer}
         />
 
@@ -61,7 +61,7 @@ export const ManufacturerDeleteForm = () => {
           buttonName="Видалити"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-      </FormStyled>
+      </SettingsForm>
     </>
   );
 };

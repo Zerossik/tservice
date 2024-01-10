@@ -5,10 +5,19 @@ import { InputWrapper, LabelStyled, InputStyled } from "./Input.styled";
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 
-export const Input = ({ name, type, formik, labelText, moveLabel }) => {
+export const Input = ({
+  name,
+  type,
+  formik,
+  labelText,
+  moveLabel,
+  styleLabel,
+}) => {
   return (
     <InputWrapper>
-      {!moveLabel && <Label htmlFor={name} labelText={labelText} />}
+      {!moveLabel && (
+        <Label htmlFor={name} labelText={labelText} styleLabel={styleLabel} />
+      )}
       <InputStyled
         id={name}
         name={name}
@@ -29,4 +38,5 @@ Input.propTypes = {
   formik: PropTypes.object.isRequired,
   labelText: PropTypes.string,
   moveLabel: PropTypes.bool,
+  styleLabel: PropTypes.object,
 };

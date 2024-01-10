@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
@@ -14,6 +13,7 @@ import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
 import { editTypeSchema } from "../../validation";
 import { rewriteDeviceTypeArr } from "../../utils";
 import { editDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
+import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const TypeEditForm = () => {
   const isLoading = useSelector(selectIsLoading);
@@ -46,14 +46,14 @@ export const TypeEditForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Редагувати тип техніки</Title>
-      <FormStyled onSubmit={formik.handleSubmit}>
+      <SettingsForm formik={formik} legendTitle="Редагування типу техніки">
         <Select
           idFlag
           name="type"
           type="text"
           formik={formik}
-          labelText="Виберіть тип техніки"
+          labelText="Виберіть тип"
+          // styleLabel={{ fontWeight: 600 }}
           fildsList={rewriteDeviceTypeArr(deviceTypes)}
         />
 
@@ -68,7 +68,7 @@ export const TypeEditForm = () => {
           buttonName="Редагувати"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-      </FormStyled>
+      </SettingsForm>
     </>
   );
 };

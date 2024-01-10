@@ -23,6 +23,7 @@ export const Select = ({
   formik,
   labelText,
   fildsList,
+  styleLabel,
 }) => {
   const [search, setSearch] = useState("");
   const [openList, setOpenList] = useState(false);
@@ -86,7 +87,7 @@ export const Select = ({
   return (
     <>
       <Wrapper>
-        <Label htmlFor={name} labelText={labelText} />
+        <Label htmlFor={name} labelText={labelText} styleLabel={styleLabel} />
         <InputWrapper>
           <Input
             id={name}
@@ -130,4 +131,5 @@ Select.propTypes = {
   formik: PropTypes.object.isRequired,
   labelText: PropTypes.string.isRequired,
   fildsList: PropTypes.array.isRequired,
+  styleLabel: PropTypes.object,
 };

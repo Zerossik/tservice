@@ -14,7 +14,7 @@ import { useEffect } from "react";
 
 const modalRoot = document.querySelector("#modal-root");
 
-export const Modal = ({ onToggleModal, title, children }) => {
+export const Modal = ({ onToggleModal, title, children, styleModal }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === "Escape") {
@@ -39,7 +39,7 @@ export const Modal = ({ onToggleModal, title, children }) => {
 
   return createPortal(
     <BackDrop onClick={handleBackDropClick}>
-      <ModalWindow>
+      <ModalWindow style={styleModal}>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
           <ButtonClose onClick={onToggleModal}>
@@ -58,4 +58,5 @@ Modal.propTypes = {
   title: PropTypes.string.isRequired,
   onToggleModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  styleModal: PropTypes.object,
 };

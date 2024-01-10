@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
 import { ButtonForm } from "../ButtonForm";
 import { selectIsLoading } from "../../redux/auth/selectors";
@@ -13,6 +12,7 @@ import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
 import { rewriteDeviceTypeArr } from "../../utils";
 import { deleteTypeSchema } from "../../validation";
 import { deleteDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
+import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const TypeDeleteForm = () => {
   const isLoading = useSelector(selectIsLoading);
@@ -44,14 +44,14 @@ export const TypeDeleteForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Видалити тип техніки</Title>
-      <FormStyled onSubmit={formik.handleSubmit}>
+      <SettingsForm formik={formik} legendTitle="Видалити тип техніки">
         <Select
           idFlag
           name="type"
           type="text"
           formik={formik}
-          labelText="Виберіть тип техніки"
+          // labelText="Видалити тип техніки"
+          // styleLabel={{ fontWeight: 600 }}
           fildsList={rewriteDeviceTypeArr(deviceTypes)}
         />
 
@@ -59,7 +59,7 @@ export const TypeDeleteForm = () => {
           buttonName="Видалити"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-      </FormStyled>
+      </SettingsForm>
     </>
   );
 };

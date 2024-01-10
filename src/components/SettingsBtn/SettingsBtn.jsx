@@ -19,7 +19,11 @@ export const SettingsBtn = ({ icon, forms }) => {
       </Button>
 
       {isModalOpen && (
-        <Modal title="Налаштування" onToggleModal={toggleModal}>
+        <Modal
+          title="Налаштування"
+          onToggleModal={toggleModal}
+          styleModal={{ maxWidth: "480px" }}
+        >
           <List>
             {forms.map(({ id, form }) => (
               <Item key={id}>{form}</Item>

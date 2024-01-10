@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { LoaderPretty } from "../LoaderPretty";
@@ -10,6 +9,7 @@ import { ButtonForm } from "../ButtonForm";
 import { AddTypeSchema } from "../../validation";
 import { Input } from "../Input";
 import { addDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
+import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const TypeAddForm = () => {
   const isLoading = useSelector(selectIsContactsLoading);
@@ -36,20 +36,20 @@ export const TypeAddForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Додати тип техніки</Title>
-      <FormStyled onSubmit={formik.handleSubmit}>
+      <SettingsForm formik={formik} legendTitle="Додати тип техніки">
         <Input
           name="type"
           type="text"
           formik={formik}
-          labelText="Тип техніки"
+          // styleLabel={{ fontWeight: 600 }}
+          // labelText="Додати тип техніки"
         />
 
         <ButtonForm
           buttonName="Додати"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-      </FormStyled>
+      </SettingsForm>
     </>
   );
 };

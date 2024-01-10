@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "../AddMasterForm/AddMasterForm.styled";
 // components
 import { ButtonForm } from "../ButtonForm";
 import { selectIsLoading } from "../../redux/auth/selectors";
@@ -13,6 +12,7 @@ import { selectDeviceManufacturers } from "../../redux/settingsUser/selectors";
 import { Input } from "../Input";
 import { editManufacturerSchema } from "../../validation";
 import { editDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
+import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const ManufacturerEditForm = () => {
   const isLoading = useSelector(selectIsLoading);
@@ -45,14 +45,14 @@ export const ManufacturerEditForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Title>Редагувати виробника</Title>
-      <FormStyled onSubmit={formik.handleSubmit}>
+      <SettingsForm formik={formik} legendTitle="Редагування виробника">
         <Select
           idFlag
           name="manufacturer"
           type="text"
           formik={formik}
           labelText="Виберіть виробника"
+          // styleLabel={{ fontWeight: 600 }}
           fildsList={deviceManufacturer}
         />
 
@@ -67,7 +67,7 @@ export const ManufacturerEditForm = () => {
           buttonName="Редагувати"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-      </FormStyled>
+      </SettingsForm>
     </>
   );
 };

@@ -24,16 +24,16 @@ import { LogOut } from "../LogOut/LogOut";
 import { DropDown } from "../DropDown";
 import { ToggleTheme } from "../ToggleTheme";
 import { Modal } from "../Modal";
-import { AddMasterForm } from "../AddMasterForm/AddMasterForm";
 import { LoaderPretty } from "../LoaderPretty";
-import { SettingsBtn } from "../SettingsBtn/SettingsBtn";
-import { DeleteMasterForm } from "../DeleteMasterForm/DeleteMasterForm";
-import { TypeAddForm } from "../TypeAddForm/TypeAddForm";
+import { SettingsBtn } from "../SettingsBtn";
+import { TypeAddForm } from "../TypeAddForm";
 import { TypeEditForm } from "../TypeEditForm";
-import { TypeDeleteForm } from "../TypeDeleteForm/TypeDeleteForm";
-import { ManufacturerAddForm } from "../ManufacturerAddForm/ManufacturerAddForm";
-import { ManufacturerEditForm } from "../ManufacturerEditForm/ManufacturerEditForm";
-import { ManufacturerDeleteForm } from "../ManufacturerDeleteForm/ManufacturerDeleteForm";
+import { TypeDeleteForm } from "../TypeDeleteForm";
+import { ManufacturerAddForm } from "../ManufacturerAddForm";
+import { ManufacturerEditForm } from "../ManufacturerEditForm";
+import { ManufacturerDeleteForm } from "../ManufacturerDeleteForm";
+import { MasterDeleteForm } from "../MasterDeleteForm";
+import { MasterAddForm } from "../MasterAddForm";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -73,8 +73,8 @@ export const Header = () => {
       id: "3",
       icon: <HiMiniUsers />,
       forms: [
-        { id: "f1", form: <AddMasterForm /> },
-        { id: "f2", form: <DeleteMasterForm /> },
+        { id: "f1", form: <MasterAddForm /> },
+        { id: "f2", form: <MasterDeleteForm /> },
       ],
     },
   ];

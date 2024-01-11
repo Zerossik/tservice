@@ -11,7 +11,7 @@ import { addMasterThunk } from "../../redux/auth/authThunks";
 import { LoaderPretty } from "../LoaderPretty";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 
-export const AddMasterForm = () => {
+export const MasterAddForm = () => {
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 

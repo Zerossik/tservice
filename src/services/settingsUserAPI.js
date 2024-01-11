@@ -52,7 +52,7 @@ export const addDeviceType = async (body) => {
 
 export const editDeviceType = async (body) => {
   try {
-    const { data } = await apiPrivate.post("", body);
+    const { data } = await apiPrivate.patch("/api/user/deviceTypeUpdate", body);
     return data;
   } catch (error) {
     throw new Error(error.message);
@@ -82,7 +82,10 @@ export const addDeviceManufacturer = async (body) => {
 
 export const editDeviceManufacturer = async (body) => {
   try {
-    const { data } = await apiPrivate.post("", body);
+    const { data } = await apiPrivate.patch(
+      "/api/user/deviceManufacturerUpdate",
+      body
+    );
     return data;
   } catch (error) {
     throw new Error(error.message);

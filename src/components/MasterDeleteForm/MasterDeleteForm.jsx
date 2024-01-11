@@ -13,7 +13,7 @@ import { deleteMasterSchema } from "../../validation";
 import { deleteMasterThunk } from "../../redux/auth/authThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 
-export const DeleteMasterForm = () => {
+export const MasterDeleteForm = () => {
   const isLoading = useSelector(selectIsLoading);
   const masters = useSelector(selectMasters);
   const dispatch = useDispatch();
@@ -51,6 +51,7 @@ export const DeleteMasterForm = () => {
           // labelText="Виберіть майстра"
           // styleLabel={{ fontWeight: 600 }}
           fildsList={createListOfMasters(masters)}
+          list="top"
         />
 
         <ButtonForm

@@ -14,7 +14,7 @@ export const editTypeSchema = () => {
   return Yup.object().shape({
     id: Yup.string(),
     type: Yup.string().oneOf(deviceType, message).required(required),
-    newDeviceType: Yup.string().required(required),
+    newType: Yup.string().required(required),
   });
 };
 

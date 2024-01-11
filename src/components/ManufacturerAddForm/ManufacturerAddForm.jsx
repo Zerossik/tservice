@@ -3,16 +3,16 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
 // components
-import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { LoaderPretty } from "../LoaderPretty";
 import { ButtonForm } from "../ButtonForm";
 import { Input } from "../Input";
 import { AddManufacturerSchema } from "../../validation";
 import { addDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
+import { selectSettingsIsLoading } from "../../redux/settingsUser/selectors";
 
 export const ManufacturerAddForm = () => {
-  const isLoading = useSelector(selectIsContactsLoading);
+  const isLoading = useSelector(selectSettingsIsLoading);
   const dispatch = useDispatch();
 
   const formik = useFormik({

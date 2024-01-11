@@ -5,17 +5,19 @@ import { toast } from "react-toastify";
 // style
 // components
 import { ButtonForm } from "../ButtonForm";
-import { selectIsLoading } from "../../redux/auth/selectors";
 import { LoaderPretty } from "../LoaderPretty";
 import { Select } from "../Select";
-import { selectDeviceManufacturers } from "../../redux/settingsUser/selectors";
+import {
+  selectDeviceManufacturers,
+  selectSettingsIsLoading,
+} from "../../redux/settingsUser/selectors";
 import { Input } from "../Input";
 import { editManufacturerSchema } from "../../validation";
 import { editDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const ManufacturerEditForm = () => {
-  const isLoading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectSettingsIsLoading);
   const deviceManufacturer = useSelector(selectDeviceManufacturers);
   const dispatch = useDispatch();
 
@@ -28,9 +30,13 @@ export const ManufacturerEditForm = () => {
       newManufacturer: "",
     },
     validationSchema: EditManufacturerSchema,
-    onSubmit: async (values) => {
-      console.log(values);
-      dispatch(editDeviceManufacturerThunk(values))
+    onSubmit: async ({ manufacturer, newManufacturer }) => {
+      dispatch(
+        editDeviceManufacturerThunk({
+          oldManufacturer: manufacturer,
+          newManufacturer,
+        })
+      )
         .unwrap()
         .then(() => {
           toast.success("Виробника змінено");

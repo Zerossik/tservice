@@ -5,17 +5,19 @@ import { toast } from "react-toastify";
 // style
 // components
 import { ButtonForm } from "../ButtonForm";
-import { selectIsLoading } from "../../redux/auth/selectors";
 import { LoaderPretty } from "../LoaderPretty";
 import { Select } from "../Select";
-import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
+import {
+  selectDeviceTypes,
+  selectSettingsIsLoading,
+} from "../../redux/settingsUser/selectors";
 import { rewriteDeviceTypeArr } from "../../utils";
 import { deleteTypeSchema } from "../../validation";
 import { deleteDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const TypeDeleteForm = () => {
-  const isLoading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectSettingsIsLoading);
   const deviceTypes = useSelector(selectDeviceTypes);
   const dispatch = useDispatch();
 

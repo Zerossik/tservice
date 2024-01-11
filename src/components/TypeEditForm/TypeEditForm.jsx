@@ -6,17 +6,19 @@ import { toast } from "react-toastify";
 // components
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
-import { selectIsLoading } from "../../redux/auth/selectors";
 import { LoaderPretty } from "../LoaderPretty";
 import { Select } from "../Select";
-import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
+import {
+  selectDeviceTypes,
+  selectSettingsIsLoading,
+} from "../../redux/settingsUser/selectors";
 import { editTypeSchema } from "../../validation";
 import { rewriteDeviceTypeArr } from "../../utils";
 import { editDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 
 export const TypeEditForm = () => {
-  const isLoading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectSettingsIsLoading);
   const deviceTypes = useSelector(selectDeviceTypes);
   const dispatch = useDispatch();
 
@@ -26,12 +28,11 @@ export const TypeEditForm = () => {
     initialValues: {
       id: "",
       type: "",
-      newDeviceType: "",
+      newType: "",
     },
     validationSchema: EditTypeSchema,
-    onSubmit: async (values) => {
-      console.log(values);
-      dispatch(editDeviceTypeThunk(values))
+    onSubmit: async ({ type, newType }) => {
+      dispatch(editDeviceTypeThunk({ oldType: type, newType }))
         .unwrap()
         .then(() => {
           toast.success("Тип техніки змінено");
@@ -58,7 +59,7 @@ export const TypeEditForm = () => {
         />
 
         <Input
-          name="newDeviceType"
+          name="newType"
           type="text"
           formik={formik}
           labelText="Нова назва"

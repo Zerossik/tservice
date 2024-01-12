@@ -16,10 +16,6 @@ export const HeaderContainer = styled(Container)`
   align-items: center;
 `;
 
-export const Logo = styled.h2`
-  color: ${({ theme }) => theme.color.logo};
-`;
-
 export const ListOfButtons = styled.ul`
   display: flex;
   gap: 14px;

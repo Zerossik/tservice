@@ -5,7 +5,6 @@ import { HiCpuChip, HiMiniUsers, HiMiniInboxArrowDown } from "react-icons/hi2";
 import {
   HeaderStyled,
   HeaderContainer,
-  Logo,
   ButtonWrapper,
   Button,
   UserName,
@@ -34,6 +33,7 @@ import { ManufacturerEditForm } from "../ManufacturerEditForm";
 import { ManufacturerDeleteForm } from "../ManufacturerDeleteForm";
 import { MasterDeleteForm } from "../MasterDeleteForm";
 import { MasterAddForm } from "../MasterAddForm";
+import { Logo } from "../Logo";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -84,7 +84,7 @@ export const Header = () => {
       {isLoading && <LoaderPretty />}
       <HeaderStyled>
         <HeaderContainer>
-          <Logo>TService</Logo>
+          <Logo />
 
           <ListOfButtons>
             {btns.map(({ id, icon, forms }) => (

@@ -3,6 +3,7 @@ import { HiOutlineChevronUp } from "react-icons/hi2";
 
 export const Wrapper = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 export const InputWrapper = styled.div`
@@ -44,7 +45,10 @@ export const IconOpenList = styled(HiOutlineChevronUp)`
 
 export const List = styled.ul`
   position: absolute;
-  top: calc(100% + 4px);
+  ${({ list }) => `${list === "top" ? "bottom" : "top"}: calc(100% + 4px)`};
+  /* top: calc(100% + 4px); */
+  /* bottom: calc(100% + 4px); */
+  /* top: ${({ list }) => (list === "top" ? "-100%" : "calc(100% + 4px)")}; */
   left: 0;
   z-index: 10;
   width: 100%;
@@ -54,10 +58,21 @@ export const List = styled.ul`
   border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
   background-color: ${({ theme }) => theme.color.dropDownBg};
   box-shadow: ${({ theme }) => theme.color.shadow};
+
+  /* &:has(.modal-body) {
+    overflow: visible;
+  } */
 `;
 
 export const ListItem = styled.li`
   width: 100%;
+`;
+
+export const ListNoItem = styled(ListItem)`
+  padding: 8px 12px;
+  text-align: center;
+  color: ${({ theme }) => theme.color.primary};
+  opacity: 0.5;
 `;
 
 export const ButtonList = styled.button`

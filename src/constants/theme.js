@@ -90,6 +90,7 @@ const darktheme = {
 const defaultTheme = {
   font: {
     primary: "Montserrat, sans-serif",
+    logo: "Archivo Black, sans-serif",
   },
   fontSize: {
     xs: "12px",
@@ -98,6 +99,7 @@ const defaultTheme = {
     lg: "18px",
   },
   borderRadius: {
+    superSmall: "4px",
     extraSmall: "8px",
     small: "12px",
     medium: "16px",

@@ -2,15 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 // style
-import { Title, FormStyled } from "./AddMasterForm.styled";
 // components
-import { AddMaster } from "../../validation";
+import { AddMasterSchema } from "../../validation";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { addMasterThunk } from "../../redux/auth/authThunks";
+import { LoaderPretty } from "../LoaderPretty";
+import { SettingsForm } from "../SettingsForm/SettingsForm";
 
-export const AddMasterForm = () => {
+export const MasterAddForm = () => {
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ export const AddMasterForm = () => {
       firstName: "",
       lastName: "",
     },
-    validationSchema: AddMaster,
+    validationSchema: AddMasterSchema,
     onSubmit: async (values) => {
       dispatch(addMasterThunk(values))
         .unwrap()
@@ -35,8 +36,8 @@ export const AddMasterForm = () => {
 
   return (
     <>
-      <Title>Додати майстра</Title>
-      <FormStyled onSubmit={formik.handleSubmit}>
+      {isLoading && <LoaderPretty />}
+      <SettingsForm formik={formik} legendTitle="Додати майстра">
         <Input name="firstName" type="text" formik={formik} labelText="Ім'я" />
 
         <Input
@@ -50,7 +51,7 @@ export const AddMasterForm = () => {
           buttonName="Додати"
           disabled={!(formik.isValid && formik.dirty && !isLoading)}
         />
-      </FormStyled>
+      </SettingsForm>
     </>
   );
 };

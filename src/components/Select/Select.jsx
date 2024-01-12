@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 // styled
 import {
@@ -9,24 +9,47 @@ import {
   IconOpenList,
   List,
   ListItem,
+  ListNoItem,
   ButtonList,
-  BackDrop,
 } from "./Select.styled";
 // components
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 
-export const Select = ({ name, type, formik, labelText, fildsList }) => {
-  const [search, setSearch] = useState("");
+export const Select = ({
+  idFlag,
+  name,
+  type,
+  formik,
+  labelText,
+  fildsList,
+  styleLabel,
+  list,
+}) => {
   const [openList, setOpenList] = useState(false);
   const [filteredTypes, setFilteredTypes] = useState([]);
   const listRef = useRef();
+  const inputRef = useRef();
+
+  const filteredListOfTypes = useCallback(
+    (list, value) => {
+      const normalized = value.toLowerCase();
+      return list.filter((item) =>
+        item[name].toLowerCase().includes(normalized)
+      );
+    },
+    [name]
+  );
 
   useEffect(() => {
-    setFilteredTypes(fildsList);
+    setFilteredTypes(filteredListOfTypes(fildsList, formik.values[name]));
 
     const handleClickAway = (e) => {
-      if (listRef.current && !listRef.current.contains(e.target)) {
+      if (
+        listRef.current &&
+        !listRef.current.contains(e.target) &&
+        !inputRef.current.contains(e.target)
+      ) {
         setOpenList(false);
       }
     };
@@ -36,24 +59,20 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickAway);
     };
-  }, [fildsList]);
-
-  const filteredListOfTypes = (list, value) => {
-    const normalized = value.toLowerCase();
-    return list.filter((item) => item[name].toLowerCase().includes(normalized));
-  };
+  }, [fildsList, filteredListOfTypes, formik.values, name]);
 
   const handleClickOpenList = () => {
-    if (search !== "") {
-      setFilteredTypes(filteredListOfTypes(fildsList, search));
-    }
-
+    setFilteredTypes(filteredListOfTypes(fildsList, formik.values[name]));
     setOpenList((prev) => !prev);
+
+    // listRef.current?.scrollIntoView({
+    //   behavior: "smooth",
+    //   block: "end",
+    // });
   };
 
-  const handleClickButton = (type) => {
-    setSearch(type);
-    // console.log(name, type);
+  const handleClickButtonInList = (id, type) => {
+    idFlag && formik.setFieldValue("id", id);
     formik.setFieldValue(name, type);
     setOpenList(false);
   };
@@ -63,7 +82,6 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
       target: { value },
     } = event;
 
-    setSearch(value);
     formik.handleChange(event);
 
     if (value.trim() === "") {
@@ -79,34 +97,39 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
   return (
     <>
       <Wrapper>
-        <Label htmlFor={name} labelText={labelText} />
-        <InputWrapper>
+        <Label htmlFor={name} labelText={labelText} styleLabel={styleLabel} />
+        <InputWrapper ref={inputRef}>
           <Input
             id={name}
             name={name}
             type={type}
             onChange={handleInputChange}
-            onFocus={handleClickOpenList}
             value={formik.values[name]}
+            onClick={handleClickOpenList}
           />
           <Button type="button" onClick={handleClickOpenList}>
             <IconOpenList $isOpen={openList} />
           </Button>
         </InputWrapper>
-        {openList && filteredTypes.length > 0 && (
+        {openList && (
           <>
-            <BackDrop />
-            <List ref={listRef}>
-              {filteredTypes.map((item) => (
-                <ListItem key={item._id}>
-                  <ButtonList
-                    type="button"
-                    onClick={() => handleClickButton(item[name])}
-                  >
-                    {item[name]}
-                  </ButtonList>
-                </ListItem>
-              ))}
+            <List ref={listRef} list={list}>
+              {filteredTypes.length === 0 && (
+                <ListNoItem>Нічого нема :)</ListNoItem>
+              )}
+              {filteredTypes.length > 0 &&
+                filteredTypes.map((item) => (
+                  <ListItem key={item._id}>
+                    <ButtonList
+                      type="button"
+                      onClick={() =>
+                        handleClickButtonInList(item._id, item[name])
+                      }
+                    >
+                      {item[name]}
+                    </ButtonList>
+                  </ListItem>
+                ))}
             </List>
           </>
         )}
@@ -117,9 +140,12 @@ export const Select = ({ name, type, formik, labelText, fildsList }) => {
 };
 
 Select.propTypes = {
+  idFlag: PropTypes.bool,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   formik: PropTypes.object.isRequired,
-  labelText: PropTypes.string.isRequired,
+  labelText: PropTypes.string,
   fildsList: PropTypes.array.isRequired,
+  styleLabel: PropTypes.object,
+  list: PropTypes.string,
 };

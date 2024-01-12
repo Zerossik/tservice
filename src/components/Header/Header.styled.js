@@ -16,8 +16,14 @@ export const HeaderContainer = styled(Container)`
   align-items: center;
 `;
 
-export const Logo = styled.h2`
-  color: ${({ theme }) => theme.color.logo};
+export const ListOfButtons = styled.ul`
+  display: flex;
+  gap: 14px;
+`;
+
+export const ItemOfButtons = styled.li`
+  width: 60px;
+  height: 60px;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -74,13 +80,13 @@ export const ItemTitle = styled.p`
   color: ${({ theme }) => theme.color.primary};
 `;
 
-export const ListSettings = styled.ul``;
+// export const ListSettings = styled.ul``;
 
-export const ItemListSettings = styled.li`
-  position: relative;
-  padding: 10px 0;
+// export const ItemListSettings = styled.li`
+//   position: relative;
+//   padding: 10px 0;
 
-  &:not(:last-child) {
-    /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */
-  }
-`;
+//   &:not(:last-child) {
+//     /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */
+//   }
+// `;

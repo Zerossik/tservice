@@ -13,6 +13,7 @@ export const BackDrop = styled.div`
   padding: 10px;
   z-index: 90;
   background-color: ${({ theme }) => theme.color.backDrop};
+  overflow-y: auto;
 `;
 
 export const ModalWindow = styled.div`
@@ -21,7 +22,6 @@ export const ModalWindow = styled.div`
   max-height: 100%;
   width: 100%;
   max-width: 960px;
-  overflow: auto;
 
   border: 1px solid ${({ theme }) => theme.color.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};
@@ -43,20 +43,19 @@ export const ModalBody = styled.div`
   max-height: 100%;
   overflow-y: auto;
   margin: 1px 0 6px 0;
+  // firefox
+  scrollbar-width: thin;
+  scrollbar-color: ${({ theme }) => theme.color.bgSecondary} transparent;
 
   &::-webkit-scrollbar {
     width: 8px; /* ширина для вертикального скролла */
     height: 8px; /* высота для горизонтального скролла */
-    // firefox
-    scrollbar-width: thin;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     background-color: ${({ theme }) =>
       theme.color.bgSecondary}; /* Цвет скролла */
-    // firefox
-    scrollbar-color: ${({ theme }) => theme.color.bgSecondary} transparent;
   }
 `;
 

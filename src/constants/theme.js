@@ -1,6 +1,7 @@
 const lightTheme = {
   primary: "#121417", //titles
   secondary: "#007aff", // blue
+  third: "#ff8500", // orange
   bg: "#a7b3c7", // fon
   bgSecondary: "rgba(255, 255, 255, 0.8)",
   // header

@@ -6,18 +6,23 @@ import {
   InputWrapper,
   Input,
   Button,
+  ButtonClear,
+  IconClear,
   IconOpenList,
   List,
   ListItem,
   ListNoItem,
   ButtonList,
+  ButtonWrapper,
 } from "./Select.styled";
 // components
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
+import { ButtonListEdit } from "../ButtonListEdit/ButtonListEdit";
 
 export const Select = ({
   idFlag,
+  editable,
   name,
   type,
   formik,
@@ -94,6 +99,10 @@ export const Select = ({
     }
   };
 
+  const handleClickClear = () => {
+    formik.setFieldValue(name, "");
+  };
+
   return (
     <>
       <Wrapper>
@@ -107,10 +116,16 @@ export const Select = ({
             value={formik.values[name]}
             onClick={handleClickOpenList}
           />
+          {formik.values[name] !== "" && (
+            <ButtonClear type="button" onClick={handleClickClear}>
+              <IconClear />
+            </ButtonClear>
+          )}
           <Button type="button" onClick={handleClickOpenList}>
             <IconOpenList $isOpen={openList} />
           </Button>
         </InputWrapper>
+
         {openList && (
           <>
             <List ref={listRef} list={list}>
@@ -128,6 +143,15 @@ export const Select = ({
                     >
                       {item[name]}
                     </ButtonList>
+
+                    <ButtonWrapper>
+                      {editable && (
+                        <ButtonListEdit
+                          fildName={item[name]}
+                          selectName={name}
+                        />
+                      )}
+                    </ButtonWrapper>
                   </ListItem>
                 ))}
             </List>
@@ -148,4 +172,5 @@ Select.propTypes = {
   fildsList: PropTypes.array.isRequired,
   styleLabel: PropTypes.object,
   list: PropTypes.string,
+  editable: PropTypes.bool,
 };

@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -37,8 +36,6 @@ export const OrderForm = () => {
   const deviceTypes = useSelector(selectDeviceTypes);
   const theme = useTheme();
 
-  const MakeOrderSchema = useMemo(() => makeOrderSchema(), []);
-
   const formik = useFormik({
     initialValues: {
       type: "",
@@ -50,7 +47,7 @@ export const OrderForm = () => {
       description: "",
       failure: "",
     },
-    validationSchema: MakeOrderSchema,
+    validationSchema: makeOrderSchema(),
     onSubmit: (values) => {
       dispatch(addContactThunk(values))
         .unwrap()
@@ -66,6 +63,7 @@ export const OrderForm = () => {
         <List>
           <li>
             <Select
+              editable
               name="type"
               type="text"
               formik={formik}
@@ -75,6 +73,7 @@ export const OrderForm = () => {
           </li>
           <li>
             <Select
+              editable
               name="manufacturer"
               type="text"
               formik={formik}

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { HiOutlineChevronUp } from "react-icons/hi2";
+import { HiMiniXMark } from "react-icons/hi2";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -7,8 +8,31 @@ export const Wrapper = styled.div`
 `;
 
 export const InputWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
+`;
+
+export const ButtonClear = styled.button`
+  position: absolute;
+  bottom: -50%;
+  right: 40px;
+  transform: translate(0, -50%);
+  width: 40px;
+  height: 100%;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${({ theme }) => theme.color.iconMain};
+  background-color: transparent;
+`;
+
+export const IconClear = styled(HiMiniXMark)`
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  opacity: 0.8;
 `;
 
 export const Input = styled.input`
@@ -65,10 +89,13 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
+  display: flex;
+  padding-right: 6px;
   width: 100%;
 `;
 
-export const ListNoItem = styled(ListItem)`
+export const ListNoItem = styled.li`
+  width: 100%;
   padding: 8px 12px;
   text-align: center;
   color: ${({ theme }) => theme.color.primary};
@@ -83,15 +110,10 @@ export const ButtonList = styled.button`
   background-color: transparent;
 
   &:hover {
-    background-color: ${({ theme }) => theme.color.dropDownHover};
+    font-weight: 600;
+    color: ${({ theme }) => theme.color.third};
+    /* background-color: ${({ theme }) => theme.color.dropDownHover}; */
   }
 `;
 
-export const BackDrop = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-`;
+export const ButtonWrapper = styled.div``;

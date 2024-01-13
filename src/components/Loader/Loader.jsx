@@ -1,16 +1,17 @@
 import FadeLoader from "react-spinners/FadeLoader";
 import PropTypes from "prop-types";
-import { useTheme } from "styled-components";
+// import { useTheme } from "styled-components";
 // styled
 import { Wrapper } from "./Loader.styled";
 
 export const Loader = ({ isLoading }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   return (
     <Wrapper>
       <FadeLoader
-        color={theme.color.loader}
+        // color={theme.color.loader}
+        color="#0f0"
         loading={isLoading}
         // cssOverride={override}
         size={600}

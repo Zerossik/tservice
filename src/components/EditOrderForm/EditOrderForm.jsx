@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -53,12 +52,10 @@ export const EditOrderForm = ({ id, order }) => {
   const statusList = useSelector(selectStatuses);
   const theme = useTheme();
 
-  const EditOrderSchema = useMemo(() => editOrderSchema(), []);
-
   const formik = useFormik({
     initialValues: order,
     enableReinitialize: true,
-    validationSchema: EditOrderSchema,
+    validationSchema: editOrderSchema(),
     onSubmit: (values) => {
       const body = compareData(order, values);
 

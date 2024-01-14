@@ -1,7 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import debounce from "lodash.debounce";
 // theme style
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "../index.styled";
@@ -23,9 +24,32 @@ import { loader as loaderAuthLayout } from "./AuthLayout";
 import { loader as loaderWorkTable } from "./WorkTable";
 import { loader as authRequiredLoader } from "./AuthRequired";
 import { loader as newPassFormLoader } from "./NewPassForm";
+import { useEffect, useState } from "react";
+import { device } from "../redux/settingsUser/settingsUserSlice";
 
 export const App = () => {
+  const [viewportWidth, setViewportWidth] = useState(
+    window.innerWidth <= 500 ? "mobile" : "desktop"
+  );
+
   const currentTheme = useSelector(selectTheme);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 500) {
+        setViewportWidth("mobile");
+      } else {
+        setViewportWidth("desktop");
+      }
+    };
+    window.addEventListener(
+      "resize",
+      debounce(handleResize, 500, { leading: true })
+    );
+
+    dispatch(device(viewportWidth));
+  }, [dispatch, viewportWidth]);
 
   const router = createBrowserRouter(
     [

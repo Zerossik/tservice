@@ -66,6 +66,9 @@ const settingsUserSlice = createSlice({
       state.deviceManufacturers = payload.deviceManufacturers;
       state.deviceTypes = payload.deviceTypes;
     },
+    device: (state, { payload }) => {
+      state.device = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -105,5 +108,5 @@ const settingsUserSlice = createSlice({
   },
 });
 
-export const { getAllLists } = settingsUserSlice.actions;
+export const { getAllLists, device } = settingsUserSlice.actions;
 export const settingsUserReducer = settingsUserSlice.reducer;

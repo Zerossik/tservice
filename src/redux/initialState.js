@@ -22,6 +22,7 @@ export const contactsInitialState = {
 };
 
 export const settingsUserInitialState = {
+  device: "",
   error: null,
   isLoading: false,
   deviceManufacturers: [],

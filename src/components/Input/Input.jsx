@@ -12,6 +12,8 @@ export const Input = ({
   labelText,
   moveLabel,
   styleLabel,
+  style = {},
+  placeholder = "",
 }) => {
   return (
     <InputWrapper>
@@ -22,9 +24,10 @@ export const Input = ({
         id={name}
         name={name}
         type={type}
-        placeholder=""
+        placeholder={placeholder}
         onChange={formik.handleChange}
         value={formik.values[name]}
+        style={style}
       />
       {moveLabel && <LabelStyled htmlFor={name}>{labelText}</LabelStyled>}
       {formik.errors[name] ? <ErrorInput text={formik.errors[name]} /> : null}
@@ -39,4 +42,6 @@ Input.propTypes = {
   labelText: PropTypes.string,
   moveLabel: PropTypes.bool,
   styleLabel: PropTypes.object,
+  style: PropTypes.object,
+  placeholder: PropTypes.string,
 };

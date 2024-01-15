@@ -13,20 +13,6 @@ export const InputWrapper = styled.div`
   flex-wrap: nowrap;
 `;
 
-export const Input = styled.input`
-  width: 100%;
-  height: 40px;
-  padding: 6px 40px 6px 12px;
-  color: ${({ theme }) => theme.color.primary};
-  border-top-left-radius: ${({ theme }) => theme.borderRadius.extraSmall};
-  border-bottom-left-radius: ${({ theme }) => theme.borderRadius.extraSmall};
-  border: 1px solid ${({ theme }) => theme.color.secondary};
-  border-right: none;
-  background-color: ${({ theme, readOnly }) =>
-    theme.color[readOnly ? "readOnlyBg" : "bgSecondary"]};
-  outline: none;
-`;
-
 export const FakeInput = styled.div`
   display: flex;
   align-items: center;
@@ -38,8 +24,7 @@ export const FakeInput = styled.div`
   border-bottom-left-radius: ${({ theme }) => theme.borderRadius.extraSmall};
   border: 1px solid ${({ theme }) => theme.color.secondary};
   border-right: none;
-  background-color: ${({ theme, readOnly }) =>
-    theme.color[readOnly ? "readOnlyBg" : "bgSecondary"]};
+  background-color: ${({ theme }) => theme.color.bgSecondary};
   outline: none;
 `;
 

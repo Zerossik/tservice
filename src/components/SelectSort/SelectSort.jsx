@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+// import { toast } from "react-toastify";
 // style
 import {
   Wrapper,
@@ -18,11 +18,11 @@ import { rewriteDeviceTypeArr } from "../../utils";
 
 const defaultType = { _id: "1", type: "Усе" };
 
-export const SelectSort = ({ formikSort }) => {
+export const SelectSort = () => {
   const [openList, setOpenList] = useState(false);
   const [valueInput, setValueInput] = useState("Усе");
   const [list, setList] = useState([]);
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const types = useSelector(selectDeviceTypes);
 
   useEffect(() => {
@@ -37,14 +37,11 @@ export const SelectSort = ({ formikSort }) => {
 
   const handleClickButtonInList = (value) => {
     setValueInput(value);
-    formikSort.setFieldValue("type", value);
+    // console.log({ type: value });
 
     // dispatch()
     //   .unwrap()
-    //   .then(() => {
-    //     toast.success("Виробник доданий");
-    //     formik.resetForm();
-    //   })
+    //   .then()
     //   .catch(() => {
     //     toast.warning("Щось пішло не так, спробуйте ще раз");
     //   });
@@ -79,8 +76,4 @@ export const SelectSort = ({ formikSort }) => {
       )}
     </Wrapper>
   );
-};
-
-SelectSort.propTypes = {
-  formikSort: PropTypes.object.isRequired,
 };

@@ -19,7 +19,10 @@ export const IconPlus = styled(HiPlusCircle)`
   fill: ${({ theme }) => theme.color.iconPlus};
 `;
 
-export const SearchWrapper = styled.div`
+export const FilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
   width: 100%;
 `;
 

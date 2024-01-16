@@ -46,7 +46,8 @@ const lightTheme = {
 const darktheme = {
   // primary: "rgb(250, 250, 250)",
   primary: "rgb(209, 210, 211)",
-  secondary: "#007aff", // need to change
+  secondary: "#007aff", // blue
+  third: "#ff8500", // orange
   bg: "#1E1E1E",
   // bgSecondary: "rgba(0, 0, 0, 0.8)",
   bgSecondary: "#2C2C2C",

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { HiPlusCircle } from "react-icons/hi2";
 
 export const Wrapper = styled.div`
+  display: flex;
+  gap: 48px;
   padding: 18px 36px;
 `;
 
@@ -17,7 +19,12 @@ export const IconPlus = styled(HiPlusCircle)`
   fill: ${({ theme }) => theme.color.iconPlus};
 `;
 
-export const SearchWrapper = styled.div``;
+export const FilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+`;
 
 export const SortList = styled.ul`
   display: flex;

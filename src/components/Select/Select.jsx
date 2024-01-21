@@ -149,6 +149,7 @@ export const Select = ({
                         <ButtonListEdit
                           fildName={item[name]}
                           selectName={name}
+                          closeList={setOpenList}
                         />
                       )}
                     </ButtonWrapper>

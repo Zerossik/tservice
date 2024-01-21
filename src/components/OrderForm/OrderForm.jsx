@@ -155,6 +155,13 @@ export const OrderForm = () => {
           <ListItemArea>
             <TextArea name="failure" formik={formik} labelText="Несправність" />
           </ListItemArea>
+          <ListItemArea>
+            <div>
+              <button style={{ marginRight: "20px" }}>+ type</button>
+              <button style={{ marginRight: "20px" }}>+ manufacturer</button>
+              <button>+ master</button>
+            </div>
+          </ListItemArea>
           <ListItemLast>
             <ButtonForm
               buttonName="Додати"

@@ -5,9 +5,9 @@ export { NewPassSchema } from "./newPassSchema";
 export { makeOrderSchema } from "./makeOrderSchema";
 export { editOrderSchema } from "./EditOrderSchema";
 export { deleteMasterSchema, AddMasterSchema } from "./masterSchema";
-export { AddTypeSchema, editTypeSchema, deleteTypeSchema } from "./typeSchema";
+export { AddTypeSchema, EditTypeSchema, deleteTypeSchema } from "./typeSchema";
 export {
   AddManufacturerSchema,
-  editManufacturerSchema,
+  EditManufacturerSchema,
   deleteManufacturerSchema,
 } from "./manufacturerSchema";

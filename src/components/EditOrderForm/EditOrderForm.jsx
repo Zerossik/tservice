@@ -73,6 +73,7 @@ export const EditOrderForm = ({ id, order }) => {
         <List>
           <li>
             <Select
+              editable
               name="type"
               type="text"
               formik={formik}
@@ -82,6 +83,7 @@ export const EditOrderForm = ({ id, order }) => {
           </li>
           <li>
             <Select
+              editable
               name="manufacturer"
               type="text"
               formik={formik}

@@ -1,39 +1,29 @@
-import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
 // style
 // components
-import { ButtonForm } from "../ButtonForm";
 import { LoaderPretty } from "../LoaderPretty";
-import { Select } from "../Select";
-import {
-  selectDeviceManufacturers,
-  selectSettingsIsLoading,
-} from "../../redux/settingsUser/selectors";
+import { selectSettingsIsLoading } from "../../redux/settingsUser/selectors";
 import { Input } from "../Input";
-import { editManufacturerSchema } from "../../validation";
+import { EditManufacturerSchema } from "../../validation";
 import { editDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 
-export const ManufacturerEditForm = () => {
+export const ManufacturerEditForm = ({ closeConfirm, oldFildName = "" }) => {
   const isLoading = useSelector(selectSettingsIsLoading);
-  const deviceManufacturer = useSelector(selectDeviceManufacturers);
   const dispatch = useDispatch();
-
-  const EditManufacturerSchema = useMemo(() => editManufacturerSchema(), []);
 
   const formik = useFormik({
     initialValues: {
-      id: "",
-      manufacturer: "",
-      newManufacturer: "",
+      newManufacturer: oldFildName,
     },
     validationSchema: EditManufacturerSchema,
-    onSubmit: async ({ manufacturer, newManufacturer }) => {
+    onSubmit: async ({ newManufacturer }) => {
       dispatch(
         editDeviceManufacturerThunk({
-          oldManufacturer: manufacturer,
+          oldManufacturer: oldFildName,
           newManufacturer,
         })
       )
@@ -41,6 +31,7 @@ export const ManufacturerEditForm = () => {
         .then(() => {
           toast.success("Виробника змінено");
           formik.resetForm();
+          closeConfirm();
         })
         .catch(() => {
           toast.warning("Щось пішло не так, спробуйте ще раз");
@@ -51,29 +42,20 @@ export const ManufacturerEditForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <SettingsForm formik={formik} legendTitle="Редагування виробника">
-        <Select
-          idFlag
-          name="manufacturer"
-          type="text"
-          formik={formik}
-          labelText="Виберіть виробника"
-          // styleLabel={{ fontWeight: 600 }}
-          fildsList={deviceManufacturer}
-        />
-
-        <Input
-          name="newManufacturer"
-          type="text"
-          formik={formik}
-          labelText="Нова назва"
-        />
-
-        <ButtonForm
-          buttonName="Редагувати"
-          disabled={!(formik.isValid && formik.dirty && !isLoading)}
-        />
+      <SettingsForm
+        formik={formik}
+        isLoading={isLoading}
+        title="Редагування виробника"
+        buttonName="Редагувати"
+        closeConfirm={closeConfirm}
+      >
+        <Input name="newManufacturer" type="text" formik={formik} />
       </SettingsForm>
     </>
   );
+};
+
+ManufacturerEditForm.propTypes = {
+  oldFildName: PropTypes.string,
+  closeConfirm: PropTypes.func,
 };

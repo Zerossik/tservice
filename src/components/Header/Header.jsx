@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { HiCpuChip, HiMiniUsers, HiMiniInboxArrowDown } from "react-icons/hi2";
 // styled
 import {
   HeaderStyled,
@@ -12,10 +11,6 @@ import {
   DropDownList,
   DropDownItem,
   ItemTitle,
-  // ListSettings,
-  // ItemListSettings,
-  ListOfButtons,
-  ItemOfButtons,
 } from "./Header.styled";
 // components
 import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
@@ -24,16 +19,8 @@ import { DropDown } from "../DropDown";
 import { ToggleTheme } from "../ToggleTheme";
 import { Modal } from "../Modal";
 import { LoaderPretty } from "../LoaderPretty";
-import { SettingsBtn } from "../SettingsBtn";
-import { TypeAddForm } from "../TypeAddForm";
-import { TypeEditForm } from "../TypeEditForm";
-import { TypeDeleteForm } from "../TypeDeleteForm";
-import { ManufacturerAddForm } from "../ManufacturerAddForm";
-import { ManufacturerEditForm } from "../ManufacturerEditForm";
-import { ManufacturerDeleteForm } from "../ManufacturerDeleteForm";
-import { MasterDeleteForm } from "../MasterDeleteForm";
-import { MasterAddForm } from "../MasterAddForm";
 import { Logo } from "../Logo";
+import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -50,35 +37,6 @@ export const Header = () => {
     setIsModalOpen((prev) => !prev);
   };
 
-  const btns = [
-    {
-      id: "1",
-      icon: <HiCpuChip />,
-      forms: [
-        { id: "f1", form: <TypeAddForm /> },
-        { id: "f2", form: <TypeEditForm /> },
-        { id: "f3", form: <TypeDeleteForm /> },
-      ],
-    },
-    {
-      id: "2",
-      icon: <HiMiniInboxArrowDown />,
-      forms: [
-        { id: "f1", form: <ManufacturerAddForm /> },
-        { id: "f2", form: <ManufacturerEditForm /> },
-        { id: "f3", form: <ManufacturerDeleteForm /> },
-      ],
-    },
-    {
-      id: "3",
-      icon: <HiMiniUsers />,
-      forms: [
-        { id: "f1", form: <MasterAddForm /> },
-        { id: "f2", form: <MasterDeleteForm /> },
-      ],
-    },
-  ];
-
   return (
     <>
       {isLoading && <LoaderPretty />}
@@ -86,13 +44,7 @@ export const Header = () => {
         <HeaderContainer>
           <Logo />
 
-          <ListOfButtons>
-            {btns.map(({ id, icon, forms }) => (
-              <ItemOfButtons key={id}>
-                <SettingsBtn icon={icon} forms={forms} />
-              </ItemOfButtons>
-            ))}
-          </ListOfButtons>
+          <ButtonAddList />
 
           <ButtonWrapper>
             {/* <Button type="button" onClick={toggleModal}>

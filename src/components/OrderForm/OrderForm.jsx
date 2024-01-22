@@ -28,6 +28,7 @@ import {
   selectDeviceTypes,
 } from "../../redux/settingsUser/selectors";
 import { rewriteDeviceTypeArr } from "../../utils";
+import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
 
 export const OrderForm = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ export const OrderForm = () => {
           <li>
             <Select
               editable
+              deletable
               name="type"
               type="text"
               formik={formik}
@@ -74,6 +76,7 @@ export const OrderForm = () => {
           <li>
             <Select
               editable
+              deletable
               name="manufacturer"
               type="text"
               formik={formik}
@@ -154,6 +157,9 @@ export const OrderForm = () => {
           </ListItemArea>
           <ListItemArea>
             <TextArea name="failure" formik={formik} labelText="Несправність" />
+          </ListItemArea>
+          <ListItemArea>
+            <ButtonAddList />
           </ListItemArea>
           <ListItemLast>
             <ButtonForm

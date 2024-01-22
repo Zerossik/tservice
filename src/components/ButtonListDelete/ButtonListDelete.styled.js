@@ -1,6 +1,6 @@
 import styled from "styled-components";
-// import { HiPencilSquare } from "react-icons/hi2";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
+// import { HiTrash } from "react-icons/hi2";
+import { HiOutlineTrash } from "react-icons/hi2";
 
 export const Button = styled.button`
   padding: 6px;
@@ -12,11 +12,11 @@ export const Button = styled.button`
 
   &:hover {
     color: ${({ theme }) => theme.color.third};
-    opacity: 1;
+    opacity: 01;
   }
 `;
 
-export const Icon = styled(HiOutlinePencilSquare)`
+export const Icon = styled(HiOutlineTrash)`
   width: 16px;
   height: 16px;
   /* fill: currentColor; */

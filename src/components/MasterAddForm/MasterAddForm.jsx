@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
 // style
+import { List, ItemList } from "./MasterAddForm.styled";
 // components
 import { AddMasterSchema } from "../../validation";
 import { Input } from "../Input";
-import { ButtonForm } from "../ButtonForm";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { addMasterThunk } from "../../redux/auth/authThunks";
 import { LoaderPretty } from "../LoaderPretty";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 
-export const MasterAddForm = () => {
+export const MasterAddForm = ({ closeConfirm }) => {
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ export const MasterAddForm = () => {
         .then(() => {
           toast.success("Майстер доданий");
           formik.resetForm();
+          closeConfirm();
         })
         .catch(() => {
           toast.warning("Щось пішло не так, спробуйте ще раз");
@@ -37,21 +39,36 @@ export const MasterAddForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <SettingsForm formik={formik} legendTitle="Додати майстра">
-        <Input name="firstName" type="text" formik={formik} labelText="Ім'я" />
-
-        <Input
-          name="lastName"
-          type="text"
-          formik={formik}
-          labelText="Прізвище"
-        />
-
-        <ButtonForm
-          buttonName="Додати"
-          disabled={!(formik.isValid && formik.dirty && !isLoading)}
-        />
+      <SettingsForm
+        formik={formik}
+        isLoading={isLoading}
+        title="Додати майстра"
+        buttonName="Додати"
+        closeConfirm={closeConfirm}
+      >
+        <List>
+          <ItemList>
+            <Input
+              name="firstName"
+              type="text"
+              formik={formik}
+              labelText="Ім'я"
+            />
+          </ItemList>
+          <ItemList>
+            <Input
+              name="lastName"
+              type="text"
+              formik={formik}
+              labelText="Прізвище"
+            />
+          </ItemList>
+        </List>
       </SettingsForm>
     </>
   );
+};
+
+MasterAddForm.propTypes = {
+  closeConfirm: PropTypes.func,
 };

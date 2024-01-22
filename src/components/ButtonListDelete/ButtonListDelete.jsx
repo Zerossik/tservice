@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 // style
-import { Button, Icon } from "./ButtonListEdit.styled";
+import { Button, Icon } from "./ButtonListDelete.styled";
 // components
 import { useConfirm } from "../ConfirmService/context";
-import { TypeEditForm } from "../TypeEditForm";
-import { ManufacturerEditForm } from "../ManufacturerEditForm";
+import { TypeDeleteForm } from "../TypeDeleteForm";
+import { ManufacturerDeleteForm } from "../ManufacturerDeleteForm";
+import { MasterDeleteForm } from "../MasterDeleteForm";
 
-export const ButtonListEdit = ({ fildName, selectName, closeList }) => {
+export const ButtonListDelete = ({ fildName, selectName, closeList, id }) => {
   const confirm = useConfirm();
 
   const handleClick = (oldFildName, select) => {
@@ -17,7 +18,7 @@ export const ButtonListEdit = ({ fildName, selectName, closeList }) => {
     switch (select) {
       case "type":
         component = (
-          <TypeEditForm
+          <TypeDeleteForm
             closeConfirm={confirm.handleClose}
             oldFildName={oldFildName}
           />
@@ -26,9 +27,19 @@ export const ButtonListEdit = ({ fildName, selectName, closeList }) => {
 
       case "manufacturer":
         component = (
-          <ManufacturerEditForm
+          <ManufacturerDeleteForm
             closeConfirm={confirm.handleClose}
             oldFildName={oldFildName}
+          />
+        );
+        break;
+
+      case "masterName":
+        component = (
+          <MasterDeleteForm
+            closeConfirm={confirm.handleClose}
+            oldFildName={oldFildName}
+            id={id}
           />
         );
         break;
@@ -44,8 +55,9 @@ export const ButtonListEdit = ({ fildName, selectName, closeList }) => {
   );
 };
 
-ButtonListEdit.propTypes = {
+ButtonListDelete.propTypes = {
   fildName: PropTypes.string.isRequired,
   selectName: PropTypes.string.isRequired,
   closeList: PropTypes.func.isRequired,
+  id: PropTypes.string,
 };

@@ -1,64 +1,44 @@
-import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// style
+import PropTypes from "prop-types";
 // components
 import { LoaderPretty } from "../LoaderPretty";
-import { ButtonForm } from "../ButtonForm";
-import { selectIsLoading, selectMasters } from "../../redux/auth/selectors";
-import { Select } from "../Select";
-import { createListOfMasters } from "../../utils";
-import { deleteMasterSchema } from "../../validation";
+import { selectIsLoading } from "../../redux/auth/selectors";
 import { deleteMasterThunk } from "../../redux/auth/authThunks";
-import { SettingsForm } from "../SettingsForm/SettingsForm";
+import { SettingsDelete } from "../SettingsDelete";
 
-export const MasterDeleteForm = () => {
+export const MasterDeleteForm = ({ id, closeConfirm, oldFildName = "" }) => {
   const isLoading = useSelector(selectIsLoading);
-  const masters = useSelector(selectMasters);
   const dispatch = useDispatch();
 
-  const DeleteMasterSchema = useMemo(() => deleteMasterSchema(), []);
-
-  const formik = useFormik({
-    initialValues: {
-      id: "",
-      masterName: "",
-    },
-    validationSchema: DeleteMasterSchema,
-    onSubmit: async (values) => {
-      dispatch(deleteMasterThunk({ id: values.id }))
-        .unwrap()
-        .then(() => {
-          toast.success("Майстра видалено");
-          formik.resetForm();
-        })
-        .catch(() => {
-          toast.warning("Щось пішло не так, спробуйте ще раз");
-        });
-    },
-  });
+  const handleClikOk = () => {
+    dispatch(deleteMasterThunk({ id }))
+      .unwrap()
+      .then(() => {
+        toast.success("Майстра видалено");
+        closeConfirm();
+      })
+      .catch(() => {
+        toast.warning("Щось пішло не так, спробуйте ще раз");
+      });
+  };
 
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <SettingsForm formik={formik} legendTitle="Видалити майстра">
-        <Select
-          idFlag
-          name="masterName"
-          type="text"
-          formik={formik}
-          // labelText="Виберіть майстра"
-          // styleLabel={{ fontWeight: 600 }}
-          fildsList={createListOfMasters(masters)}
-          list="top"
-        />
-
-        <ButtonForm
-          buttonName="Видалити"
-          disabled={!(formik.isValid && formik.dirty && !isLoading)}
-        />
-      </SettingsForm>
+      <SettingsDelete
+        title="Видалити майстра"
+        value={oldFildName}
+        buttonName="Видалити"
+        closeConfirm={closeConfirm}
+        okConfirm={handleClikOk}
+      />
     </>
   );
+};
+
+MasterDeleteForm.propTypes = {
+  oldFildName: PropTypes.string,
+  closeConfirm: PropTypes.func,
+  id: PropTypes.string,
 };

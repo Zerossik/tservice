@@ -2,15 +2,22 @@ import PropTypes from "prop-types";
 // styled
 import { ButtonStyled } from "./ButtonForm.styled";
 
-export const ButtonForm = ({ buttonName, disabled }) => {
+export const ButtonForm = ({
+  type = "submit",
+  buttonName,
+  onClick,
+  disabled,
+}) => {
   return (
-    <ButtonStyled type="submit" disabled={disabled}>
+    <ButtonStyled type={type} disabled={disabled} onClick={onClick}>
       {buttonName}
     </ButtonStyled>
   );
 };
 
 ButtonForm.propTypes = {
-  buttonName: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  type: PropTypes.string,
+  buttonName: PropTypes.string,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };

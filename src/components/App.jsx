@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -24,8 +25,8 @@ import { loader as loaderAuthLayout } from "./AuthLayout";
 import { loader as loaderWorkTable } from "./WorkTable";
 import { loader as authRequiredLoader } from "./AuthRequired";
 import { loader as newPassFormLoader } from "./NewPassForm";
-import { useEffect, useState } from "react";
 import { device } from "../redux/settingsUser/settingsUserSlice";
+import { ConfirmServiceProvider } from "./ConfirmService/ConfirmServiceProvider";
 
 export const App = () => {
   const [viewportWidth, setViewportWidth] = useState(
@@ -84,25 +85,28 @@ export const App = () => {
   );
 
   return (
-    <ThemeProvider theme={theme[currentTheme]}>
-      <GlobalStyle />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        draggable
-        pauseOnHover
-        theme={currentTheme === "light" ? "dark" : "light"}
-      />
-      <RouterProvider
-        router={router}
-        // fallbackElement={<Loader isLoading={true} />}
-        fallbackElement={<LoaderPretty />}
-        future={{ v7_startTransition: true }}
-      />
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme[currentTheme]}>
+        <GlobalStyle />
+        <ConfirmServiceProvider>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            draggable
+            pauseOnHover
+            theme={currentTheme === "light" ? "dark" : "light"}
+          />
+          <RouterProvider
+            router={router}
+            fallbackElement={<LoaderPretty />}
+            future={{ v7_startTransition: true }}
+          />
+        </ConfirmServiceProvider>
+      </ThemeProvider>
+    </>
   );
 };

@@ -26,8 +26,9 @@ const handleEditDeviceType = (state, { payload }) => {
 };
 
 const handleDeleteDeviceType = (state, { payload }) => {
-  console.log(payload);
-  // state.deviceTypes.push(payload);
+  state.deviceTypes = state.deviceTypes.filter(
+    (item) => item._id !== payload._id
+  );
 };
 
 const handleAddDeviceManufacturer = (state, { payload }) => {
@@ -41,8 +42,9 @@ const handleEditDeviceManufacturer = (state, { payload }) => {
 };
 
 const handleDeleteDeviceManufacturer = (state, { payload }) => {
-  console.log(payload);
-  // state.deviceManufacturers.push(payload);
+  state.deviceManufacturers = state.deviceManufacturers.filter(
+    (item) => item._id !== payload._id
+  );
 };
 
 const handleFulfilled = (state) => {

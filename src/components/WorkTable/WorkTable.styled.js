@@ -5,7 +5,7 @@ export const Table = styled.table`
   width: 100%;
   table-layout: fixed;
   color: ${({ theme }) => theme.color.primary};
-  border-radius: 12px;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.color.shadow};
 `;

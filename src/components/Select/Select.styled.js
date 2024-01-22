@@ -72,7 +72,6 @@ export const List = styled.ul`
   ${({ list }) => `${list === "top" ? "bottom" : "top"}: calc(100% + 4px)`};
   /* top: calc(100% + 4px); */
   /* bottom: calc(100% + 4px); */
-  /* top: ${({ list }) => (list === "top" ? "-100%" : "calc(100% + 4px)")}; */
   left: 0;
   z-index: 10;
   width: 100%;
@@ -82,10 +81,6 @@ export const List = styled.ul`
   border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
   background-color: ${({ theme }) => theme.color.dropDownBg};
   box-shadow: ${({ theme }) => theme.color.shadow};
-
-  /* &:has(.modal-body) {
-    overflow: visible;
-  } */
 `;
 
 export const ListItem = styled.li`
@@ -116,4 +111,6 @@ export const ButtonList = styled.button`
   }
 `;
 
-export const ButtonWrapper = styled.div``;
+export const ButtonWrapper = styled.div`
+  display: flex;
+`;

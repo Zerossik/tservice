@@ -31,6 +31,7 @@ import {
   selectStatuses,
 } from "../../redux/settingsUser/selectors";
 import { rewriteDeviceTypeArr, createListOfMasters } from "../../utils";
+import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
 
 const compareData = (oldObj, newObj) => {
   let objValues = {};
@@ -74,6 +75,7 @@ export const EditOrderForm = ({ id, order }) => {
           <li>
             <Select
               editable
+              deletable
               name="type"
               type="text"
               formik={formik}
@@ -84,6 +86,7 @@ export const EditOrderForm = ({ id, order }) => {
           <li>
             <Select
               editable
+              deletable
               name="manufacturer"
               type="text"
               formik={formik}
@@ -187,6 +190,7 @@ export const EditOrderForm = ({ id, order }) => {
           </li>
           <li>
             <Select
+              deletable
               name="masterName"
               type="text"
               formik={formik}
@@ -196,6 +200,9 @@ export const EditOrderForm = ({ id, order }) => {
           </li>
           <ListItemArea>
             <TextArea name="failure" formik={formik} labelText="Несправність" />
+          </ListItemArea>
+          <ListItemArea>
+            <ButtonAddList />
           </ListItemArea>
           <ListItemLast>
             <ButtonForm

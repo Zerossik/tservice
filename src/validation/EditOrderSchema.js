@@ -3,10 +3,12 @@ import {
   getArrayDeviceType,
   getArrayDeviceManufacturers,
 } from "../utils/getDataFromStore";
+import { getDataFromListOfStatus } from "../fakeData";
 
 export const editOrderSchema = () => {
   const typeList = getArrayDeviceType();
   const manufacturerList = getArrayDeviceManufacturers();
+  const listOfStatus = getDataFromListOfStatus();
 
   const message = "Виберіть зі списку";
   const required = "Обов'язково";
@@ -21,7 +23,7 @@ export const editOrderSchema = () => {
     customerName: Yup.string().required(required),
     phoneNumber: Yup.string().required(required),
     price: Yup.number().required(required),
-    status: Yup.string().required(required),
+    status: Yup.string().oneOf(listOfStatus, message).required(required),
     masterName: Yup.string(),
     description: Yup.string(),
     failure: Yup.string().required(required),

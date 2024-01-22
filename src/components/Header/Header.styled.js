@@ -16,16 +16,6 @@ export const HeaderContainer = styled(Container)`
   align-items: center;
 `;
 
-export const ListOfButtons = styled.ul`
-  display: flex;
-  gap: 14px;
-`;
-
-export const ItemOfButtons = styled.li`
-  width: 60px;
-  height: 60px;
-`;
-
 export const ButtonWrapper = styled.div`
   position: relative;
   display: flex;

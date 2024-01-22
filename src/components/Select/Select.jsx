@@ -19,10 +19,12 @@ import {
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 import { ButtonListEdit } from "../ButtonListEdit/ButtonListEdit";
+import { ButtonListDelete } from "../ButtonListDelete/ButtonListDelete";
 
 export const Select = ({
   idFlag,
   editable,
+  deletable,
   name,
   type,
   formik,
@@ -35,6 +37,7 @@ export const Select = ({
   const [filteredTypes, setFilteredTypes] = useState([]);
   const listRef = useRef();
   const inputRef = useRef();
+  const inputWrapperRef = useRef();
 
   const filteredListOfTypes = useCallback(
     (list, value) => {
@@ -53,7 +56,7 @@ export const Select = ({
       if (
         listRef.current &&
         !listRef.current.contains(e.target) &&
-        !inputRef.current.contains(e.target)
+        !inputWrapperRef.current.contains(e.target)
       ) {
         setOpenList(false);
       }
@@ -101,13 +104,15 @@ export const Select = ({
 
   const handleClickClear = () => {
     formik.setFieldValue(name, "");
+    inputRef.current.focus();
+    setOpenList(true);
   };
 
   return (
     <>
       <Wrapper>
         <Label htmlFor={name} labelText={labelText} styleLabel={styleLabel} />
-        <InputWrapper ref={inputRef}>
+        <InputWrapper ref={inputWrapperRef}>
           <Input
             id={name}
             name={name}
@@ -115,6 +120,7 @@ export const Select = ({
             onChange={handleInputChange}
             value={formik.values[name]}
             onClick={handleClickOpenList}
+            ref={inputRef}
           />
           {formik.values[name] !== "" && (
             <ButtonClear type="button" onClick={handleClickClear}>
@@ -152,6 +158,14 @@ export const Select = ({
                           closeList={setOpenList}
                         />
                       )}
+                      {deletable && (
+                        <ButtonListDelete
+                          fildName={item[name]}
+                          selectName={name}
+                          closeList={setOpenList}
+                          id={item._id}
+                        />
+                      )}
                     </ButtonWrapper>
                   </ListItem>
                 ))}
@@ -174,4 +188,5 @@ Select.propTypes = {
   styleLabel: PropTypes.object,
   list: PropTypes.string,
   editable: PropTypes.bool,
+  deletable: PropTypes.bool,
 };

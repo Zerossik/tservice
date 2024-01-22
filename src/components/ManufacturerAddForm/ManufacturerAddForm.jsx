@@ -1,17 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// style
+import PropTypes from "prop-types";
 // components
 import { LoaderPretty } from "../LoaderPretty";
-import { ButtonForm } from "../ButtonForm";
 import { Input } from "../Input";
 import { AddManufacturerSchema } from "../../validation";
 import { addDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 import { selectSettingsIsLoading } from "../../redux/settingsUser/selectors";
 
-export const ManufacturerAddForm = () => {
+export const ManufacturerAddForm = ({ closeConfirm }) => {
   const isLoading = useSelector(selectSettingsIsLoading);
   const dispatch = useDispatch();
 
@@ -26,6 +25,7 @@ export const ManufacturerAddForm = () => {
         .then(() => {
           toast.success("Виробник доданий");
           formik.resetForm();
+          closeConfirm();
         })
         .catch(() => {
           toast.warning("Щось пішло не так, спробуйте ще раз");
@@ -36,20 +36,19 @@ export const ManufacturerAddForm = () => {
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <SettingsForm formik={formik} legendTitle="Додати виробника">
-        <Input
-          name="manufacturer"
-          type="text"
-          formik={formik}
-          // labelText="Додати виробника"
-          // styleLabel={{ fontWeight: 600 }}
-        />
-
-        <ButtonForm
-          buttonName="Додати"
-          disabled={!(formik.isValid && formik.dirty && !isLoading)}
-        />
+      <SettingsForm
+        formik={formik}
+        isLoading={isLoading}
+        title="Додати виробника"
+        buttonName="Додати"
+        closeConfirm={closeConfirm}
+      >
+        <Input name="manufacturer" type="text" formik={formik} />
       </SettingsForm>
     </>
   );
+};
+
+ManufacturerAddForm.propTypes = {
+  closeConfirm: PropTypes.func,
 };

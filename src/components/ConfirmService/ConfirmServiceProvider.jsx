@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 // style
 // components
@@ -7,7 +7,6 @@ import { ConfirmWindow } from "../ConfirmWindow";
 
 export const ConfirmServiceProvider = ({ children }) => {
   const [options, setOptions] = useState(null);
-  // const awaitingPromiseRef = useRef(null);
 
   const openConfirm = (options) => {
     setOptions(options);
@@ -18,7 +17,7 @@ export const ConfirmServiceProvider = ({ children }) => {
 
   // const handleCloseConfirm = () => {
   //   // if (awaitingPromiseRef.current) {
-  //   //   awaitingPromiseRef.current.reject("reject Context");
+  //   //   awaitingPromiseRef.current.reject();
   //   // }
   //   setOptions(null);
   // };
@@ -47,7 +46,7 @@ export const ConfirmServiceProvider = ({ children }) => {
           options={options}
           // buttonOk={handleOkConfirm}
           // buttonCancel={handleCloseConfirm}
-          // close={handleClose}
+          close={handleClose}
         />
       )}
     </>

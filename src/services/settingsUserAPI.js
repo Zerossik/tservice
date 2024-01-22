@@ -61,7 +61,9 @@ export const editDeviceType = async (body) => {
 
 export const deleteDeviceType = async (body) => {
   try {
-    const { data } = await apiPrivate.delete("", { data: body });
+    const { data } = await apiPrivate.delete("/api/user/deviceType", {
+      data: body,
+    });
     return data;
   } catch (error) {
     throw new Error(error.message);
@@ -94,7 +96,9 @@ export const editDeviceManufacturer = async (body) => {
 
 export const deleteDeviceManufacturer = async (body) => {
   try {
-    const { data } = await apiPrivate.delete("", { data: body });
+    const { data } = await apiPrivate.delete("/api/user/deviceManufacturer", {
+      data: body,
+    });
     return data;
   } catch (error) {
     throw new Error(error.message);

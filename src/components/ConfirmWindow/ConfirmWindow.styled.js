@@ -11,8 +11,8 @@ export const BackDrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /*   background-color: ${({ theme }) => theme.color.backDrop}; */
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.color.backDrop};
+  /* background-color: transparent; */
 `;
 
 export const Wrapper = styled.div`
@@ -21,5 +21,8 @@ export const Wrapper = styled.div`
   padding: 20px;
   max-width: 100%;
   height: auto;
-  background-color: bisque;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  border: 1px solid ${({ theme }) => theme.color.secondary};
+  background-color: ${({ theme }) => theme.color.modalBg};
+  box-shadow: ${({ theme }) => theme.color.shadow};
 `;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { HiPencilSquare } from "react-icons/hi2";
+import { HiMiniArrowLongDown } from "react-icons/hi2";
 
 export const Table = styled.table`
   width: 100%;
@@ -43,22 +44,34 @@ export const Cell = styled.td`
   background-color: ${({ theme }) => theme.color.tableCell};
 `;
 
+export const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
 export const Button = styled.button`
   width: 100%;
   height: 48px;
   font-weight: 700;
-  color: inherit;
-  cursor: default;
+  /* color: ${({ theme, $isActive }) =>
+    theme.color[$isActive ? "third" : "primary"]};
+  cursor: default; */
   background-color: transparent;
 `;
 
-export const ButtonIconDelete = styled.button`
+export const IconSort = styled(HiMiniArrowLongDown)`
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  transform: ${({ $sortDown }) => `rotate(${$sortDown ? "0" : "180"}deg)`};
+`;
+
+export const ButtonIconEdit = styled.button`
   padding: 10px;
   border-radius: 50%;
   background-color: transparent;
 `;
 
-export const IconDelete = styled(HiPencilSquare)`
+export const IconEdit = styled(HiPencilSquare)`
   width: 20px;
   height: 20px;
   fill: ${({ theme }) => theme.color.iconMain};

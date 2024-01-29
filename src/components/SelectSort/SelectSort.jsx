@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-// import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 // style
 import {
   Wrapper,
@@ -15,6 +15,10 @@ import {
 // components
 import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
 import { rewriteDeviceTypeArr } from "../../utils";
+import {
+  getAllThunk,
+  getContactsByTypeThunk,
+} from "../../redux/contacts/contactsThunks";
 
 const defaultType = { _id: "1", type: "Усе" };
 
@@ -22,7 +26,7 @@ export const SelectSort = () => {
   const [openList, setOpenList] = useState(false);
   const [valueInput, setValueInput] = useState("Усе");
   const [list, setList] = useState([]);
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const types = useSelector(selectDeviceTypes);
 
   useEffect(() => {
@@ -37,14 +41,22 @@ export const SelectSort = () => {
 
   const handleClickButtonInList = (value) => {
     setValueInput(value);
-    // console.log({ type: value });
 
-    // dispatch()
-    //   .unwrap()
-    //   .then()
-    //   .catch(() => {
-    //     toast.warning("Щось пішло не так, спробуйте ще раз");
-    //   });
+    if (value === "Усе") {
+      dispatch(getAllThunk())
+        .unwrap()
+        .then()
+        .catch(() => {
+          toast.warning("Щось пішло не так, спробуйте ще раз");
+        });
+    } else {
+      dispatch(getContactsByTypeThunk(value))
+        .unwrap()
+        .then()
+        .catch(() => {
+          toast.warning("Щось пішло не так, спробуйте ще раз");
+        });
+    }
 
     setOpenList(false);
   };

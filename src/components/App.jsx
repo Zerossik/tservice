@@ -22,7 +22,6 @@ import { ErrorPage } from "../pages/ErrorPage";
 import { selectTheme } from "../redux/auth/selectors";
 // loaders
 import { loader as loaderAuthLayout } from "./AuthLayout";
-import { loader as loaderWorkTable } from "./WorkTable";
 import { loader as authRequiredLoader } from "./AuthRequired";
 import { loader as newPassFormLoader } from "./NewPassForm";
 import { device } from "../redux/settingsUser/settingsUserSlice";
@@ -76,7 +75,7 @@ export const App = () => {
         element: <ServicePage />,
         loader: authRequiredLoader,
         children: [
-          { index: true, element: <WorkTable />, loader: loaderWorkTable },
+          { index: true, element: <WorkTable /> },
           { path: `${PATHS.SERVICES}/:id`, element: <div>Something</div> },
         ],
       },

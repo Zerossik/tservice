@@ -17,8 +17,6 @@ import {
 // component
 import { Modal } from "../Modal";
 import { EditOrderForm } from "../EditOrderForm/EditOrderForm";
-import { getAllContacts } from "../../redux/contacts/ContactSlice";
-import { getAllLists } from "../../redux/settingsUser/settingsUserSlice";
 import {
   selectContacts,
   selectTableHeader,
@@ -35,26 +33,20 @@ export const WorkTable = () => {
   const tableHeader = useSelector(selectTableHeader);
 
   useEffect(() => {
-    if (data) {
-      data.map(({ data }) => {
-        Array.isArray(data)
-          ? dispatch(getAllContacts(data))
-          : dispatch(getAllLists(data));
-      });
-    }
-
-    // sortirovka zagolovkov tablitsy
-    // filtruem po "isVisible" i po poryadku "order"
+    // Сортировка заголовков таблицы
+    // фильтруем по "isVisible" и сортируем по порядку "order"
     const tableHeaderFiltered = tableHeader
       .filter((item) => item.isVisible)
       .sort((a, b) => a.order - b.order);
     setTableHeaderFiltered(tableHeaderFiltered);
 
     // Сортируем контакты по-умолчанию
-    const sortedContactsByDefault = contacts.toSorted(
-      (a, b) => a.orderNumber - b.orderNumber
-    );
-    setSortedContacts(sortedContactsByDefault);
+    // const sortedContactsByDefault = contacts.toSorted(
+    //   (a, b) => a.orderNumber - b.orderNumber
+    // );
+    // setSortedContacts(sortedContactsByDefault);
+
+    setSortedContacts(contacts);
   }, [dispatch, data, tableHeader, contacts]);
 
   const setOrderDataToEdit = (data) => {
@@ -63,8 +55,6 @@ export const WorkTable = () => {
   };
 
   const sortCollumn = ({ columnName, sortDown }) => {
-    console.log(columnName, sortDown);
-
     if (!sortDown) {
       const newSortedContacts = contacts.toSorted((a, b) =>
         a[columnName].localeCompare(b[columnName])
@@ -94,7 +84,6 @@ export const WorkTable = () => {
 
     setTableHeaderFiltered(newTableHead);
     sortCollumn(selectedTableHeadCell);
-    // console.log(newTableHead);
   };
 
   const toggleModal = () => {

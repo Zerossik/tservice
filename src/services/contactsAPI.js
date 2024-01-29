@@ -46,3 +46,12 @@ export const deleteContactById = async (id) => {
     throw new Error(error.message);
   }
 };
+
+export const getContactsByType = async (type) => {
+  try {
+    const { data } = await apiPrivate.get(`/api/contacts?type=${type}`);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

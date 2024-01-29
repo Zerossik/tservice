@@ -5,6 +5,7 @@ import {
   getAllThunk,
   deleteContactThunk,
   updateContactByIdThunk,
+  getContactsByTypeThunk,
 } from "./contactsThunks";
 
 const handleGetAll = (state, { payload }) => {
@@ -23,6 +24,10 @@ const handleUpdateContact = (state, { payload }) => {
 
 const handleDeleteContact = (state, { payload }) => {
   state.contacts = state.contacts.filter(({ _id: id }) => id !== payload._id);
+};
+
+const handleGetContactsByType = (state, { payload }) => {
+  state.contacts = payload;
 };
 
 const handleFulfilled = (state) => {
@@ -51,6 +56,7 @@ const contactSlice = createSlice({
       .addCase(addContactThunk.fulfilled, handleAddContact)
       .addCase(updateContactByIdThunk.fulfilled, handleUpdateContact)
       .addCase(deleteContactThunk.fulfilled, handleDeleteContact)
+      .addCase(getContactsByTypeThunk.fulfilled, handleGetContactsByType)
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled

@@ -4,8 +4,8 @@ export const tableHeader = [
     order: 1,
     buttonName: "Ордер",
     columnName: "orderNumber",
-    isActive: true,
-    sortDown: true,
+    isActive: false,
+    sortDown: null,
     isVisible: true,
   },
   {
@@ -40,8 +40,8 @@ export const tableHeader = [
     order: 5,
     buttonName: "Дата прийняття",
     columnName: "startDate",
-    isActive: false,
-    sortDown: null,
+    isActive: true,
+    sortDown: true,
     isVisible: true,
   },
   {

@@ -1,28 +1,31 @@
+import { useSelector } from "react-redux";
 import { useTheme } from "styled-components";
 import { useFormik } from "formik";
 // style
 import { Form, Button, IconSearch } from "./Search.styled";
 // components
 import { Input } from "../Input";
+import { selectIsContactsLoading } from "../../redux/contacts/selectors";
+import { LoaderPretty } from "../LoaderPretty";
+import { useNavigation, useSearchParams } from "react-router-dom";
 
 export const Search = () => {
+  const [, setSearchParams] = useSearchParams();
+  const navigation = useNavigation();
   const theme = useTheme();
+  const isLoading = useSelector(selectIsContactsLoading);
+
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("filter");
 
   const formik = useFormik({
     initialValues: {
       search: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
-      // dispatch()
-      //   .unwrap()
-      //   .then(() => {
-      //     toast.success("Виробник доданий");
-      //     formik.resetForm();
-      //   })
-      //   .catch(() => {
-      //     toast.warning("Щось пішло не так, спробуйте ще раз");
-      //   });
+    onSubmit: ({ search }) => {
+      setSearchParams({ filter: search });
+      formik.resetForm();
     },
   });
 
@@ -35,17 +38,25 @@ export const Search = () => {
   };
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
-      <Input
-        name="search"
-        type="text"
-        formik={formik}
-        style={extraInputStyle}
-        placeholder="Пошук"
-      />
-      <Button type="submit">
-        <IconSearch />
-      </Button>
-    </Form>
+    <>
+      {isLoading && <LoaderPretty />}
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          formik.handleSubmit(e);
+        }}
+      >
+        <Input
+          name="search"
+          type="text"
+          formik={formik}
+          style={extraInputStyle}
+          placeholder={searching ? "Завантажуємо..." : "Пошук"}
+        />
+        <Button type="submit">
+          <IconSearch />
+        </Button>
+      </Form>
+    </>
   );
 };

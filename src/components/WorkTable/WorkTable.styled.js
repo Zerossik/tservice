@@ -3,12 +3,14 @@ import { HiPencilSquare } from "react-icons/hi2";
 import { HiMiniArrowLongDown } from "react-icons/hi2";
 
 export const Table = styled.table`
+  position: relative;
   width: 100%;
   table-layout: fixed;
   color: ${({ theme }) => theme.color.primary};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.color.shadow};
+  border-collapse: collapse;
 `;
 
 export const Row = styled.tr`
@@ -19,7 +21,7 @@ export const Thead = styled.thead`
   font-weight: 700;
 
   & th:nth-child(1) {
-    width: 10%;
+    width: 5%;
   }
 
   /* & th:nth-child(3) {
@@ -36,11 +38,24 @@ export const Thead = styled.thead`
 `;
 
 export const TableHead = styled.th`
+  position: sticky;
   background-color: ${({ theme }) => theme.color.tableHead};
 `;
 
+export const TableBody = styled.tbody``;
+
 export const Cell = styled.td`
   text-align: center;
+  background-color: ${({ theme }) => theme.color.tableCell};
+`;
+
+export const RowNoItem = styled.tr`
+  height: 48px;
+`;
+
+export const CellNoItem = styled.td`
+  text-align: center;
+  color: ${({ theme }) => theme.color.primary};
   background-color: ${({ theme }) => theme.color.tableCell};
 `;
 

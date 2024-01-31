@@ -55,3 +55,12 @@ export const getContactsByType = async (type) => {
     throw new Error(error.message);
   }
 };
+
+export const getContactsBySearch = async (search) => {
+  try {
+    const { data } = await apiPrivate.get(`/api/contacts?filter=${search}`);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

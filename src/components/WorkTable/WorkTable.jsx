@@ -7,7 +7,10 @@ import {
   Row,
   Thead,
   TableHead,
+  TableBody,
   Cell,
+  RowNoItem,
+  CellNoItem,
   ButtonWrapper,
   Button,
   ButtonIconEdit,
@@ -97,7 +100,7 @@ export const WorkTable = () => {
           <Row>
             {tableHeaderFiltered.map(
               ({ id, buttonName, isActive, sortDown }) => (
-                <TableHead key={id}>
+                <TableHead key={id} scope="col">
                   <ButtonWrapper>
                     <Button
                       type="button"
@@ -116,7 +119,14 @@ export const WorkTable = () => {
             <TableHead>Дії</TableHead>
           </Row>
         </Thead>
-        <tbody>
+        <TableBody>
+          {sortedContacts.length === 0 && (
+            <RowNoItem>
+              <CellNoItem colSpan={tableHeaderFiltered.length + 1}>
+                Нічого нема :)
+              </CellNoItem>
+            </RowNoItem>
+          )}
           {sortedContacts.lehgth !== 0 &&
             sortedContacts.map((item) => (
               <Row key={item._id}>
@@ -130,7 +140,7 @@ export const WorkTable = () => {
                 </Cell>
               </Row>
             ))}
-        </tbody>
+        </TableBody>
       </Table>
 
       {isModalOpen && (

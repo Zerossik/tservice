@@ -2,10 +2,10 @@ export const tableHeader = [
   {
     id: "1",
     order: 1,
-    buttonName: "#",
+    buttonName: "Ордер",
     columnName: "orderNumber",
-    isActive: true,
-    sortDown: true,
+    isActive: false,
+    sortDown: null,
     isVisible: true,
   },
   {
@@ -14,7 +14,7 @@ export const tableHeader = [
     buttonName: "Ім'я клієнта",
     columnName: "customerName",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: true,
   },
   {
@@ -23,7 +23,7 @@ export const tableHeader = [
     buttonName: "Тип техніки",
     columnName: "type",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: true,
   },
   {
@@ -32,7 +32,7 @@ export const tableHeader = [
     buttonName: "Модель",
     columnName: "model",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: true,
   },
   {
@@ -40,7 +40,7 @@ export const tableHeader = [
     order: 5,
     buttonName: "Дата прийняття",
     columnName: "startDate",
-    isActive: false,
+    isActive: true,
     sortDown: true,
     isVisible: true,
   },
@@ -50,8 +50,8 @@ export const tableHeader = [
     buttonName: "Сума до сплати",
     columnName: "price",
     isActive: false,
-    sortDown: true,
-    isVisible: true,
+    sortDown: null,
+    isVisible: false,
   },
   {
     id: "7",
@@ -59,8 +59,8 @@ export const tableHeader = [
     buttonName: "Номер телефона",
     columnName: "phoneNumber",
     isActive: false,
-    sortDown: true,
-    isVisible: false,
+    sortDown: null,
+    isVisible: true,
   },
   {
     id: "8",
@@ -68,7 +68,7 @@ export const tableHeader = [
     buttonName: "Статус",
     columnName: "status",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: true,
   },
   {
@@ -77,7 +77,7 @@ export const tableHeader = [
     buttonName: "Виробник",
     columnName: "manufacturer",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: false,
   },
   {
@@ -86,7 +86,7 @@ export const tableHeader = [
     buttonName: "Несправність",
     columnName: "failure",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: false,
   },
   {
@@ -95,7 +95,7 @@ export const tableHeader = [
     buttonName: "Серійний номер",
     columnName: "deviceID",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: false,
   },
   {
@@ -104,7 +104,7 @@ export const tableHeader = [
     buttonName: "Ім'я майстра",
     columnName: "masterName",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: false,
   },
   {
@@ -113,7 +113,7 @@ export const tableHeader = [
     buttonName: "Опис від клієнта",
     columnName: "description",
     isActive: false,
-    sortDown: true,
+    sortDown: null,
     isVisible: false,
   },
 ];

@@ -31,7 +31,7 @@ const lightTheme = {
   // loader
   loader: "#0b68f3", // spinner Loader
   // backDrop
-  backDrop: "rgba(0, 0, 0, 0.3)",
+  backDrop: "rgba(0, 0, 0, 0.2)",
   // footer
   footerFont: "rgba(0, 0, 0, 0.5)",
   // border
@@ -80,7 +80,7 @@ const darktheme = {
   // loader
   loader: "#0b68f3", // spinner Loader
   // backDrop
-  backDrop: "rgba(0, 0, 0, 0.3)",
+  backDrop: "rgba(0, 0, 0, 0.2)",
   // footer
   footerFont: "rgba(255, 255, 255, 0.5)",
   // border

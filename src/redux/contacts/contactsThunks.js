@@ -4,6 +4,8 @@ import {
   addcontact,
   deleteContactById,
   updateContactById,
+  getContactsByType,
+  getContactsBySearch,
 } from "../../services/contactsAPI";
 
 export const getAllThunk = createAsyncThunk(
@@ -50,6 +52,32 @@ export const deleteContactThunk = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await deleteContactById(id);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getContactsByTypeThunk = createAsyncThunk(
+  "contacts/getContactsByType",
+  async (type, { rejectWithValue }) => {
+    try {
+      const { data } = await getContactsByType(type);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getContactsBySearchThunk = createAsyncThunk(
+  "contacts/getContactsBySearch",
+  async (search, { rejectWithValue }) => {
+    try {
+      const { data } = await getContactsBySearch(search);
       return data;
     } catch (error) {
       console.log(error.message);

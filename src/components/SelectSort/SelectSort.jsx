@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import { toast } from "react-toastify";
+import { useNavigate, useSearchParams } from "react-router-dom";
 // style
 import {
   Wrapper,
@@ -15,6 +15,9 @@ import {
 // components
 import { selectDeviceTypes } from "../../redux/settingsUser/selectors";
 import { rewriteDeviceTypeArr } from "../../utils";
+import { selectIsContactsLoading } from "../../redux/contacts/selectors";
+import { LoaderPretty } from "../LoaderPretty";
+import { PATHS } from "../../constants";
 
 const defaultType = { _id: "1", type: "Усе" };
 
@@ -22,14 +25,21 @@ export const SelectSort = () => {
   const [openList, setOpenList] = useState(false);
   const [valueInput, setValueInput] = useState("Усе");
   const [list, setList] = useState([]);
-  //   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = searchParams.get("filter");
+  const navigate = useNavigate();
   const types = useSelector(selectDeviceTypes);
+  const isLoading = useSelector(selectIsContactsLoading);
 
   useEffect(() => {
     if (types.length !== 0) {
       setList([defaultType, ...rewriteDeviceTypeArr(types)]);
     }
-  }, [types]);
+
+    if (filter) {
+      setValueInput("Результати пошуку");
+    }
+  }, [filter, types]);
 
   const handleClickOpenList = () => {
     setOpenList((prev) => !prev);
@@ -37,43 +47,44 @@ export const SelectSort = () => {
 
   const handleClickButtonInList = (value) => {
     setValueInput(value);
-    // console.log({ type: value });
 
-    // dispatch()
-    //   .unwrap()
-    //   .then()
-    //   .catch(() => {
-    //     toast.warning("Щось пішло не так, спробуйте ще раз");
-    //   });
+    if (value === "Усе") {
+      navigate(`/${PATHS.SERVICES}`);
+    } else {
+      setSearchParams({ type: value });
+    }
 
     setOpenList(false);
   };
 
   return (
-    <Wrapper>
-      <InputWrapper>
-        <FakeInput onClick={handleClickOpenList}>{valueInput}</FakeInput>
+    <>
+      {isLoading && <LoaderPretty />}
+      <Wrapper>
+        <InputWrapper>
+          <FakeInput onClick={handleClickOpenList}>{valueInput}</FakeInput>
 
-        <Button type="button" onClick={handleClickOpenList}>
-          <IconOpenList $isOpen={openList} />
-        </Button>
-      </InputWrapper>
+          <Button type="button" onClick={handleClickOpenList}>
+            <IconOpenList $isOpen={openList} />
+          </Button>
+        </InputWrapper>
 
-      {openList && (
-        <List>
-          {list.length > 0 &&
-            list.map((item) => (
-              <ListItem key={item._id}>
-                <ButtonList
-                  type="button"
-                  onClick={() => handleClickButtonInList(item.type)}
-                >
-                  {item.type}
-                </ButtonList>
-              </ListItem>
-            ))}
-        </List>
-      )}
-    </Wrapper>
+        {openList && (
+          <List>
+            {list.length > 0 &&
+              list.map((item) => (
+                <ListItem key={item._id}>
+                  <ButtonList
+                    type="button"
+                    onClick={() => handleClickButtonInList(item.type)}
+                  >
+                    {item.type}
+                  </ButtonList>
+                </ListItem>
+              ))}
+          </List>
+        )}
+      </Wrapper>
+    </>
   );
 };

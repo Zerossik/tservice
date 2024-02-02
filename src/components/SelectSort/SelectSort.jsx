@@ -32,8 +32,6 @@ export const SelectSort = () => {
   const types = useSelector(selectDeviceTypes);
   const isLoading = useSelector(selectIsContactsLoading);
 
-  console.log(location);
-
   useEffect(() => {
     if (types.length !== 0) {
       setList([defaultType, ...rewriteDeviceTypeArr(types)]);

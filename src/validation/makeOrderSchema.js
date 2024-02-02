@@ -25,6 +25,6 @@ export const makeOrderSchema = () => {
     // status: Yup.string().required(required),
     // masterName: Yup.string(),
     description: Yup.string(),
-    failure: Yup.string(),
+    // failure: Yup.string(),
   });
 };

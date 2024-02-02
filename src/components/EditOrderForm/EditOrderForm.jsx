@@ -168,7 +168,7 @@ export const EditOrderForm = ({ id, order }) => {
             <TextArea
               name="description"
               formik={formik}
-              labelText="Опис від клієнта"
+              labelText="Опис несправності"
             />
           </ListItemArea>
           <li>
@@ -198,9 +198,9 @@ export const EditOrderForm = ({ id, order }) => {
               fildsList={createListOfMasters(masters)}
             />
           </li>
-          <ListItemArea>
+          {/* <ListItemArea>
             <TextArea name="failure" formik={formik} labelText="Несправність" />
-          </ListItemArea>
+          </ListItemArea> */}
           <ListItemArea>
             <ButtonAddList />
           </ListItemArea>

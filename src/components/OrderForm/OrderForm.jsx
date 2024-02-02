@@ -152,12 +152,12 @@ export const OrderForm = () => {
             <TextArea
               name="description"
               formik={formik}
-              labelText="Опис від клієнта"
+              labelText="Опис несправності"
             />
           </ListItemArea>
-          <ListItemArea>
+          {/* <ListItemArea>
             <TextArea name="failure" formik={formik} labelText="Несправність" />
-          </ListItemArea>
+          </ListItemArea> */}
           <ListItemArea>
             <ButtonAddList />
           </ListItemArea>

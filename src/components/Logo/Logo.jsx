@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom";
 // style
-import { Wrapper, LogoText } from "./Logo.styled";
+import { NavLinkStyled } from "./Logo.styled";
+// componets
+import { PATHS } from "../../constants";
 
 export const Logo = () => {
+  // const navigate = useNavigate();
+
   return (
-    <Wrapper>
-      <LogoText>TService</LogoText>
-    </Wrapper>
+    // <Wrapper>
+    <NavLinkStyled to={`/${PATHS.SERVICES}`}>TService</NavLinkStyled>
   );
 };

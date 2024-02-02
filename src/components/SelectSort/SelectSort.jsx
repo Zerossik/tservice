@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 // style
 import {
   Wrapper,
@@ -27,9 +27,12 @@ export const SelectSort = () => {
   const [list, setList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get("filter");
+  const location = useLocation();
   const navigate = useNavigate();
   const types = useSelector(selectDeviceTypes);
   const isLoading = useSelector(selectIsContactsLoading);
+
+  console.log(location);
 
   useEffect(() => {
     if (types.length !== 0) {
@@ -39,7 +42,11 @@ export const SelectSort = () => {
     if (filter) {
       setValueInput("Результати пошуку");
     }
-  }, [filter, types]);
+
+    if (location.pathname === "/services") {
+      setValueInput("Усе");
+    }
+  }, [filter, location.pathname, types]);
 
   const handleClickOpenList = () => {
     setOpenList((prev) => !prev);

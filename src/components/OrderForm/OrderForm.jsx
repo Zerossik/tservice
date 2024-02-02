@@ -46,7 +46,7 @@ export const OrderForm = () => {
       customerName: "",
       phoneNumber: "",
       description: "",
-      failure: "",
+      // failure: "",
     },
     validationSchema: makeOrderSchema(),
     onSubmit: (values) => {

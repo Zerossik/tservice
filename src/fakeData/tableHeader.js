@@ -39,7 +39,7 @@ export const tableHeader = [
     id: "5",
     order: 5,
     buttonName: "Дата прийняття",
-    columnName: "startDate",
+    columnName: "createdAt",
     isActive: true,
     sortDown: true,
     isVisible: true,

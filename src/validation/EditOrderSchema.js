@@ -26,6 +26,6 @@ export const editOrderSchema = () => {
     status: Yup.string().oneOf(listOfStatus, message).required(required),
     masterName: Yup.string(),
     description: Yup.string(),
-    failure: Yup.string().required(required),
+    // failure: Yup.string().required(required),
   });
 };

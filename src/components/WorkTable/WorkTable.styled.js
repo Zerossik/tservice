@@ -21,7 +21,7 @@ export const Thead = styled.thead`
   font-weight: 700;
 
   & th:nth-child(1) {
-    width: 5%;
+    width: 10%;
   }
 
   /* & th:nth-child(3) {

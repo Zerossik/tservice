@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useTheme } from "styled-components";
 import { useFormik } from "formik";
 // style
-import { Form, Button, IconSearch } from "./Search.styled";
+import { Wrapper, Form, Button, IconSearch } from "./Search.styled";
 // components
 import { Input } from "../Input";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
@@ -34,29 +34,31 @@ export const Search = () => {
     borderTopLeftRadius: theme.borderRadius.extraSmall,
     borderBottomLeftRadius: theme.borderRadius.extraSmall,
     borderRight: "none",
-    borderColor: theme.color.secondary,
+    borderColor: theme.color.bgSecondary,
   };
 
   return (
     <>
       {isLoading && <LoaderPretty />}
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          formik.handleSubmit(e);
-        }}
-      >
-        <Input
-          name="search"
-          type="text"
-          formik={formik}
-          style={extraInputStyle}
-          placeholder={searching ? "Завантажуємо..." : "Пошук"}
-        />
-        <Button type="submit">
-          <IconSearch />
-        </Button>
-      </Form>
+      <Wrapper>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit(e);
+          }}
+        >
+          <Input
+            name="search"
+            type="text"
+            formik={formik}
+            style={extraInputStyle}
+            placeholder={searching ? "Завантажуємо..." : "Пошук"}
+          />
+          <Button type="submit">
+            <IconSearch />
+          </Button>
+        </Form>
+      </Wrapper>
     </>
   );
 };

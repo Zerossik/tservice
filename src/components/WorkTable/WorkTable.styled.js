@@ -2,6 +2,14 @@ import styled from "styled-components";
 import { HiPencilSquare } from "react-icons/hi2";
 import { HiMiniArrowLongDown } from "react-icons/hi2";
 
+export const TableWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+  height: 100%;
+`;
+
 export const Table = styled.table`
   position: relative;
   width: 100%;
@@ -9,7 +17,7 @@ export const Table = styled.table`
   color: ${({ theme }) => theme.color.primary};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   overflow: hidden;
-  box-shadow: ${({ theme }) => theme.color.shadow};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
   border-collapse: collapse;
 `;
 

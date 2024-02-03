@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 export const ButtonIconPlus = styled.button`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.color.bgSecondary};
-  box-shadow: ${({ theme }) => theme.color.shadow};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
 `;
 
 export const IconPlus = styled(HiPlusCircle)`

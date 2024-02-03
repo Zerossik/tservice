@@ -6,6 +6,7 @@ export const HeaderStyled = styled.header`
   width: 100%;
   height: 88px;
   background-color: ${({ theme }) => theme.color.bgSecondary};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
 `;
 
 export const HeaderContainer = styled(Container)`

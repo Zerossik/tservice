@@ -4,13 +4,14 @@ import { Container } from "../../pages/ServicePage/ServicePage.styled";
 
 export const HeaderStyled = styled.header`
   width: 100%;
-  height: 88px;
   background-color: ${({ theme }) => theme.color.bgSecondary};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
 `;
 
 export const HeaderContainer = styled(Container)`
   width: 100%;
-  height: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,14 +70,3 @@ export const ItemTitle = styled.p`
   margin-bottom: 8px;
   color: ${({ theme }) => theme.color.primary};
 `;
-
-// export const ListSettings = styled.ul``;
-
-// export const ItemListSettings = styled.li`
-//   position: relative;
-//   padding: 10px 0;
-
-//   &:not(:last-child) {
-//     /* border-bottom: 1px solid ${({ theme }) => theme.color.border}; */
-//   }
-// `;

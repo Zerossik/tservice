@@ -1,8 +1,8 @@
 import { apiPrivate } from "./baseAPI";
 
-export const getAllContacts = async () => {
+export const getAllOrders = async (params) => {
   try {
-    const { data } = await apiPrivate.get("api/contacts");
+    const { data } = await apiPrivate.get("/api/contacts", { params: params });
     return data;
   } catch (error) {
     throw new Error(error.message);
@@ -41,24 +41,6 @@ export const updateContactById = async (id, body) => {
 export const deleteContactById = async (id) => {
   try {
     const { data } = await apiPrivate.delete(`api/contacts/${id}`);
-    return data;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-export const getContactsByType = async (type) => {
-  try {
-    const { data } = await apiPrivate.get(`/api/contacts?type=${type}`);
-    return data;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-export const getContactsBySearch = async (search) => {
-  try {
-    const { data } = await apiPrivate.get(`/api/contacts?filter=${search}`);
     return data;
   } catch (error) {
     throw new Error(error.message);

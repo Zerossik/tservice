@@ -28,6 +28,7 @@ const lightTheme = {
   // table
   tableHead: "#3395ff",
   tableCell: "#F4F3F3",
+  tableFont: "#121417",
   // loader
   loader: "#0b68f3", // spinner Loader
   // backDrop
@@ -77,6 +78,7 @@ const darktheme = {
   // table
   tableHead: "#3395ff",
   tableCell: "#2C2C2C",
+  tableFont: "#121417",
   // loader
   loader: "#0b68f3", // spinner Loader
   // backDrop

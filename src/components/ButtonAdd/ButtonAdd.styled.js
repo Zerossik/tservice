@@ -10,7 +10,6 @@ export const Button = styled.button`
   color: ${({ theme }) => theme.color.iconMain};
   background-color: transparent;
   border-radius: ${({ theme }) => theme.borderRadius.small};
-  border: 1px solid ${({ theme }) => theme.color.border};
   box-shadow: ${({ theme }) => theme.color.shadowSecond};
   outline: none;
 

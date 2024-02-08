@@ -9,7 +9,7 @@ export const Table = styled.table`
   color: ${({ theme }) => theme.color.primary};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   overflow: hidden;
-  box-shadow: ${({ theme }) => theme.color.shadow};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
   border-collapse: collapse;
 `;
 
@@ -39,6 +39,7 @@ export const Thead = styled.thead`
 
 export const TableHead = styled.th`
   position: sticky;
+  color: ${({ theme }) => theme.color.tableFont};
   background-color: ${({ theme }) => theme.color.tableHead};
 `;
 
@@ -67,10 +68,15 @@ export const Button = styled.button`
   width: 100%;
   height: 48px;
   font-weight: 700;
+  color: ${({ theme }) => theme.color.tableFont};
   /* color: ${({ theme, $isActive }) =>
     theme.color[$isActive ? "third" : "primary"]};
   cursor: default; */
   background-color: transparent;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.third};
+  }
 `;
 
 export const IconSort = styled(HiMiniArrowLongDown)`

@@ -2,15 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { contactsInitialState } from "../initialState";
 import {
   addContactThunk,
-  getAllThunk,
   deleteContactThunk,
   updateContactByIdThunk,
-  getContactsByTypeThunk,
-  getContactsBySearchThunk,
+  getAllOrdersThunk,
 } from "./contactsThunks";
 
-const handleGetAll = (state, { payload }) => {
-  state.contacts = payload;
+const handleGetAllOrders = (state, { payload }) => {
+  state.contacts = payload.data;
+  state.totalOrders = payload.totalOrders;
 };
 
 const handleAddContact = (state, { payload }) => {
@@ -25,14 +24,6 @@ const handleUpdateContact = (state, { payload }) => {
 
 const handleDeleteContact = (state, { payload }) => {
   state.contacts = state.contacts.filter(({ _id: id }) => id !== payload._id);
-};
-
-const handleGetContactsByType = (state, { payload }) => {
-  state.contacts = payload;
-};
-
-const handleGetContactsBySearch = (state, { payload }) => {
-  state.contacts = payload;
 };
 
 const handleFulfilled = (state) => {
@@ -52,17 +43,16 @@ const contactSlice = createSlice({
   initialState: contactsInitialState,
   reducers: {
     getAllContacts: (state, { payload }) => {
-      state.contacts = payload;
+      state.contacts = payload.data;
+      state.totalOrders = payload.totalOrders;
     },
   },
   extraReducers: (builder) =>
     builder
-      .addCase(getAllThunk.fulfilled, handleGetAll)
+      .addCase(getAllOrdersThunk.fulfilled, handleGetAllOrders)
       .addCase(addContactThunk.fulfilled, handleAddContact)
       .addCase(updateContactByIdThunk.fulfilled, handleUpdateContact)
       .addCase(deleteContactThunk.fulfilled, handleDeleteContact)
-      .addCase(getContactsByTypeThunk.fulfilled, handleGetContactsByType)
-      .addCase(getContactsBySearchThunk.fulfilled, handleGetContactsBySearch)
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         handleFulfilled

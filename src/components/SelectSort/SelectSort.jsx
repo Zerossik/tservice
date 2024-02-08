@@ -41,10 +41,10 @@ export const SelectSort = () => {
       setValueInput("Результати пошуку");
     }
 
-    if (location.pathname === "/services") {
+    if (location?.state?.logoReset) {
       setValueInput("Усе");
     }
-  }, [filter, location.pathname, types]);
+  }, [filter, location?.state?.logoReset, types]);
 
   const handleClickOpenList = () => {
     setOpenList((prev) => !prev);

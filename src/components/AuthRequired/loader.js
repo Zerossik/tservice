@@ -1,11 +1,7 @@
 import { redirect } from "react-router-dom";
 import { isUserLogin } from "./auth";
 import { PATHS } from "../../constants";
-import {
-  getAllContacts,
-  getContactsBySearch,
-  getContactsByType,
-} from "../../services/contactsAPI";
+import { getAllOrders } from "../../services/contactsAPI";
 import { getAllList } from "../../services/settingsUserAPI";
 
 export const loader = async ({ request }) => {
@@ -15,29 +11,20 @@ export const loader = async ({ request }) => {
   // console.log("protected rout ", isLoggedIn);
   const isAuth = isUserLogin();
   const url = new URL(request.url);
-  const type = url.searchParams.get("type");
-  const filter = url.searchParams.get("filter");
 
-  if (isAuth && type) {
+  const params = Object.fromEntries([...url.searchParams.entries()]);
+
+  if (isAuth && url.searchParams.size > 0) {
     try {
-      const value = await getContactsByType(type);
+      const value = await getAllOrders(params);
       return [value];
     } catch (error) {
       console.log(error);
     }
   }
 
-  if (isAuth && filter) {
-    try {
-      const value = await getContactsBySearch(filter);
-      return [value];
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  if (isAuth) {
-    return Promise.all([getAllContacts(), getAllList()])
+  if (isAuth && url.searchParams.size === 0) {
+    return Promise.all([getAllOrders(), getAllList()])
       .then((value) => {
         return value;
       })

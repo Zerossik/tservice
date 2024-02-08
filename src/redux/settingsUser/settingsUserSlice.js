@@ -65,8 +65,8 @@ const settingsUserSlice = createSlice({
   initialState: settingsUserInitialState,
   reducers: {
     getAllLists: (state, { payload }) => {
-      state.deviceManufacturers = payload.deviceManufacturers;
-      state.deviceTypes = payload.deviceTypes;
+      state.deviceManufacturers = payload.data.deviceManufacturers;
+      state.deviceTypes = payload.data.deviceTypes;
     },
     device: (state, { payload }) => {
       state.device = payload;

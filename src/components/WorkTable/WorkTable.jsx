@@ -4,7 +4,6 @@ import { useLoaderData } from "react-router-dom";
 import dateFormat from "dateformat";
 // style
 import {
-  TableWrapper,
   Table,
   Row,
   Thead,
@@ -26,7 +25,6 @@ import {
   selectContacts,
   selectTableHeader,
 } from "../../redux/contacts/selectors";
-import { Pagination } from "../Pagination/Pagination";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -120,71 +118,66 @@ export const WorkTable = () => {
 
   return (
     <>
-      <TableWrapper>
-        <Table>
-          <Thead>
-            <Row>
-              {tableHeaderFiltered.map(
-                ({ id, buttonName, isActive, sortDown }) => (
-                  <TableHead key={id} scope="col">
-                    <ButtonWrapper>
-                      <Button
-                        type="button"
-                        $isActive={isActive}
-                        onClick={() =>
-                          handleClickButtonSort(tableHeaderFiltered, id)
-                        }
-                      >
-                        {buttonName}
-                        {isActive && <IconSort $sortDown={sortDown} />}
-                      </Button>
-                    </ButtonWrapper>
-                  </TableHead>
-                )
-              )}
-              <TableHead>Дії</TableHead>
-            </Row>
-          </Thead>
-          <TableBody>
-            {sortedContacts.length === 0 && (
-              <RowNoItem>
-                <CellNoItem colSpan={tableHeaderFiltered.length + 1}>
-                  Нічого нема :)
-                </CellNoItem>
-              </RowNoItem>
+      <Table>
+        <Thead>
+          <Row>
+            {tableHeaderFiltered.map(
+              ({ id, buttonName, isActive, sortDown }) => (
+                <TableHead key={id} scope="col">
+                  <ButtonWrapper>
+                    <Button
+                      type="button"
+                      $isActive={isActive}
+                      onClick={() =>
+                        handleClickButtonSort(tableHeaderFiltered, id)
+                      }
+                    >
+                      {buttonName}
+                      {isActive && <IconSort $sortDown={sortDown} />}
+                    </Button>
+                  </ButtonWrapper>
+                </TableHead>
+              )
             )}
-            {sortedContacts.lehgth !== 0 &&
-              sortedContacts.map((item) => (
-                <Row key={item._id}>
-                  {tableHeaderFiltered.map(({ id, columnName }) => {
-                    if (columnName === "createdAt") {
-                      return (
-                        <Cell key={id}>{formatDate(item[columnName])}</Cell>
-                      );
-                    }
+            <TableHead>Дії</TableHead>
+          </Row>
+        </Thead>
+        <TableBody>
+          {sortedContacts.length === 0 && (
+            <RowNoItem>
+              <CellNoItem colSpan={tableHeaderFiltered.length + 1}>
+                Нічого нема :)
+              </CellNoItem>
+            </RowNoItem>
+          )}
+          {sortedContacts.lehgth !== 0 &&
+            sortedContacts.map((item) => (
+              <Row key={item._id}>
+                {tableHeaderFiltered.map(({ id, columnName }) => {
+                  if (columnName === "createdAt") {
+                    return <Cell key={id}>{formatDate(item[columnName])}</Cell>;
+                  }
 
-                    if (columnName === "phoneNumber") {
-                      return (
-                        <Cell key={id}>
-                          {formatPhoneNumber(item[columnName])}
-                        </Cell>
-                      );
-                    }
+                  if (columnName === "phoneNumber") {
+                    return (
+                      <Cell key={id}>
+                        {formatPhoneNumber(item[columnName])}
+                      </Cell>
+                    );
+                  }
 
-                    return <Cell key={id}>{item[columnName]}</Cell>;
-                  })}
-                  <Cell>
-                    <ButtonIconEdit onClick={() => setOrderDataToEdit(item)}>
-                      <IconEdit />
-                    </ButtonIconEdit>
-                  </Cell>
-                </Row>
-              ))}
-          </TableBody>
-        </Table>
+                  return <Cell key={id}>{item[columnName]}</Cell>;
+                })}
+                <Cell>
+                  <ButtonIconEdit onClick={() => setOrderDataToEdit(item)}>
+                    <IconEdit />
+                  </ButtonIconEdit>
+                </Cell>
+              </Row>
+            ))}
+        </TableBody>
+      </Table>
 
-        <Pagination />
-      </TableWrapper>
       {isModalOpen && (
         <Modal
           title={`Редагування замовлення #${order.orderNumber}`}

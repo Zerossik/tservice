@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: scroll;
 `;
 
 export const Container = styled.div`
@@ -15,4 +16,7 @@ export const Container = styled.div`
 
 export const Main = styled.main`
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;

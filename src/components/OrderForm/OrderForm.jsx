@@ -4,6 +4,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useTheme } from "styled-components";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
 // style
 import {
   FormStyled,
@@ -30,7 +31,7 @@ import {
 import { rewriteDeviceTypeArr } from "../../utils";
 import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
 
-export const OrderForm = () => {
+export const OrderForm = ({ toggleModal }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsContactsLoading);
   const deviceManufacturers = useSelector(selectDeviceManufacturers);
@@ -52,7 +53,11 @@ export const OrderForm = () => {
     onSubmit: (values) => {
       dispatch(addContactThunk(values))
         .unwrap()
-        .then(() => toast.success("Замовлення додано"))
+        .then(() => {
+          toast.success("Замовлення додано");
+          formik.resetForm();
+          toggleModal();
+        })
         .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
     },
   });
@@ -171,4 +176,8 @@ export const OrderForm = () => {
       </FormStyled>
     </>
   );
+};
+
+OrderForm.propTypes = {
+  toggleModal: PropTypes.func,
 };

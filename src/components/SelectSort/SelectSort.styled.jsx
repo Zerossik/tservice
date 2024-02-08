@@ -24,7 +24,6 @@ export const FakeInput = styled.div`
   color: ${({ theme }) => theme.color.primary};
   border-top-left-radius: ${({ theme }) => theme.borderRadius.extraSmall};
   border-bottom-left-radius: ${({ theme }) => theme.borderRadius.extraSmall};
-  /* border: 1px solid ${({ theme }) => theme.color.secondary}; */
   border-right: none;
   background-color: ${({ theme }) => theme.color.bgSecondary};
   outline: none;
@@ -36,7 +35,6 @@ export const Button = styled.button`
   padding: 5px;
   color: ${({ theme }) => theme.color.secondary};
   background-color: ${({ theme }) => theme.color.bgSecondary};
-  /* border: 1px solid ${({ theme }) => theme.color.secondary}; */
   border-left: none;
   border-top-right-radius: ${({ theme }) => theme.borderRadius.extraSmall};
   border-bottom-right-radius: ${({ theme }) => theme.borderRadius.extraSmall};
@@ -57,7 +55,6 @@ export const List = styled.ul`
   width: 100%;
   max-height: 200px;
   overflow-y: scroll;
-  /* border: 1px solid ${({ theme }) => theme.color.border}; */
   border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
   background-color: ${({ theme }) => theme.color.dropDownBg};
   box-shadow: ${({ theme }) => theme.color.shadowSecond};

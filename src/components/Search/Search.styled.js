@@ -15,10 +15,9 @@ export const Form = styled.form`
 export const Button = styled.button`
   width: 40px;
   height: 40px;
-  padding: 5px;
+  padding: 6px;
   color: ${({ theme }) => theme.color.secondary};
   background-color: ${({ theme }) => theme.color.bgSecondary};
-  /* border: 1px solid ${({ theme }) => theme.color.secondary}; */
   border-left: none;
   border-top-right-radius: ${({ theme }) => theme.borderRadius.extraSmall};
   border-bottom-right-radius: ${({ theme }) => theme.borderRadius.extraSmall};

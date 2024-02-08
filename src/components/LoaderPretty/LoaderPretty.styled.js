@@ -61,7 +61,7 @@ export const BackDrop = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: ${({ theme }) => theme.color.backDrop};
+  /* background-color: ${({ theme }) => theme.color.backDrop}; */
 `;
 
 export const Wrapper = styled.div`

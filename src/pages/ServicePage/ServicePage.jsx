@@ -10,6 +10,7 @@ import { Filter } from "../../components/Filter/Filter";
 import { getAllContacts } from "../../redux/contacts/ContactSlice";
 import { getAllLists } from "../../redux/settingsUser/settingsUserSlice";
 import { LoaderPretty } from "../../components/LoaderPretty";
+import { Pagination } from "../../components/Pagination/Pagination";
 
 export const ServicePage = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,10 @@ export const ServicePage = () => {
 
   useEffect(() => {
     if (data) {
-      data.map(({ data }) => {
-        Array.isArray(data)
-          ? dispatch(getAllContacts(data))
-          : dispatch(getAllLists(data));
+      data.map((item) => {
+        Array.isArray(item.data)
+          ? dispatch(getAllContacts(item))
+          : dispatch(getAllLists(item));
       });
     }
   }, [data, dispatch]);
@@ -37,6 +38,10 @@ export const ServicePage = () => {
             <Suspense fallback={<LoaderPretty />}>
               <Outlet />
             </Suspense>
+          </Container>
+
+          <Container>
+            <Pagination />
           </Container>
         </Main>
         <Footer />

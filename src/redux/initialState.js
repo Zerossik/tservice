@@ -19,6 +19,7 @@ export const contactsInitialState = {
   isLoading: false,
   contacts: [],
   tableHeader: tableHeader,
+  totalOrders: 0,
 };
 
 export const settingsUserInitialState = {

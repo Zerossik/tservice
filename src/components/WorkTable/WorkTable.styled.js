@@ -2,14 +2,6 @@ import styled from "styled-components";
 import { HiPencilSquare } from "react-icons/hi2";
 import { HiMiniArrowLongDown } from "react-icons/hi2";
 
-export const TableWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 50px;
-  height: 100%;
-`;
-
 export const Table = styled.table`
   position: relative;
   width: 100%;
@@ -47,6 +39,7 @@ export const Thead = styled.thead`
 
 export const TableHead = styled.th`
   position: sticky;
+  color: ${({ theme }) => theme.color.tableFont};
   background-color: ${({ theme }) => theme.color.tableHead};
 `;
 
@@ -75,10 +68,15 @@ export const Button = styled.button`
   width: 100%;
   height: 48px;
   font-weight: 700;
+  color: ${({ theme }) => theme.color.tableFont};
   /* color: ${({ theme, $isActive }) =>
     theme.color[$isActive ? "third" : "primary"]};
   cursor: default; */
   background-color: transparent;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.third};
+  }
 `;
 
 export const IconSort = styled(HiMiniArrowLongDown)`

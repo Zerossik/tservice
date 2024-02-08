@@ -34,7 +34,7 @@ export const Filter = () => {
 
       {isModalOpen && (
         <Modal title="Нове замовлення" onToggleModal={toggleModal}>
-          <OrderForm />
+          <OrderForm toggleModal={toggleModal} />
         </Modal>
       )}
     </>

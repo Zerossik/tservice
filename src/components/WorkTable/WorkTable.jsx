@@ -25,12 +25,15 @@ import {
   selectContacts,
   selectTableHeader,
 } from "../../redux/contacts/selectors";
+import { useConfirm } from "../ConfirmService/context";
+import { OrderView } from "../OrderView/OrderView";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tableHeaderFiltered, setTableHeaderFiltered] = useState([]);
   const [sortedContacts, setSortedContacts] = useState([]);
   const [order, setOrder] = useState({});
+  const confirm = useConfirm();
   const dispatch = useDispatch();
   const data = useLoaderData();
   const contacts = useSelector(selectContacts);
@@ -112,6 +115,13 @@ export const WorkTable = () => {
     return formatedNumber;
   };
 
+  const handleClickOrder = (data) => {
+    // console.log(data);
+    confirm.openConfirm({
+      component: <OrderView data={data} closeConfirm={confirm.handleClose} />,
+    });
+  };
+
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -152,7 +162,12 @@ export const WorkTable = () => {
           )}
           {sortedContacts.lehgth !== 0 &&
             sortedContacts.map((item) => (
-              <Row key={item._id}>
+              <Row
+                key={item._id}
+                onClick={() => {
+                  handleClickOrder(item);
+                }}
+              >
                 {tableHeaderFiltered.map(({ id, columnName }) => {
                   if (columnName === "createdAt") {
                     return <Cell key={id}>{formatDate(item[columnName])}</Cell>;

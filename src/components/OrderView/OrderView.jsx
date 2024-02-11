@@ -1,16 +1,44 @@
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 // styled
-// import { ButtonClose } from "./OrderView.styled";
+import {
+  Wrapper,
+  WrapperTable,
+  ButtonWrapper,
+  Table,
+  TableBody,
+  Row,
+  HeaderCells,
+  Cell,
+} from "./OrderView.styled";
 // components
 import { ButtonForm } from "../ButtonForm";
+import { selectTableHeader } from "../../redux/contacts/selectors";
+import { formatData } from "../../utils";
 
 export const OrderView = ({ data, closeConfirm }) => {
+  const tableHeader = useSelector(selectTableHeader);
+
   return (
-    <div>
-      <p>OrderView</p>
-      <p>{JSON.stringify(data)}</p>
-      <ButtonForm type="button" onClick={closeConfirm} buttonName="Закрити" />
-    </div>
+    <Wrapper>
+      <WrapperTable>
+        <Table>
+          <TableBody>
+            {tableHeader &&
+              tableHeader.map(({ id, buttonName, columnName }) => (
+                <Row key={id}>
+                  <HeaderCells>{buttonName}</HeaderCells>
+                  <Cell>{formatData(columnName, data[columnName])}</Cell>
+                </Row>
+              ))}
+          </TableBody>
+        </Table>
+      </WrapperTable>
+
+      <ButtonWrapper>
+        <ButtonForm type="button" onClick={closeConfirm} buttonName="Закрити" />
+      </ButtonWrapper>
+    </Wrapper>
   );
 };
 

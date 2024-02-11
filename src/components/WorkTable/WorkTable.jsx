@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
-import dateFormat from "dateformat";
 // style
 import {
   Table,
@@ -27,6 +26,7 @@ import {
 } from "../../redux/contacts/selectors";
 import { useConfirm } from "../ConfirmService/context";
 import { OrderView } from "../OrderView/OrderView";
+import { formatData } from "../../utils";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -93,30 +93,7 @@ export const WorkTable = () => {
     sortCollumn(selectedTableHeadCell);
   };
 
-  const formatDate = (date) => {
-    return dateFormat(date, "dd.mm.yyyy");
-  };
-
-  const formatPhoneNumber = (phoneNumber) => {
-    const template = "xxx (xx) xxx-xx-xx";
-    let formatedNumber = "";
-    let num = 0;
-
-    for (let i = 0; i < template.length; i++) {
-      if (template[i] === "x") {
-        formatedNumber = formatedNumber + phoneNumber[num];
-        num++;
-        continue;
-      }
-
-      formatedNumber = formatedNumber + template[i];
-    }
-
-    return formatedNumber;
-  };
-
   const handleClickOrder = (data) => {
-    // console.log(data);
     confirm.openConfirm({
       component: <OrderView data={data} closeConfirm={confirm.handleClose} />,
     });
@@ -128,7 +105,7 @@ export const WorkTable = () => {
 
   return (
     <>
-      <Table>
+      <Table cellPadding="0">
         <Thead>
           <Row>
             {tableHeaderFiltered.map(
@@ -162,26 +139,18 @@ export const WorkTable = () => {
           )}
           {sortedContacts.lehgth !== 0 &&
             sortedContacts.map((item) => (
-              <Row
-                key={item._id}
-                onClick={() => {
-                  handleClickOrder(item);
-                }}
-              >
+              <Row key={item._id}>
                 {tableHeaderFiltered.map(({ id, columnName }) => {
-                  if (columnName === "createdAt") {
-                    return <Cell key={id}>{formatDate(item[columnName])}</Cell>;
-                  }
-
-                  if (columnName === "phoneNumber") {
-                    return (
-                      <Cell key={id}>
-                        {formatPhoneNumber(item[columnName])}
-                      </Cell>
-                    );
-                  }
-
-                  return <Cell key={id}>{item[columnName]}</Cell>;
+                  return (
+                    <Cell
+                      key={id}
+                      onClick={() => {
+                        handleClickOrder(item);
+                      }}
+                    >
+                      {formatData(columnName, item[columnName])}
+                    </Cell>
+                  );
                 })}
                 <Cell>
                   <ButtonIconEdit onClick={() => setOrderDataToEdit(item)}>

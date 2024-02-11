@@ -123,7 +123,7 @@ export const EditOrderForm = ({ id, order }) => {
               <Label htmlFor="phoneNumber" labelText="Номер телефона" />
               <PhoneInput
                 country="ua"
-                regions={["america", "europe"]}
+                onlyCountries={["ua"]}
                 value={formik.values.phoneNumber}
                 onChange={(phone) => formik.setFieldValue("phoneNumber", phone)}
                 inputProps={{ name: "phoneNumber", id: "phoneNumber" }}

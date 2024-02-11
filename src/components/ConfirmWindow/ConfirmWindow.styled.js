@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const BackDrop = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 91;
@@ -12,7 +12,6 @@ export const BackDrop = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.color.backDrop};
-  /* background-color: transparent; */
 `;
 
 export const Wrapper = styled.div`
@@ -21,8 +20,9 @@ export const Wrapper = styled.div`
   padding: 20px;
   max-width: 100%;
   height: auto;
+  max-height: 100%;
   border-radius: ${({ theme }) => theme.borderRadius.small};
-  border: 1px solid ${({ theme }) => theme.color.secondary};
+  border: 1px solid ${({ theme }) => theme.color.border};
   background-color: ${({ theme }) => theme.color.modalBg};
   box-shadow: ${({ theme }) => theme.color.shadow};
 `;

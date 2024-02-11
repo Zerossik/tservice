@@ -2,7 +2,7 @@ export const tableHeader = [
   {
     id: "1",
     order: 1,
-    buttonName: "Ордер",
+    buttonName: "Номер замовлення",
     columnName: "orderNumber",
     isActive: false,
     sortDown: null,

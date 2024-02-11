@@ -4,6 +4,7 @@ export const Wrapper = styled.form``;
 
 export const Title = styled.h3`
   margin-bottom: 20px;
+  color: ${({ theme }) => theme.color.primary};
 `;
 
 export const Text = styled.p`

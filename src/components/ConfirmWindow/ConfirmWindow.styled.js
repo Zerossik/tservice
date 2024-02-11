@@ -26,3 +26,23 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.color.modalBg};
   box-shadow: ${({ theme }) => theme.color.shadow};
 `;
+
+export const MessageWrap = styled.div``;
+
+export const Message = styled.p`
+  margin-bottom: 20px;
+  padding: 10px;
+  max-width: 250px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  color: ${({ theme }) => theme.color.primary};
+  text-align: center;
+`;
+
+export const List = styled.ul`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const ListItem = styled.li``;

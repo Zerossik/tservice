@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 // style
@@ -30,9 +30,11 @@ import { formatData } from "../../utils";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFormEdit, setIsFormEdit] = useState(false);
   const [tableHeaderFiltered, setTableHeaderFiltered] = useState([]);
   const [sortedContacts, setSortedContacts] = useState([]);
   const [order, setOrder] = useState({});
+  const awitingPromiseRef = useRef();
   const confirm = useConfirm();
   const dispatch = useDispatch();
   const data = useLoaderData();
@@ -100,6 +102,25 @@ export const WorkTable = () => {
   };
 
   const toggleModal = () => {
+    if (isFormEdit) {
+      return new Promise((resolve, reject) => {
+        awitingPromiseRef.current = { resolve, reject };
+
+        confirm.openConfirm({
+          message: "Якщо ви закриєте вікно, ви втратите введені дані! Закрити?",
+          awaitAnswer: awitingPromiseRef.current,
+        });
+      })
+        .then((closeConfirm) => {
+          closeConfirm();
+          setIsModalOpen(false);
+          setIsFormEdit(false);
+        })
+        .catch((closeConfirm) => {
+          closeConfirm();
+        });
+    }
+
     setIsModalOpen((prev) => !prev);
   };
 
@@ -167,7 +188,12 @@ export const WorkTable = () => {
           title={`Редагування замовлення #${order.orderNumber}`}
           onToggleModal={toggleModal}
         >
-          <EditOrderForm id={order._id} order={order} />
+          <EditOrderForm
+            id={order._id}
+            order={order}
+            closeModal={setIsModalOpen}
+            isFormEdit={setIsFormEdit}
+          />
         </Modal>
       )}
     </>

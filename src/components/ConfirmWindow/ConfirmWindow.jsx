@@ -1,8 +1,16 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 // style
-import { BackDrop, Wrapper } from "./ConfirmWindow.styled";
+import {
+  BackDrop,
+  Wrapper,
+  MessageWrap,
+  Message,
+  List,
+  ListItem,
+} from "./ConfirmWindow.styled";
 // components
+import { ButtonForm } from "../ButtonForm";
 
 export const ConfirmWindow = ({ close, options }) => {
   useEffect(() => {
@@ -27,9 +35,41 @@ export const ConfirmWindow = ({ close, options }) => {
     }
   };
 
+  const handleClickCancel = () => {
+    options.awaitAnswer.reject(close);
+  };
+
+  const handleClickOk = () => {
+    options.awaitAnswer.resolve(close);
+  };
+
   return (
     <BackDrop onClick={handleBackDropClick}>
-      <Wrapper>{options?.component}</Wrapper>
+      <Wrapper>
+        {options.component ? (
+          options.component
+        ) : (
+          <MessageWrap>
+            <Message>{options.message}</Message>
+            <List>
+              <ListItem>
+                <ButtonForm
+                  type="button"
+                  buttonName="Відмінити"
+                  onClick={handleClickCancel}
+                />
+              </ListItem>
+              <ListItem>
+                <ButtonForm
+                  type="button"
+                  buttonName="Закрити"
+                  onClick={handleClickOk}
+                />
+              </ListItem>
+            </List>
+          </MessageWrap>
+        )}
+      </Wrapper>
     </BackDrop>
   );
 };

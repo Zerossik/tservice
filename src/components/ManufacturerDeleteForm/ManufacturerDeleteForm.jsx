@@ -22,8 +22,8 @@ export const ManufacturerDeleteForm = ({ closeConfirm, oldFildName = "" }) => {
         toast.success("Виробника видалено");
         closeConfirm();
       })
-      .catch(() => {
-        toast.warning("Щось пішло не так, спробуйте ще раз");
+      .catch((error) => {
+        toast.warning(error);
       });
   };
 

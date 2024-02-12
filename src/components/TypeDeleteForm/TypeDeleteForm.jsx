@@ -22,8 +22,9 @@ export const TypeDeleteForm = ({ closeConfirm, oldFildName = "" }) => {
         toast.success("Тип техніки видалено");
         closeConfirm();
       })
-      .catch(() => {
-        toast.warning("Щось пішло не так, спробуйте ще раз");
+      .catch((error) => {
+        console.log(error);
+        toast.warning(error);
       });
   };
 

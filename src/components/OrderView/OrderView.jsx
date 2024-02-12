@@ -16,7 +16,7 @@ import { ButtonForm } from "../ButtonForm";
 import { selectTableHeader } from "../../redux/contacts/selectors";
 import { formatData } from "../../utils";
 
-export const OrderView = ({ data, closeConfirm }) => {
+export const OrderView = ({ data, idx, closeConfirm }) => {
   const tableHeader = useSelector(selectTableHeader);
 
   return (
@@ -28,7 +28,7 @@ export const OrderView = ({ data, closeConfirm }) => {
               tableHeader.map(({ id, buttonName, columnName }) => (
                 <Row key={id}>
                   <HeaderCells>{buttonName}</HeaderCells>
-                  <Cell>{formatData(columnName, data[columnName])}</Cell>
+                  <Cell>{formatData(columnName, data[columnName], idx)}</Cell>
                 </Row>
               ))}
           </TableBody>
@@ -44,5 +44,6 @@ export const OrderView = ({ data, closeConfirm }) => {
 
 OrderView.propTypes = {
   data: PropTypes.object.isRequired,
+  idx: PropTypes.number,
   closeConfirm: PropTypes.func.isRequired,
 };

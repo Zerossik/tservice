@@ -1,13 +1,13 @@
 const lightTheme = {
   primary: "#121417", //titles
-  secondary: "#007aff", // blue
+  secondary: "#4da2ff", // blue
   third: "#ff8500", // orange
   bg: "#a7b3c7", // fon
   bgSecondary: "rgba(255, 255, 255, 0.8)",
   // header
   headerBg: "#e9f3ff",
   // button
-  btnBg: "#007aff",
+  btnBg: "#4da2ff",
   btnBorder: "rgba(255, 255, 255, 0.1)",
   btnFont: "#fff",
   // dropDown
@@ -19,14 +19,16 @@ const lightTheme = {
   placeholder: "rgba(18, 20, 23, 0.5)",
   readOnlyBg: "#e5e5e5",
   // link
-  link: "#007aff",
+  link: "#4da2ff",
   // logo
   logo: "#0b68f3",
   // icons
   iconMain: "rgba(18, 20, 23, 0.8)",
   iconPlus: "#34C759",
   // table
-  tableHead: "#3395ff",
+  tableHead: "#4da2ff",
+  tableRow: "#e8e6e6",
+  tableRowHover: "#cfcbcb",
   tableCell: "#F4F3F3",
   tableFont: "#121417",
   // loader
@@ -49,7 +51,7 @@ const lightTheme = {
 const darktheme = {
   // primary: "rgb(250, 250, 250)",
   primary: "rgb(209, 210, 211)",
-  secondary: "#007aff", // blue
+  secondary: "#4da2ff", // blue
   third: "#ff8500", // orange
   bg: "#1E1E1E",
   // bgSecondary: "rgba(0, 0, 0, 0.8)",
@@ -57,7 +59,7 @@ const darktheme = {
   // header
   headerBg: "#e9f3ff", // need to change
   // button
-  btnBg: "#3395ff",
+  btnBg: "#4da2ff",
   btnBorder: "none",
   btnFont: "#fff",
   // dropDown
@@ -69,14 +71,16 @@ const darktheme = {
   placeholder: "rgba(255, 255, 255, 0.5)",
   readOnlyBg: "#222",
   // link
-  link: "#3395ff",
+  link: "#4da2ff",
   // logo
   logo: "#0b68f3", // the same in dark and light theme
   // icons
   iconMain: "rgba(255, 255, 255, 0.8)",
   iconPlus: "#33ff9d",
   // table
-  tableHead: "#3395ff",
+  tableHead: "#4da2ff",
+  tableRow: "#222222",
+  tableRowHover: "#181818",
   tableCell: "#2C2C2C",
   tableFont: "#121417",
   // loader

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -14,14 +15,12 @@ import {
   ListItemLast,
 } from "./EditOrderForm.styled";
 // components
-// import { editOrderSchema } from "../../validation";
 import { editOrderSchema } from "../../validation";
 import { Input } from "../Input";
 import { Select } from "../Select";
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
 import { TextArea } from "../TextArea/TextArea";
-// import { SelectConst } from "../SelectConst";
 import { ButtonForm } from "../ButtonForm";
 import { selectMasters } from "../../redux/auth/selectors";
 import { updateContactByIdThunk } from "../../redux/contacts/contactsThunks";
@@ -45,7 +44,7 @@ const compareData = (oldObj, newObj) => {
   return objValues;
 };
 
-export const EditOrderForm = ({ id, order }) => {
+export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
   const dispatch = useDispatch();
   const masters = useSelector(selectMasters);
   const deviceManufacturers = useSelector(selectDeviceManufacturers);
@@ -62,10 +61,20 @@ export const EditOrderForm = ({ id, order }) => {
 
       dispatch(updateContactByIdThunk({ id, body }))
         .unwrap()
-        .then(() => toast.success("Замовлення оновлено"))
-        .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
+        .then(() => {
+          toast.success("Замовлення оновлено");
+          isFormEdit(false);
+          closeModal(false);
+        })
+        .catch(() => {
+          toast.warning("Щось пішло не так, спробуйте ще раз");
+        });
     },
   });
+
+  useEffect(() => {
+    isFormEdit(formik.dirty);
+  }, [formik.dirty, isFormEdit]);
 
   return (
     <>
@@ -123,7 +132,7 @@ export const EditOrderForm = ({ id, order }) => {
               <Label htmlFor="phoneNumber" labelText="Номер телефона" />
               <PhoneInput
                 country="ua"
-                regions={["america", "europe"]}
+                onlyCountries={["ua"]}
                 value={formik.values.phoneNumber}
                 onChange={(phone) => formik.setFieldValue("phoneNumber", phone)}
                 inputProps={{ name: "phoneNumber", id: "phoneNumber" }}
@@ -220,4 +229,6 @@ export const EditOrderForm = ({ id, order }) => {
 EditOrderForm.propTypes = {
   id: PropTypes.string.isRequired,
   order: PropTypes.object.isRequired,
+  closeModal: PropTypes.func,
+  isFormEdit: PropTypes.func,
 };

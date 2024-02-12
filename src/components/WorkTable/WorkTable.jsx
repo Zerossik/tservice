@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData } from "react-router-dom";
-import dateFormat from "dateformat";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 // style
 import {
   Table,
@@ -25,18 +24,30 @@ import {
   selectContacts,
   selectTableHeader,
 } from "../../redux/contacts/selectors";
+import { useConfirm } from "../ConfirmService/context";
+import { OrderView } from "../OrderView/OrderView";
+import { formatData } from "../../utils";
+import { limit } from "../../constants";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFormEdit, setIsFormEdit] = useState(false);
   const [tableHeaderFiltered, setTableHeaderFiltered] = useState([]);
   const [sortedContacts, setSortedContacts] = useState([]);
   const [order, setOrder] = useState({});
+  const [searchParams] = useSearchParams();
+  const [activePage, setActivePage] = useState(1);
+  const awitingPromiseRef = useRef();
+  const confirm = useConfirm();
   const dispatch = useDispatch();
   const data = useLoaderData();
   const contacts = useSelector(selectContacts);
   const tableHeader = useSelector(selectTableHeader);
 
   useEffect(() => {
+    const page = searchParams.get("page");
+    setActivePage(page === null ? 0 : page - 1);
+
     // Сортировка заголовков таблицы
     // фильтруем по "isVisible" и сортируем по порядку "order"
     const tableHeaderFiltered = tableHeader
@@ -51,7 +62,7 @@ export const WorkTable = () => {
     // setSortedContacts(sortedContactsByDefault);
 
     setSortedContacts(contacts);
-  }, [dispatch, data, tableHeader, contacts]);
+  }, [dispatch, data, tableHeader, contacts, searchParams]);
 
   const setOrderDataToEdit = (data) => {
     setOrder(data);
@@ -90,35 +101,38 @@ export const WorkTable = () => {
     sortCollumn(selectedTableHeadCell);
   };
 
-  const formatDate = (date) => {
-    return dateFormat(date, "dd.mm.yyyy");
-  };
-
-  const formatPhoneNumber = (phoneNumber) => {
-    const template = "xxx (xx) xxx-xx-xx";
-    let formatedNumber = "";
-    let num = 0;
-
-    for (let i = 0; i < template.length; i++) {
-      if (template[i] === "x") {
-        formatedNumber = formatedNumber + phoneNumber[num];
-        num++;
-        continue;
-      }
-
-      formatedNumber = formatedNumber + template[i];
-    }
-
-    return formatedNumber;
+  const handleClickOrder = (data) => {
+    confirm.openConfirm({
+      component: <OrderView data={data} closeConfirm={confirm.handleClose} />,
+    });
   };
 
   const toggleModal = () => {
+    if (isFormEdit) {
+      return new Promise((resolve, reject) => {
+        awitingPromiseRef.current = { resolve, reject };
+
+        confirm.openConfirm({
+          message: "Якщо ви закриєте вікно, ви втратите введені дані! Закрити?",
+          awaitAnswer: awitingPromiseRef.current,
+        });
+      })
+        .then((closeConfirm) => {
+          closeConfirm();
+          setIsModalOpen(false);
+          setIsFormEdit(false);
+        })
+        .catch((closeConfirm) => {
+          closeConfirm();
+        });
+    }
+
     setIsModalOpen((prev) => !prev);
   };
 
   return (
     <>
-      <Table>
+      <Table cellPadding="0">
         <Thead>
           <Row>
             {tableHeaderFiltered.map(
@@ -151,22 +165,23 @@ export const WorkTable = () => {
             </RowNoItem>
           )}
           {sortedContacts.lehgth !== 0 &&
-            sortedContacts.map((item) => (
+            sortedContacts.map((item, idx) => (
               <Row key={item._id}>
                 {tableHeaderFiltered.map(({ id, columnName }) => {
-                  if (columnName === "createdAt") {
-                    return <Cell key={id}>{formatDate(item[columnName])}</Cell>;
-                  }
-
-                  if (columnName === "phoneNumber") {
-                    return (
-                      <Cell key={id}>
-                        {formatPhoneNumber(item[columnName])}
-                      </Cell>
-                    );
-                  }
-
-                  return <Cell key={id}>{item[columnName]}</Cell>;
+                  return (
+                    <Cell
+                      key={id}
+                      onClick={() => {
+                        handleClickOrder(item);
+                      }}
+                    >
+                      {formatData(
+                        columnName,
+                        item[columnName],
+                        activePage * limit + idx
+                      )}
+                    </Cell>
+                  );
                 })}
                 <Cell>
                   <ButtonIconEdit onClick={() => setOrderDataToEdit(item)}>
@@ -183,7 +198,12 @@ export const WorkTable = () => {
           title={`Редагування замовлення #${order.orderNumber}`}
           onToggleModal={toggleModal}
         >
-          <EditOrderForm id={order._id} order={order} />
+          <EditOrderForm
+            id={order._id}
+            order={order}
+            closeModal={setIsModalOpen}
+            isFormEdit={setIsFormEdit}
+          />
         </Modal>
       )}
     </>

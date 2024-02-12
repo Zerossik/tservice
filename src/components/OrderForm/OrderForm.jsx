@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -31,7 +32,7 @@ import {
 import { rewriteDeviceTypeArr } from "../../utils";
 import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
 
-export const OrderForm = ({ toggleModal }) => {
+export const OrderForm = ({ closeModal, isFormEdit }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsContactsLoading);
   const deviceManufacturers = useSelector(selectDeviceManufacturers);
@@ -56,11 +57,16 @@ export const OrderForm = ({ toggleModal }) => {
         .then(() => {
           toast.success("Замовлення додано");
           formik.resetForm();
-          toggleModal();
+          isFormEdit(false);
+          closeModal(false);
         })
         .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
     },
   });
+
+  useEffect(() => {
+    isFormEdit(formik.dirty);
+  }, [formik.dirty, isFormEdit]);
 
   return (
     <>
@@ -118,7 +124,7 @@ export const OrderForm = ({ toggleModal }) => {
               <Label htmlFor="phoneNumber" labelText="Номер телефона" />
               <PhoneInput
                 country="ua"
-                regions={["america", "europe"]}
+                onlyCountries={["ua"]}
                 value={formik.values.phoneNumber}
                 onChange={(phone) => formik.setFieldValue("phoneNumber", phone)}
                 inputProps={{ name: "phoneNumber", id: "phoneNumber" }}
@@ -179,5 +185,6 @@ export const OrderForm = ({ toggleModal }) => {
 };
 
 OrderForm.propTypes = {
-  toggleModal: PropTypes.func,
+  closeModal: PropTypes.func,
+  isFormEdit: PropTypes.func,
 };

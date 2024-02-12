@@ -15,13 +15,21 @@ export const Table = styled.table`
 
 export const Row = styled.tr`
   height: 48px;
+
+  &:nth-child(odd) td {
+    background-color: ${({ theme }) => theme.color.tableRow};
+  }
+
+  &:hover td {
+    background-color: ${({ theme }) => theme.color.tableRowHover};
+  }
 `;
 
 export const Thead = styled.thead`
   font-weight: 700;
 
   & th:nth-child(1) {
-    width: 10%;
+    width: 3%;
   }
 
   /* & th:nth-child(3) {
@@ -33,7 +41,7 @@ export const Thead = styled.thead`
   } */
 
   & th:last-child {
-    width: 5%;
+    width: 48px;
   }
 `;
 
@@ -55,6 +63,7 @@ export const RowNoItem = styled.tr`
 `;
 
 export const CellNoItem = styled.td`
+  padding: 0;
   text-align: center;
   color: ${({ theme }) => theme.color.primary};
   background-color: ${({ theme }) => theme.color.tableCell};
@@ -87,7 +96,7 @@ export const IconSort = styled(HiMiniArrowLongDown)`
 `;
 
 export const ButtonIconEdit = styled.button`
-  padding: 10px;
+  padding: 14px;
   border-radius: 50%;
   background-color: transparent;
 `;

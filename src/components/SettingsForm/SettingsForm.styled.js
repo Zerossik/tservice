@@ -4,6 +4,7 @@ export const FormStyled = styled.form``;
 
 export const Title = styled.h3`
   margin-bottom: 20px;
+  color: ${({ theme }) => theme.color.primary};
 `;
 
 export const ButtonWrapper = styled.div`

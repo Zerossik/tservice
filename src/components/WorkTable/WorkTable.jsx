@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 // style
 import {
   Table,
@@ -27,6 +27,7 @@ import {
 import { useConfirm } from "../ConfirmService/context";
 import { OrderView } from "../OrderView/OrderView";
 import { formatData } from "../../utils";
+import { limit } from "../../constants";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,6 +35,8 @@ export const WorkTable = () => {
   const [tableHeaderFiltered, setTableHeaderFiltered] = useState([]);
   const [sortedContacts, setSortedContacts] = useState([]);
   const [order, setOrder] = useState({});
+  const [searchParams] = useSearchParams();
+  const [activePage, setActivePage] = useState(1);
   const awitingPromiseRef = useRef();
   const confirm = useConfirm();
   const dispatch = useDispatch();
@@ -42,6 +45,9 @@ export const WorkTable = () => {
   const tableHeader = useSelector(selectTableHeader);
 
   useEffect(() => {
+    const page = searchParams.get("page");
+    setActivePage(page === null ? 0 : page - 1);
+
     // Сортировка заголовков таблицы
     // фильтруем по "isVisible" и сортируем по порядку "order"
     const tableHeaderFiltered = tableHeader
@@ -56,7 +62,7 @@ export const WorkTable = () => {
     // setSortedContacts(sortedContactsByDefault);
 
     setSortedContacts(contacts);
-  }, [dispatch, data, tableHeader, contacts]);
+  }, [dispatch, data, tableHeader, contacts, searchParams]);
 
   const setOrderDataToEdit = (data) => {
     setOrder(data);
@@ -159,7 +165,7 @@ export const WorkTable = () => {
             </RowNoItem>
           )}
           {sortedContacts.lehgth !== 0 &&
-            sortedContacts.map((item) => (
+            sortedContacts.map((item, idx) => (
               <Row key={item._id}>
                 {tableHeaderFiltered.map(({ id, columnName }) => {
                   return (
@@ -169,7 +175,11 @@ export const WorkTable = () => {
                         handleClickOrder(item);
                       }}
                     >
-                      {formatData(columnName, item[columnName])}
+                      {formatData(
+                        columnName,
+                        item[columnName],
+                        activePage * limit + idx
+                      )}
                     </Cell>
                   );
                 })}

@@ -13,8 +13,7 @@ import {
 } from "./Pagination.styled";
 // components
 import { selectTotalOrders } from "../../redux/contacts/selectors";
-
-const limit = 20;
+import { limit } from "../../constants";
 
 export const Pagination = () => {
   const [pickedPages, setPickedPages] = useState([]);

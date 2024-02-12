@@ -22,7 +22,11 @@ const formatPhoneNumber = (phoneNumber) => {
   return formatedNumber;
 };
 
-export const formatData = (entity, value) => {
+export const formatData = (entity, value, idx) => {
+  if (entity === "countNumber") {
+    return Number(idx + 1);
+  }
+
   if (entity === "createdAt") {
     return formatDate(value);
   }

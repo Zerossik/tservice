@@ -29,7 +29,7 @@ export const Thead = styled.thead`
   font-weight: 700;
 
   & th:nth-child(1) {
-    width: 10%;
+    width: 3%;
   }
 
   /* & th:nth-child(3) {

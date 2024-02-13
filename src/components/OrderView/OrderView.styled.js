@@ -83,4 +83,5 @@ export const Cell = styled.td`
   color: ${({ theme }) => theme.color.primary};
   /* border: 1px solid #80bdff; */
   background-color: ${({ theme }) => theme.color.modalBg};
+  white-space: pre-wrap;
 `;

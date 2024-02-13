@@ -101,9 +101,11 @@ export const WorkTable = () => {
     sortCollumn(selectedTableHeadCell);
   };
 
-  const handleClickOrder = (data) => {
+  const handleClickOrder = (data, idx) => {
     confirm.openConfirm({
-      component: <OrderView data={data} closeConfirm={confirm.handleClose} />,
+      component: (
+        <OrderView data={data} idx={idx} closeConfirm={confirm.handleClose} />
+      ),
     });
   };
 
@@ -172,7 +174,7 @@ export const WorkTable = () => {
                     <Cell
                       key={id}
                       onClick={() => {
-                        handleClickOrder(item);
+                        handleClickOrder(item, activePage * limit + idx);
                       }}
                     >
                       {formatData(

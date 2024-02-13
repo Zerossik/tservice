@@ -66,7 +66,7 @@ export const deleteDeviceType = async (body) => {
     });
     return data;
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error(error.response.data.message);
   }
 };
 
@@ -101,6 +101,6 @@ export const deleteDeviceManufacturer = async (body) => {
     });
     return data;
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error(error.response.data.message);
   }
 };

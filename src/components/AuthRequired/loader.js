@@ -4,7 +4,7 @@ import { PATHS } from "../../constants";
 import { getAllOrders } from "../../services/contactsAPI";
 import { getAllList } from "../../services/settingsUserAPI";
 
-export const loader = async ({ request }) => {
+export const loader = async () => {
   // If the user is not logged in and tries to access `/protected`, we redirect
   // them to `/login` with a `from` parameter that allows login to redirect back
   // to this page upon successful authentication
@@ -14,25 +14,26 @@ export const loader = async ({ request }) => {
   // if (isAuth) {
   //   return null;
   // }
-  const url = new URL(request.url);
+  // const url = new URL(request.url);
 
-  const params = Object.fromEntries([...url.searchParams.entries()]);
+  // const params = Object.fromEntries([...url.searchParams.entries()]);
 
-  if (isAuth && url.searchParams.size > 0) {
-    try {
-      const value = await getAllOrders(params);
-      return [value];
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // if (isAuth && url.searchParams.size > 0) {
+  //   try {
+  //     const value = await getAllOrders(params);
+  //     return [value];
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  if (isAuth && url.searchParams.size === 0) {
-    const contacts = await getAllOrders();
-    const lists = await getAllList();
-    // const data = await Promise.all([getAllOrders(), getAllList()]);
-    console.log({ contacts, lists });
-    return { contacts, lists };
+  // if (isAuth && url.searchParams.size === 0) {
+  if (isAuth) {
+    // const contacts = await getAllOrders();
+    // const lists = await getAllList();
+    const data = await Promise.all([getAllOrders(), getAllList()]);
+    console.log(data);
+    return data;
     // return Promise.all([getAllOrders(), getAllList()])
     //   .then((value) => {
     //     return value;

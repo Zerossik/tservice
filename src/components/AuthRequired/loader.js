@@ -15,8 +15,7 @@ export const loader = async ({ request }) => {
   const url = new URL(request.url);
 
   const params = Object.fromEntries([...url.searchParams.entries()]);
-  // console.log(params);
-  // console.log(isEmpty(params));
+
   const isQueryParams = isEmpty(params);
 
   if (isAuth && !isQueryParams) {

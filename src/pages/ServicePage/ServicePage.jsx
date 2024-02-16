@@ -16,7 +16,7 @@ export const ServicePage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   // const data = useLoaderData();
-  const [contacts, lists] = useLoaderData();
+  const { contacts, lists } = useLoaderData();
 
   useEffect(() => {
     if (contacts && lists) {

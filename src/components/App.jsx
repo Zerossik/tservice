@@ -72,17 +72,13 @@ export const App = () => {
       },
       {
         path: PATHS.SERVICES,
-        element: <div>Privet sosed!</div>,
+        element: <ServicePage />,
+        loader: authRequiredLoader,
+        children: [
+          { index: true, element: <WorkTable /> },
+          { path: `${PATHS.SERVICES}/:id`, element: <div>Something</div> },
+        ],
       },
-      // {
-      //   path: PATHS.SERVICES,
-      //   element: <ServicePage />,
-      //   loader: authRequiredLoader,
-      //   children: [
-      //     { index: true, element: <WorkTable /> },
-      //     { path: `${PATHS.SERVICES}/:id`, element: <div>Something</div> },
-      //   ],
-      // },
     ],
     { basename: "/tservice" }
   );

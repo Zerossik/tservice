@@ -15,17 +15,20 @@ import { Pagination } from "../../components/Pagination/Pagination";
 export const ServicePage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const data = useLoaderData();
+  // const data = useLoaderData();
+  const [contacts, lists] = useLoaderData();
 
   useEffect(() => {
-    if (data) {
-      data.map((item) => {
-        Array.isArray(item.data)
-          ? dispatch(getAllContacts(item))
-          : dispatch(getAllLists(item));
-      });
+    if (contacts && lists) {
+      dispatch(getAllContacts(contacts));
+      dispatch(getAllLists(lists));
+      // data.map((item) => {
+      //   Array.isArray(item.data)
+      //     ? dispatch(getAllContacts(item))
+      //     : dispatch(getAllLists(item));
+      // });
     }
-  }, [data, dispatch]);
+  }, [contacts, dispatch, lists]);
 
   return (
     <>

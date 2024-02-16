@@ -11,31 +11,34 @@ export const loader = async ({ request }) => {
   // console.log("protected rout ", isLoggedIn);
   const isAuth = isUserLogin();
 
-  if (isAuth) {
-    return null;
+  // if (isAuth) {
+  //   return null;
+  // }
+  const url = new URL(request.url);
+
+  const params = Object.fromEntries([...url.searchParams.entries()]);
+
+  if (isAuth && url.searchParams.size > 0) {
+    try {
+      const value = await getAllOrders(params);
+      return [value];
+    } catch (error) {
+      console.log(error);
+    }
   }
-  // const url = new URL(request.url);
 
-  // const params = Object.fromEntries([...url.searchParams.entries()]);
-
-  // if (isAuth && url.searchParams.size > 0) {
-  //   try {
-  //     const value = await getAllOrders(params);
-  //     return [value];
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // if (isAuth && url.searchParams.size === 0) {
-  //   return Promise.all([getAllOrders(), getAllList()])
-  //     .then((value) => {
-  //       return value;
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+  if (isAuth && url.searchParams.size === 0) {
+    const data = await Promise.all([getAllOrders(), getAllList()]);
+    console.log(data);
+    return data;
+    // return Promise.all([getAllOrders(), getAllList()])
+    //   .then((value) => {
+    //     return value;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  }
 
   return redirect(`/${PATHS.LOGIN}`);
 

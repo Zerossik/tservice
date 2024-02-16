@@ -15,19 +15,21 @@ import { Pagination } from "../../components/Pagination/Pagination";
 export const ServicePage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  // const data = useLoaderData();
   const [contacts, lists] = useLoaderData();
 
   useEffect(() => {
-    if (contacts && lists) {
+    if (contacts) {
       dispatch(getAllContacts(contacts));
-      dispatch(getAllLists(lists));
-      // data.map((item) => {
-      //   Array.isArray(item.data)
-      //     ? dispatch(getAllContacts(item))
-      //     : dispatch(getAllLists(item));
-      // });
     }
+
+    if (lists) {
+      dispatch(getAllLists(lists));
+    }
+    // data.map((item) => {
+    //   Array.isArray(item.data)
+    //     ? dispatch(getAllContacts(item))
+    //     : dispatch(getAllLists(item));
+    // });
   }, [contacts, dispatch, lists]);
 
   return (

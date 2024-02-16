@@ -28,9 +28,11 @@ export const loader = async ({ request }) => {
   }
 
   if (isAuth && url.searchParams.size === 0) {
-    const data = await Promise.all([getAllOrders(), getAllList()]);
-    console.log(data);
-    return data;
+    const contacts = await getAllOrders();
+    const lists = await getAllList();
+    // const data = await Promise.all([getAllOrders(), getAllList()]);
+    console.log({ contacts, lists });
+    return { contacts, lists };
     // return Promise.all([getAllOrders(), getAllList()])
     //   .then((value) => {
     //     return value;

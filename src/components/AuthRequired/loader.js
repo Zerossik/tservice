@@ -10,28 +10,32 @@ export const loader = async ({ request }) => {
   // to this page upon successful authentication
   // console.log("protected rout ", isLoggedIn);
   const isAuth = isUserLogin();
-  const url = new URL(request.url);
 
-  const params = Object.fromEntries([...url.searchParams.entries()]);
-
-  if (isAuth && url.searchParams.size > 0) {
-    try {
-      const value = await getAllOrders(params);
-      return [value];
-    } catch (error) {
-      console.log(error);
-    }
+  if (isAuth) {
+    return null;
   }
+  // const url = new URL(request.url);
 
-  if (isAuth && url.searchParams.size === 0) {
-    return Promise.all([getAllOrders(), getAllList()])
-      .then((value) => {
-        return value;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  // const params = Object.fromEntries([...url.searchParams.entries()]);
+
+  // if (isAuth && url.searchParams.size > 0) {
+  //   try {
+  //     const value = await getAllOrders(params);
+  //     return [value];
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  // if (isAuth && url.searchParams.size === 0) {
+  //   return Promise.all([getAllOrders(), getAllList()])
+  //     .then((value) => {
+  //       return value;
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   return redirect(`/${PATHS.LOGIN}`);
 

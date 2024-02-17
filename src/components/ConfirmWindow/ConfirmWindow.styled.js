@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.small};
   border: 1px solid ${({ theme }) => theme.color.border};
   background-color: ${({ theme }) => theme.color.modalBg};
-  box-shadow: ${({ theme }) => theme.color.shadow};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
 `;
 
 export const MessageWrap = styled.div``;

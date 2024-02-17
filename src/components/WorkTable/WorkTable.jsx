@@ -33,10 +33,11 @@ export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormEdit, setIsFormEdit] = useState(false);
   const [tableHeaderFiltered, setTableHeaderFiltered] = useState([]);
-  const [sortedContacts, setSortedContacts] = useState([]);
+  // const [sortedContacts, setSortedContacts] = useState([]);
   const [order, setOrder] = useState({});
   const [searchParams] = useSearchParams();
   const [activePage, setActivePage] = useState(1);
+
   const awitingPromiseRef = useRef();
   const confirm = useConfirm();
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ export const WorkTable = () => {
     // );
     // setSortedContacts(sortedContactsByDefault);
 
-    setSortedContacts(contacts);
+    // setSortedContacts(contacts);
   }, [dispatch, data, tableHeader, contacts, searchParams]);
 
   const setOrderDataToEdit = (data) => {
@@ -72,37 +73,37 @@ export const WorkTable = () => {
     toggleModal();
   };
 
-  const sortCollumn = ({ columnName, sortDown }) => {
-    if (!sortDown) {
-      const newSortedContacts = contacts.toSorted((a, b) =>
-        a[columnName].localeCompare(b[columnName])
-      );
-      setSortedContacts(newSortedContacts);
-    }
+  // const sortCollumn = ({ columnName, sortDown }) => {
+  //   if (!sortDown) {
+  //     const newSortedContacts = contacts.toSorted((a, b) =>
+  //       a[columnName].localeCompare(b[columnName])
+  //     );
+  //     setSortedContacts(newSortedContacts);
+  //   }
 
-    if (sortDown) {
-      const newSortedContacts = contacts.toSorted((a, b) =>
-        b[columnName].localeCompare(a[columnName])
-      );
-      setSortedContacts(newSortedContacts);
-    }
-  };
+  //   if (sortDown) {
+  //     const newSortedContacts = contacts.toSorted((a, b) =>
+  //       b[columnName].localeCompare(a[columnName])
+  //     );
+  //     setSortedContacts(newSortedContacts);
+  //   }
+  // };
 
-  const handleClickButtonSort = (tableHead, id) => {
-    // меняем активную кнопку
-    let selectedTableHeadCell = {};
+  // const handleClickButtonSort = (tableHead, id) => {
+  //   // меняем активную кнопку
+  //   let selectedTableHeadCell = {};
 
-    const newTableHead = tableHead.map((item) => {
-      if (item.id === id) {
-        selectedTableHeadCell = item;
-        return { ...item, isActive: true, sortDown: !item.sortDown };
-      }
-      return { ...item, isActive: false, sortDown: null };
-    });
+  //   const newTableHead = tableHead.map((item) => {
+  //     if (item.id === id) {
+  //       selectedTableHeadCell = item;
+  //       return { ...item, isActive: true, sortDown: !item.sortDown };
+  //     }
+  //     return { ...item, isActive: false, sortDown: null };
+  //   });
 
-    setTableHeaderFiltered(newTableHead);
-    sortCollumn(selectedTableHeadCell);
-  };
+  //   setTableHeaderFiltered(newTableHead);
+  //   sortCollumn(selectedTableHeadCell);
+  // };
 
   const handleClickOrder = (data, idx) => {
     confirm.openConfirm({
@@ -146,10 +147,10 @@ export const WorkTable = () => {
                   <ButtonWrapper>
                     <Button
                       type="button"
-                      $isActive={isActive}
-                      onClick={() =>
-                        handleClickButtonSort(tableHeaderFiltered, id)
-                      }
+                      // $isActive={isActive}
+                      // onClick={() =>
+                      //   handleClickButtonSort(tableHeaderFiltered, id)
+                      // }
                     >
                       {buttonName}
                       {isActive && <IconSort $sortDown={sortDown} />}
@@ -162,15 +163,16 @@ export const WorkTable = () => {
           </Row>
         </Thead>
         <TableBody>
-          {sortedContacts.length === 0 && (
+          {contacts.length === 0 && (
             <RowNoItem>
               <CellNoItem colSpan={tableHeaderFiltered.length + 1}>
                 Нічого нема :)
               </CellNoItem>
             </RowNoItem>
           )}
-          {sortedContacts.lehgth !== 0 &&
-            sortedContacts.map((item, idx) => (
+
+          {contacts.lehgth !== 0 &&
+            contacts.map((item, idx) => (
               <Row key={item._id}>
                 {tableHeaderFiltered.map(({ id, columnName }) => {
                   return (

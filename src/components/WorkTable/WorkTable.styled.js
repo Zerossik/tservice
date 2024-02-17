@@ -80,13 +80,13 @@ export const Button = styled.button`
   font-weight: 700;
   color: ${({ theme }) => theme.color.tableFont};
   /* color: ${({ theme, $isActive }) =>
-    theme.color[$isActive ? "third" : "primary"]};
-  cursor: default; */
+    theme.color[$isActive ? "third" : "primary"]}; */
+  cursor: default;
   background-color: transparent;
 
-  &:hover {
+  /* &:hover {
     color: ${({ theme }) => theme.color.third};
-  }
+  } */
 `;
 
 export const IconSort = styled(HiMiniArrowLongDown)`

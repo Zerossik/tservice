@@ -32,10 +32,9 @@ export const loader = async ({ request }) => {
     return data;
   }
 
-  console.log("laoder");
-  let paramsT = new URLSearchParams();
-  paramsT.set("from", new URL(request.url).pathname);
-  return redirect(`/${PATHS.LOGIN}?` + paramsT.toString());
+  let paramsForToBackUser = new URLSearchParams();
+  paramsForToBackUser.set("from", new URL(request.url).pathname);
+  return redirect(`/${PATHS.LOGIN}?` + paramsForToBackUser.toString());
 
   // const auth = false;
   // if (auth) {

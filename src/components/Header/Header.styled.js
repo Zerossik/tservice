@@ -21,7 +21,7 @@ export const ButtonWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
 `;
 
 export const Button = styled.button`

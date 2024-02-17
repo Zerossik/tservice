@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -13,6 +13,8 @@ import {
   List,
   ListItemArea,
   ListItemLast,
+  BtnWrapper,
+  Warning,
 } from "./EditOrderForm.styled";
 // components
 import { editOrderSchema } from "../../validation";
@@ -45,6 +47,7 @@ const compareData = (oldObj, newObj) => {
 };
 
 export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
+  const [orderStatus, setOrderStatus] = useState(false);
   const dispatch = useDispatch();
   const masters = useSelector(selectMasters);
   const deviceManufacturers = useSelector(selectDeviceManufacturers);
@@ -62,7 +65,9 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
       dispatch(updateContactByIdThunk({ id, body }))
         .unwrap()
         .then(() => {
-          toast.success("Замовлення оновлено");
+          toast.success(
+            `Замовлення ${orderStatus ? "перенесено до архіву" : "оновлено"}`
+          );
           isFormEdit(false);
           closeModal(false);
         })
@@ -74,11 +79,11 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
 
   useEffect(() => {
     isFormEdit(formik.dirty);
-  }, [formik.dirty, isFormEdit]);
+    setOrderStatus(formik.values.status === "Видано");
+  }, [formik.dirty, formik.values.status, isFormEdit]);
 
   return (
     <>
-      {}
       <FormStyled onSubmit={formik.handleSubmit}>
         <List>
           <li>
@@ -210,12 +215,21 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
           {/* <ListItemArea>
             <TextArea name="failure" formik={formik} labelText="Несправність" />
           </ListItemArea> */}
+
           <ListItemArea>
-            <ButtonAddList />
+            <BtnWrapper>
+              <ButtonAddList />
+              {orderStatus && (
+                <Warning>
+                  {`Замовлення №${order.orderNumber} буде перенесено до архіву`}
+                </Warning>
+              )}
+            </BtnWrapper>
           </ListItemArea>
+
           <ListItemLast>
             <ButtonForm
-              buttonName="Додати"
+              buttonName={orderStatus ? "Перенести" : "Додати"}
               disabled={!(formik.isValid && formik.dirty)}
             />
           </ListItemLast>

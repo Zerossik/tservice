@@ -75,14 +75,7 @@ export const App = () => {
         path: PATHS.SERVICES,
         element: <ServicePage />,
         loader: authRequiredLoader,
-        children: [
-          { index: true, element: <WorkTable /> },
-          // {
-          //   path: `${PATHS.SERVICES}/${PATHS.ARCHIVE}`,
-          //   element: <WorkTable />,
-          // },
-          // { path: `${PATHS.SERVICES}/:id`, element: <div>Something</div> },
-        ],
+        children: [{ index: true, element: <WorkTable /> }],
       },
       {
         path: PATHS.ARCHIVE,

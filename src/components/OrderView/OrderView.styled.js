@@ -21,7 +21,6 @@ export const Wrapper = styled.div`
 
 export const WrapperTable = styled.div`
   margin-bottom: 20px;
-  /* border: 1px solid ${({ theme }) => theme.color.secondary}; */
   border: 1px solid #66b0ff;
 
   border-radius: ${({ theme }) => theme.borderRadius.small};
@@ -37,32 +36,19 @@ export const ButtonWrapper = styled.div`
 export const Table = styled.table`
   width: 100%;
   max-width: 576px;
-
-  /* margin-bottom: 20px; */
-  /* border: 1px solid ${({ theme }) => theme.color.secondary}; */
-  /* border-radius: ${({ theme }) => theme.borderRadius.small}; */
-  /* overflow: hidden; */
   border-collapse: collapse;
 
-  & td:last-child {
-    /* border-bottom: 1px solid #80bdff; */
-  }
+  /* & td:last-child {
+  } */
 `;
 
 export const TableHead = styled.thead``;
 
-export const TableBody = styled.tbody`
-  /* border: 1px solid ${({ theme }) => theme.color.secondary}; */
-`;
+export const TableBody = styled.tbody``;
 
 export const Row = styled.tr`
-  /* border: 1px solid #80bdff; */
-
-  /* border: 1px solid ${({ theme }) => theme.color.tableHead}; */
-
-  &:nth-child(even) {
-    /* background-color: red; */
-  }
+  /* &:nth-child(even) {
+  } */
 
   &:not(:last-child) {
     border-bottom: 1px solid #80bdff;
@@ -74,14 +60,12 @@ export const HeaderCells = styled.th`
   color: ${({ theme }) => theme.color.tableFont};
 
   text-align: start;
-  /* border-bottom: 1px solid #f4f3f3; */
   background-color: #4da2ff;
 `;
 
 export const Cell = styled.td`
   padding: 6px 12px;
   color: ${({ theme }) => theme.color.primary};
-  /* border: 1px solid #80bdff; */
   background-color: ${({ theme }) => theme.color.modalBg};
   white-space: pre-wrap;
 `;

@@ -16,13 +16,14 @@ export const AuthLayout = () => {
   const user = useLoaderData();
   const isLoggedIn = useSelector(selectIsLogin);
   const isLoading = useSelector(selectIsLoading);
+  // "from" сетится в AuthRequired лоадере
   let location = useLocation();
   let params = new URLSearchParams(location.search);
   let from = params.get("from") || "/";
 
-  // console.log("in auth", from.split("/"));
   useEffect(() => {
     if (isLoggedIn) {
+      // перекинуть туда откуда пользователь зашел
       navigate(from.split("/")[2], { replace: true });
       // navigate(PATHS.SERVICES, { replace: true });
       return;
@@ -30,6 +31,7 @@ export const AuthLayout = () => {
 
     if (user && !isLoggedIn) {
       dispatch(setUser(user));
+      // перекинуть туда откуда пользователь зашел
       navigate(from.split("/")[2], { replace: true });
       // navigate(PATHS.SERVICES, { replace: true });
     }

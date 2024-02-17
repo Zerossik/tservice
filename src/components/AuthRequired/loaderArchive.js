@@ -28,9 +28,8 @@ export const loaderArchive = async ({ request }) => {
     return data;
   }
 
-  let paramsT = new URLSearchParams();
-  paramsT.set("from", new URL(request.url).pathname);
-  return redirect(`/${PATHS.LOGIN}?` + paramsT.toString());
-  // return redirect("/login?" + paramsT.toString());
-  // return redirect(`/${PATHS.LOGIN}`);
+  let paramsForToBackUser = new URLSearchParams();
+  paramsForToBackUser.set("from", new URL(request.url).pathname);
+  return redirect(`/${PATHS.LOGIN}?` + paramsForToBackUser.toString());
+  // return redirect("/login?" + params.toString());
 };

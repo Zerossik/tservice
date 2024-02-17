@@ -9,7 +9,8 @@ export const Container = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.large};
   border: 1px solid ${({ theme }) => theme.color.border};
   background-color: ${({ theme }) => theme.color.bgSecondary};
-  box-shadow: ${({ theme }) => theme.color.shadow};
+  /* box-shadow: ${({ theme }) => theme.color.shadow}; */
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
 `;
 
 export const Title = styled.h1`

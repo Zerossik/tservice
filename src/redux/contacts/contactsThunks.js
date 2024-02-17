@@ -4,6 +4,7 @@ import {
   deleteContactById,
   updateContactById,
   getAllOrders,
+  getAllOrdersFromArchive,
 } from "../../services/contactsAPI";
 
 export const getAllOrdersThunk = createAsyncThunk(
@@ -11,6 +12,19 @@ export const getAllOrdersThunk = createAsyncThunk(
   async (params, { rejectWithValue }) => {
     try {
       const data = await getAllOrders(params);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllOrdersFromArchiveThunk = createAsyncThunk(
+  "contacts/getAllOrdersFromArchive",
+  async (params, { rejectWithValue }) => {
+    try {
+      const data = await getAllOrdersFromArchive(params);
       return data;
     } catch (error) {
       console.log(error.message);

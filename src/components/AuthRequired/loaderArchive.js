@@ -2,14 +2,10 @@ import { redirect } from "react-router-dom";
 import isEmpty from "lodash.isempty";
 import { isUserLogin } from "./auth";
 import { PATHS } from "../../constants";
-import { getAllOrders } from "../../services/contactsAPI";
+import { getAllOrdersFromArchive } from "../../services/contactsAPI";
 import { getAllList } from "../../services/settingsUserAPI";
 
-export const loader = async ({ request }) => {
-  // If the user is not logged in and tries to access `/protected`, we redirect
-  // them to `/login` with a `from` parameter that allows login to redirect back
-  // to this page upon successful authentication
-  // console.log("protected rout ", isLoggedIn);
+export const loaderArchive = async ({ request }) => {
   const isAuth = isUserLogin();
 
   const url = new URL(request.url);
@@ -20,7 +16,7 @@ export const loader = async ({ request }) => {
 
   if (isAuth && !isQueryParams) {
     try {
-      const value = await getAllOrders(params);
+      const value = await getAllOrdersFromArchive(params);
       return [value];
     } catch (error) {
       console.log(error);
@@ -28,20 +24,13 @@ export const loader = async ({ request }) => {
   }
 
   if (isAuth && isQueryParams) {
-    const data = await Promise.all([getAllOrders(), getAllList()]);
+    const data = await Promise.all([getAllOrdersFromArchive(), getAllList()]);
     return data;
   }
 
-  console.log("laoder");
   let paramsT = new URLSearchParams();
   paramsT.set("from", new URL(request.url).pathname);
   return redirect(`/${PATHS.LOGIN}?` + paramsT.toString());
-
-  // const auth = false;
-  // if (auth) {
-  //   return null;
-  // }
-  // let params = new URLSearchParams();
-  // params.set("from", new URL(request.url).pathname);
-  // return redirect("/api/auth/signin?" + params.toString());
+  // return redirect("/login?" + paramsT.toString());
+  // return redirect(`/${PATHS.LOGIN}`);
 };

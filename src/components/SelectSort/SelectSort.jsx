@@ -53,8 +53,10 @@ export const SelectSort = () => {
   const handleClickButtonInList = (value) => {
     setValueInput(value);
 
-    if (value === "Усе") {
+    if (value === "Усе" && `/${PATHS.SERVICES}` === location.pathname) {
       navigate(`/${PATHS.SERVICES}`);
+    } else if (value === "Усе" && `/${PATHS.ARCHIVE}` === location.pathname) {
+      navigate(`/${PATHS.ARCHIVE}`);
     } else {
       setSearchParams({ type: value });
     }

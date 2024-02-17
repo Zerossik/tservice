@@ -41,7 +41,8 @@ export const Thead = styled.thead`
   } */
 
   & th:last-child {
-    width: 48px;
+    /* width: 48px; */
+    width: ${({ $isArchive }) => ($isArchive ? "5%" : "48px")};
   }
 `;
 

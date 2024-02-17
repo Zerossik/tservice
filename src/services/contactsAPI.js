@@ -9,6 +9,17 @@ export const getAllOrders = async (params) => {
   }
 };
 
+export const getAllOrdersFromArchive = async (params) => {
+  try {
+    const { data } = await apiPrivate.get("/api/contacts/archive", {
+      params: params,
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 export const getContactById = async (id) => {
   try {
     const { data } = await apiPrivate.get(`api/contacts/${id}`);

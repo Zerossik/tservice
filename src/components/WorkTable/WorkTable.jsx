@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useLoaderData, useLocation, useSearchParams } from "react-router-dom";
 // style
 import {
   Table,
@@ -43,6 +43,9 @@ export const WorkTable = () => {
   const data = useLoaderData();
   const contacts = useSelector(selectContacts);
   const tableHeader = useSelector(selectTableHeader);
+  let location = useLocation();
+
+  const isArchive = location.pathname === "/archive";
 
   useEffect(() => {
     const page = searchParams.get("page");
@@ -135,7 +138,7 @@ export const WorkTable = () => {
   return (
     <>
       <Table cellPadding="0">
-        <Thead>
+        <Thead $isArchive={isArchive}>
           <Row>
             {tableHeaderFiltered.map(
               ({ id, buttonName, isActive, sortDown }) => (
@@ -155,7 +158,7 @@ export const WorkTable = () => {
                 </TableHead>
               )
             )}
-            <TableHead>Дії</TableHead>
+            {!isArchive && <TableHead>Дії</TableHead>}
           </Row>
         </Thead>
         <TableBody>
@@ -185,11 +188,13 @@ export const WorkTable = () => {
                     </Cell>
                   );
                 })}
-                <Cell>
-                  <ButtonIconEdit onClick={() => setOrderDataToEdit(item)}>
-                    <IconEdit />
-                  </ButtonIconEdit>
-                </Cell>
+                {!isArchive && (
+                  <Cell>
+                    <ButtonIconEdit onClick={() => setOrderDataToEdit(item)}>
+                      <IconEdit />
+                    </ButtonIconEdit>
+                  </Cell>
+                )}
               </Row>
             ))}
         </TableBody>

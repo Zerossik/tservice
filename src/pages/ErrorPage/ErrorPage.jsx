@@ -1,22 +1,25 @@
-import { useRouteError } from "react-router-dom";
+// import { useRouteError } from "react-router-dom";
 // styled
-import { Wrapper, Container, NavLinkStyled } from "./ErrorPage.styled";
+import {
+  Wrapper,
+  ImgWrapper,
+  ImgStyle,
+  NavLinkStyled,
+} from "./ErrorPage.styled";
+// components
 import { PATHS } from "../../constants";
 
 export const ErrorPage = () => {
-  const error = useRouteError();
-  console.log("ErrorPage: ", error);
+  //если нужно вывести куда-то информацию об ошибке
+  // const error = useRouteError();
+  // console.log("ErrorPage: ", error);
 
   return (
     <Wrapper id="error-page">
-      <Container>
-        <h1>{error.status}</h1>
-        <div>
-          {/* <p>{error.statusText}</p> */}
-          <p>{error.message}</p>
-        </div>
-        <NavLinkStyled to={PATHS.BASE}>To main</NavLinkStyled>
-      </Container>
+      <ImgWrapper>
+        <ImgStyle src="/images/404.svg" />
+        <NavLinkStyled to={PATHS.BASE}>На головну</NavLinkStyled>
+      </ImgWrapper>
     </Wrapper>
   );
 };

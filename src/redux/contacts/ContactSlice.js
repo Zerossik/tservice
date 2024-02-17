@@ -5,6 +5,7 @@ import {
   deleteContactThunk,
   updateContactByIdThunk,
   getAllOrdersThunk,
+  getAllOrdersFromArchiveThunk,
 } from "./contactsThunks";
 
 const handleGetAllOrders = (state, { payload }) => {
@@ -50,6 +51,7 @@ const contactSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(getAllOrdersThunk.fulfilled, handleGetAllOrders)
+      .addCase(getAllOrdersFromArchiveThunk.fulfilled, handleGetAllOrders)
       .addCase(addContactThunk.fulfilled, handleAddContact)
       .addCase(updateContactByIdThunk.fulfilled, handleUpdateContact)
       .addCase(deleteContactThunk.fulfilled, handleDeleteContact)

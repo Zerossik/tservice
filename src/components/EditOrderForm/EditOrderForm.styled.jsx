@@ -50,3 +50,17 @@ export const FormButton = styled.button`
     cursor: ${({ loading }) => (loading ? "wait" : "not-allowed")};
   }
 `;
+
+export const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+`;
+
+export const Warning = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.md};
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.third};
+  background-color: transparent;
+`;

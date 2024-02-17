@@ -17,14 +17,15 @@ import { selectIsLoading, selectUser } from "../../redux/auth/selectors";
 import { LogOut } from "../LogOut/LogOut";
 import { DropDown } from "../DropDown";
 import { ToggleTheme } from "../ToggleTheme";
-import { Modal } from "../Modal";
+// import { Modal } from "../Modal";
 import { LoaderPretty } from "../LoaderPretty";
 import { Logo } from "../Logo";
 import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
+import { ButtonArchive } from "../ButtonArchive/ButtonArchive";
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector(selectUser);
   const isLoading = useSelector(selectIsLoading);
   const dropDownRef = useRef(null);
@@ -33,9 +34,9 @@ export const Header = () => {
     setIsDropDownOpen((prev) => !prev);
   };
 
-  const toggleModal = () => {
-    setIsModalOpen((prev) => !prev);
-  };
+  // const toggleModal = () => {
+  //   setIsModalOpen((prev) => !prev);
+  // };
 
   return (
     <>
@@ -44,7 +45,10 @@ export const Header = () => {
         <HeaderContainer>
           <Logo />
 
-          <ButtonAddList />
+          <ButtonWrapper>
+            <ButtonAddList />
+            <ButtonArchive />
+          </ButtonWrapper>
 
           <ButtonWrapper>
             {/* <Button type="button" onClick={toggleModal}>
@@ -76,9 +80,9 @@ export const Header = () => {
         </HeaderContainer>
       </HeaderStyled>
 
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal title="Налаштування" onToggleModal={toggleModal}></Modal>
-      )}
+      )} */}
     </>
   );
 };

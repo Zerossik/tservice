@@ -23,6 +23,7 @@ import { selectTheme } from "../redux/auth/selectors";
 // loaders
 import { loader as loaderAuthLayout } from "./AuthLayout";
 import { loader as authRequiredLoader } from "./AuthRequired";
+import { loaderArchive as authRequiredLoaderArchive } from "./AuthRequired";
 import { loader as newPassFormLoader } from "./NewPassForm";
 import { device } from "../redux/settingsUser/settingsUserSlice";
 import { ConfirmServiceProvider } from "./ConfirmService/ConfirmServiceProvider";
@@ -74,10 +75,13 @@ export const App = () => {
         path: PATHS.SERVICES,
         element: <ServicePage />,
         loader: authRequiredLoader,
-        children: [
-          { index: true, element: <WorkTable /> },
-          { path: `${PATHS.SERVICES}/:id`, element: <div>Something</div> },
-        ],
+        children: [{ index: true, element: <WorkTable /> }],
+      },
+      {
+        path: PATHS.ARCHIVE,
+        element: <ServicePage />,
+        loader: authRequiredLoaderArchive,
+        children: [{ index: true, element: <WorkTable /> }],
       },
     ],
     { basename: "/tservice" }

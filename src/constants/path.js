@@ -4,4 +4,5 @@ export const PATHS = {
   RESET: "reset",
   REGISTER: "register",
   SERVICES: "services",
+  ARCHIVE: "archive",
 };

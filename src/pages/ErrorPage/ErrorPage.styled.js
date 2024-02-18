@@ -2,41 +2,70 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 export const Wrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #a7b3c7;
+  padding: 10px;
+  background-color: ${({ theme }) => theme.color.bg};
+  overflow-y: auto;
 `;
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+export const ImgWrapper = styled.div`
+  position: relative;
+  max-width: 768px;
   padding: 20px;
-
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: ${({ theme }) => theme.color.bgSecondary};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
+`;
 
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1),
-    0px 4px 4px 0px rgba(0, 0, 0, 0.05), 0px 1px 0px 0px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
+export const SvgStyle = styled.svg`
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const ImgStyle = styled.img`
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const NavLinkStyled = styled(NavLink)`
-  margin-top: 10px;
-  padding: 8px;
-  font-size: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 58px;
+  padding: 10px 20px;
 
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.6);
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.btnFont};
+  border: 1px solid ${({ theme }) => theme.color.btnBorder};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  background-color: ${({ theme }) => theme.color.btnBg};
 
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1),
-    0px 4px 4px 0px rgba(0, 0, 0, 0.05), 0px 1px 0px 0px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
+  @media (max-width: 480px) {
+    height: 36px;
+    padding: 8px 12px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
+  }
+
+  @media (max-width: 375px) {
+    height: 26px;
+    padding: 8px 12px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    border-radius: ${({ theme }) => theme.borderRadius.superSmall};
+  }
 `;

@@ -3,9 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
   max-width: 400px;
-  margin: 15px;
   padding: 44px;
-
   border-radius: ${({ theme }) => theme.borderRadius.large};
   border: 1px solid ${({ theme }) => theme.color.border};
   background-color: ${({ theme }) => theme.color.bgSecondary};

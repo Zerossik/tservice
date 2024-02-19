@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 // style
@@ -31,6 +31,8 @@ export const SelectSort = () => {
   const navigate = useNavigate();
   const types = useSelector(selectDeviceTypes);
   const isLoading = useSelector(selectIsContactsLoading);
+  const listRef = useRef();
+  const inputWrapperRef = useRef();
 
   useEffect(() => {
     if (types.length !== 0) {
@@ -44,6 +46,22 @@ export const SelectSort = () => {
     if (location?.state?.logoReset) {
       setValueInput("Усе");
     }
+
+    const handleClickAway = (e) => {
+      if (
+        listRef.current &&
+        !listRef.current.contains(e.target) &&
+        !inputWrapperRef.current.contains(e.target)
+      ) {
+        setOpenList(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickAway);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickAway);
+    };
   }, [filter, location?.state?.logoReset, types]);
 
   const handleClickOpenList = () => {
@@ -68,7 +86,7 @@ export const SelectSort = () => {
     <>
       {isLoading && <LoaderPretty />}
       <Wrapper>
-        <InputWrapper>
+        <InputWrapper ref={inputWrapperRef}>
           <FakeInput onClick={handleClickOpenList}>{valueInput}</FakeInput>
 
           <Button type="button" onClick={handleClickOpenList}>
@@ -77,7 +95,7 @@ export const SelectSort = () => {
         </InputWrapper>
 
         {openList && (
-          <List>
+          <List ref={listRef}>
             {list.length > 0 &&
               list.map((item) => (
                 <ListItem key={item._id}>

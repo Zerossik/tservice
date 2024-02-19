@@ -35,3 +35,8 @@ export const SortList = styled.ul`
 export const SortItem = styled.li``;
 
 export const Button = styled.button``;
+
+export const Wrap = styled.div`
+  display: flex;
+  gap: 48px;
+`;

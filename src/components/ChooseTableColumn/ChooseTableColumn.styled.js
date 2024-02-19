@@ -36,10 +36,11 @@ export const DropDownList = styled.ul`
 
 export const DropDownItem = styled.li`
   width: 100%;
-  height: 24px;
+  /* height: 24px; */
+`;
 
-  /* &:last-child {
-    padding-top: 16px;
-    border-top: 1px solid ${({ theme }) => theme.color.border};
-  } */
+export const Warning = styled.p`
+  padding-top: 5px;
+  border-top: 1px solid ${({ theme }) => theme.color.border};
+  color: ${({ theme }) => theme.color.third};
 `;

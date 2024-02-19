@@ -41,8 +41,7 @@ export const Thead = styled.thead`
   } */
 
   & th:last-child {
-    /* width: 48px; */
-    width: ${({ $isArchive }) => ($isArchive ? "5%" : "48px")};
+    width: 48px;
   }
 `;
 
@@ -57,6 +56,7 @@ export const TableBody = styled.tbody``;
 export const Cell = styled.td`
   text-align: center;
   background-color: ${({ theme }) => theme.color.tableCell};
+  white-space: pre-wrap;
 `;
 
 export const RowNoItem = styled.tr`
@@ -98,12 +98,18 @@ export const IconSort = styled(HiMiniArrowLongDown)`
 
 export const ButtonIconEdit = styled.button`
   padding: 14px;
+  color: ${({ theme }) => theme.color.iconMain};
   border-radius: 50%;
   background-color: transparent;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export const IconEdit = styled(HiPencilSquare)`
   width: 20px;
   height: 20px;
-  fill: ${({ theme }) => theme.color.iconMain};
+  fill: currentColor;
 `;

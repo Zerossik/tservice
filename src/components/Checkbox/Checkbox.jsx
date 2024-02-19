@@ -1,22 +1,35 @@
 import PropTypes from "prop-types";
 // styled
 import {
-  CheckboxWrapper,
   InputCheckboxStyled,
   LabelCheckboxStyled,
+  FakeCheckox,
+  IconBorder,
+  IconChecked,
 } from "./Checkbox.styled";
 
-export const Checkbox = ({ id, name, checked, labelText }) => {
+export const Checkbox = ({
+  id,
+  name,
+  isChecked,
+  labelText,
+  disabled,
+  onChange,
+}) => {
   return (
-    <CheckboxWrapper>
+    <LabelCheckboxStyled>
       <InputCheckboxStyled
         type="checkbox"
         id={id}
         name={name}
-        checked={checked}
+        value={isChecked}
+        checked={isChecked}
+        onChange={onChange}
+        disabled={disabled}
       />
-      <LabelCheckboxStyled htmlFor={id}>{labelText}</LabelCheckboxStyled>
-    </CheckboxWrapper>
+      <FakeCheckox>{isChecked ? <IconChecked /> : <IconBorder />}</FakeCheckox>
+      {labelText}
+    </LabelCheckboxStyled>
   );
 };
 
@@ -24,5 +37,7 @@ Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   labelText: PropTypes.string,
-  checked: PropTypes.bool,
+  isChecked: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
 };

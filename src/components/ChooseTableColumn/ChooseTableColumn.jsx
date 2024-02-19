@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // style
 import {
   ButtonWrapper,
@@ -7,17 +7,25 @@ import {
   IconChoose,
   DropDownList,
   DropDownItem,
+  Warning,
 } from "./ChooseTableColumn.styled";
 // components
 import { DropDown } from "../DropDown";
 import { Checkbox } from "../Checkbox";
 import { selectTableHeader } from "../../redux/contacts/selectors";
+import { changeVisibleTableHead } from "../../redux/contacts/ContactSlice";
 
 export const ChooseTableColumn = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const dispatch = useDispatch();
   const dropDownRef = useRef(null);
   const buttonRef = useRef(null);
   const tableHeader = useSelector(selectTableHeader);
+
+  const handleChangeCheckbox = (id) => {
+    console.log("chB", id);
+    dispatch(changeVisibleTableHead(id));
+  };
 
   const toggleUserDropDown = () => {
     setIsDropDownOpen((prev) => !prev);
@@ -38,16 +46,23 @@ export const ChooseTableColumn = () => {
         >
           <DropDownList ref={dropDownRef}>
             {tableHeader &&
-              tableHeader.map(({ id, buttonName, columnName, isVisible }) => (
-                <DropDownItem key={id}>
-                  <Checkbox
-                    id={columnName}
-                    name={columnName}
-                    checked={isVisible}
-                    labelText={buttonName}
-                  />
-                </DropDownItem>
-              ))}
+              tableHeader.map(
+                ({ id, buttonName, columnName, isVisible, isDisabled }) => (
+                  <DropDownItem key={id}>
+                    <Checkbox
+                      id={columnName}
+                      name={columnName}
+                      isChecked={isVisible}
+                      labelText={buttonName}
+                      disabled={isDisabled}
+                      onChange={() => handleChangeCheckbox(id)}
+                    />
+                  </DropDownItem>
+                )
+              )}
+            <DropDownItem>
+              <Warning>Налаштування зберігаються лише в поточній сесії</Warning>
+            </DropDownItem>
           </DropDownList>
         </DropDown>
       )}

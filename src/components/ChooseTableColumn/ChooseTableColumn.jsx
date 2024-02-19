@@ -23,7 +23,6 @@ export const ChooseTableColumn = () => {
   const tableHeader = useSelector(selectTableHeader);
 
   const handleChangeCheckbox = (id) => {
-    console.log("chB", id);
     dispatch(changeVisibleTableHead(id));
   };
 

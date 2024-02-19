@@ -161,9 +161,9 @@ export const WorkTable = () => {
             )}
 
             {/* когда нет колонок нужно добавить пустые TableHead */}
-            {tableHeaderFiltered.length === 1 && <TableHead />}
+            {tableHeaderFiltered.length === 1 && <TableHead key="emptyHead" />}
 
-            <TableHead>Дії</TableHead>
+            <TableHead key="editHead">Дії</TableHead>
           </Row>
         </Thead>
         <TableBody>
@@ -180,27 +180,25 @@ export const WorkTable = () => {
               <Row key={item._id}>
                 {tableHeaderFiltered.map(({ id, columnName }) => {
                   return (
-                    <>
-                      <Cell
-                        key={id}
-                        onClick={() => {
-                          handleClickOrder(item, activePage * limit + idx);
-                        }}
-                      >
-                        {formatData(
-                          columnName,
-                          item[columnName],
-                          activePage * limit + idx
-                        )}
-                      </Cell>
-                    </>
+                    <Cell
+                      key={id}
+                      onClick={() => {
+                        handleClickOrder(item, activePage * limit + idx);
+                      }}
+                    >
+                      {formatData(
+                        columnName,
+                        item[columnName],
+                        activePage * limit + idx
+                      )}
+                    </Cell>
                   );
                 })}
 
                 {/* когда нет колонок нужно добавить пустые Cell */}
-                {tableHeaderFiltered.length === 1 && <Cell />}
+                {tableHeaderFiltered.length === 1 && <Cell key="emptyCell" />}
 
-                <Cell>
+                <Cell key="editCell">
                   <ButtonIconEdit
                     onClick={() => setOrderDataToEdit(item)}
                     disabled={isArchive}

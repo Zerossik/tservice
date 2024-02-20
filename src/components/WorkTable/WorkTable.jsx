@@ -139,7 +139,7 @@ export const WorkTable = () => {
   return (
     <>
       <Table cellPadding="0">
-        <Thead $isArchive={isArchive}>
+        <Thead>
           <Row>
             {tableHeaderFiltered.map(
               ({ id, buttonName, isActive, sortDown }) => (
@@ -159,7 +159,11 @@ export const WorkTable = () => {
                 </TableHead>
               )
             )}
-            {!isArchive && <TableHead>Дії</TableHead>}
+
+            {/* когда нет колонок нужно добавить пустые TableHead */}
+            {tableHeaderFiltered.length === 1 && <TableHead key="emptyHead" />}
+
+            <TableHead key="editHead">Дії</TableHead>
           </Row>
         </Thead>
         <TableBody>
@@ -190,13 +194,18 @@ export const WorkTable = () => {
                     </Cell>
                   );
                 })}
-                {!isArchive && (
-                  <Cell>
-                    <ButtonIconEdit onClick={() => setOrderDataToEdit(item)}>
-                      <IconEdit />
-                    </ButtonIconEdit>
-                  </Cell>
-                )}
+
+                {/* когда нет колонок нужно добавить пустые Cell */}
+                {tableHeaderFiltered.length === 1 && <Cell key="emptyCell" />}
+
+                <Cell key="editCell">
+                  <ButtonIconEdit
+                    onClick={() => setOrderDataToEdit(item)}
+                    disabled={isArchive}
+                  >
+                    <IconEdit />
+                  </ButtonIconEdit>
+                </Cell>
               </Row>
             ))}
         </TableBody>

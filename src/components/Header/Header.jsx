@@ -29,6 +29,7 @@ export const Header = () => {
   const user = useSelector(selectUser);
   const isLoading = useSelector(selectIsLoading);
   const dropDownRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const toggleUserDropDown = () => {
     setIsDropDownOpen((prev) => !prev);
@@ -55,7 +56,7 @@ export const Header = () => {
               <IconSettings />
             </Button> */}
             <UserName>{user ? user.name : "Anonimus"}</UserName>
-            <Button type="button" onClick={toggleUserDropDown}>
+            <Button type="button" onClick={toggleUserDropDown} ref={buttonRef}>
               <IconUser />
             </Button>
 
@@ -64,6 +65,7 @@ export const Header = () => {
                 styled={{ top: "100%", right: 0 }}
                 onToggleDropDown={toggleUserDropDown}
                 dropRef={dropDownRef}
+                buttonRef={buttonRef}
               >
                 <DropDownList ref={dropDownRef}>
                   <DropDownItem>

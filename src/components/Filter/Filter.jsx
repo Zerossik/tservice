@@ -5,6 +5,7 @@ import {
   ButtonIconPlus,
   IconPlus,
   FilterWrapper,
+  Wrap,
 } from "./Filter.styled";
 // components
 import { Modal } from "../Modal";
@@ -12,6 +13,7 @@ import { OrderForm } from "../OrderForm/OrderForm";
 import { SelectSort } from "../SelectSort/SelectSort";
 import { Search } from "../Search";
 import { useConfirm } from "../ConfirmService/context";
+import { ChooseTableColumn } from "../ChooseTableColumn/ChooseTableColumn";
 
 export const Filter = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,7 +53,10 @@ export const Filter = () => {
 
         <FilterWrapper>
           <SelectSort />
-          <Search />
+          <Wrap>
+            <Search />
+            <ChooseTableColumn />
+          </Wrap>
         </FilterWrapper>
       </Wrapper>
 

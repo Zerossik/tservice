@@ -1,12 +1,22 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 // style
-import { BackDrop, WrapperContent } from "./DropDown.styled";
+import { WrapperContent } from "./DropDown.styled";
 
-export const DropDown = ({ onToggleDropDown, children, styled, dropRef }) => {
+export const DropDown = ({
+  onToggleDropDown,
+  children,
+  styled,
+  dropRef,
+  buttonRef,
+}) => {
   useEffect(() => {
     const handleClickAway = (e) => {
-      if (dropRef.current && !dropRef.current.contains(e.target)) {
+      if (
+        dropRef.current &&
+        !dropRef.current.contains(e.target) &&
+        !buttonRef.current.contains(e.target)
+      ) {
         onToggleDropDown();
       }
     };
@@ -18,14 +28,9 @@ export const DropDown = ({ onToggleDropDown, children, styled, dropRef }) => {
       document.removeEventListener("mousedown", handleClickAway);
       document.removeEventListener("touchstart", handleClickAway);
     };
-  }, [dropRef, onToggleDropDown]);
+  }, [buttonRef, dropRef, onToggleDropDown]);
 
-  return (
-    <>
-      <BackDrop></BackDrop>
-      <WrapperContent style={styled}>{children}</WrapperContent>
-    </>
-  );
+  return <WrapperContent style={styled}>{children}</WrapperContent>;
 };
 
 DropDown.propTypes = {
@@ -33,4 +38,5 @@ DropDown.propTypes = {
   children: PropTypes.node.isRequired,
   styled: PropTypes.object,
   dropRef: PropTypes.object.isRequired,
+  buttonRef: PropTypes.object.isRequired,
 };

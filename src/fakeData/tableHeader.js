@@ -7,6 +7,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: true,
+    isDisabled: true,
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: true,
+    isDisabled: false,
   },
   {
     id: "3",
@@ -25,6 +27,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: true,
+    isDisabled: false,
   },
   {
     id: "4",
@@ -34,6 +37,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: true,
+    isDisabled: false,
   },
   {
     id: "5",
@@ -43,6 +47,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: true,
+    isDisabled: false,
   },
   {
     id: "6",
@@ -52,6 +57,7 @@ export const tableHeader = [
     isActive: true,
     sortDown: true,
     isVisible: true,
+    isDisabled: false,
   },
   {
     id: "7",
@@ -61,6 +67,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: false,
+    isDisabled: false,
   },
   {
     id: "8",
@@ -70,6 +77,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: true,
+    isDisabled: false,
   },
   {
     id: "9",
@@ -79,6 +87,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: true,
+    isDisabled: false,
   },
   {
     id: "10",
@@ -88,6 +97,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: false,
+    isDisabled: false,
   },
   {
     id: "11",
@@ -97,6 +107,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: false,
+    isDisabled: false,
   },
   {
     id: "12",
@@ -106,6 +117,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: false,
+    isDisabled: false,
   },
   {
     id: "13",
@@ -115,6 +127,7 @@ export const tableHeader = [
     isActive: false,
     sortDown: null,
     isVisible: false,
+    isDisabled: false,
   },
 ];
 
@@ -126,6 +139,7 @@ export const tableHeader = [
 //   isActive: false,
 //   sortDown: null,
 //   isVisible: false,
+//   isDisabled: false,
 // },
 
 // 1 type

@@ -11,6 +11,7 @@ import { selectIsLoading } from "../../redux/auth/selectors";
 import { addMasterThunk } from "../../redux/auth/authThunks";
 import { LoaderPretty } from "../LoaderPretty";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const MasterAddForm = ({ closeConfirm }) => {
   const isLoading = useSelector(selectIsLoading);
@@ -23,7 +24,9 @@ export const MasterAddForm = ({ closeConfirm }) => {
     },
     validationSchema: AddMasterSchema,
     onSubmit: async (values) => {
-      dispatch(addMasterThunk(values))
+      const trimValues = removLeadTrailWhitespace(values);
+
+      dispatch(addMasterThunk(trimValues))
         .unwrap()
         .then(() => {
           toast.success("Майстер доданий");

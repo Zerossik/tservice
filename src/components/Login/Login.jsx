@@ -12,6 +12,7 @@ import { Input } from "../Input";
 import { NavLinkForm } from "../NavLinkForm";
 import { ButtonForm } from "../ButtonForm";
 import { LoaderPretty } from "../LoaderPretty";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -25,9 +26,12 @@ export const Login = () => {
     },
     validationSchema: SigninSchema,
     onSubmit: (values) => {
-      const { email, password } = values;
+      const trimValues = removLeadTrailWhitespace(values);
+
+      const { email, password } = trimValues;
+
       if (email === "" || password === "") return;
-      dispatch(loginThunk(values))
+      dispatch(loginThunk(trimValues))
         .unwrap()
         .then(() => {
           formik.resetForm();

@@ -1,11 +1,10 @@
 import * as Yup from "yup";
-
-const required = "Обов'язково";
+import { VALIDMESS } from "../constants";
 
 export const AddTypeSchema = Yup.object().shape({
-  type: Yup.string().required(required),
+  type: Yup.string().required(VALIDMESS.REQUIRED),
 });
 
 export const EditTypeSchema = Yup.object().shape({
-  newType: Yup.string().required(required),
+  newType: Yup.string().required(VALIDMESS.REQUIRED),
 });

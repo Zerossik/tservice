@@ -29,7 +29,7 @@ import {
   selectDeviceManufacturers,
   selectDeviceTypes,
 } from "../../redux/settingsUser/selectors";
-import { rewriteDeviceTypeArr } from "../../utils";
+import { removLeadTrailWhitespace, rewriteDeviceTypeArr } from "../../utils";
 import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
 
 export const OrderForm = ({ closeModal, isFormEdit }) => {
@@ -52,7 +52,9 @@ export const OrderForm = ({ closeModal, isFormEdit }) => {
     },
     validationSchema: makeOrderSchema(),
     onSubmit: (values) => {
-      dispatch(addContactThunk(values))
+      const trimValues = removLeadTrailWhitespace(values);
+
+      dispatch(addContactThunk(trimValues))
         .unwrap()
         .then(() => {
           toast.success("Замовлення додано");

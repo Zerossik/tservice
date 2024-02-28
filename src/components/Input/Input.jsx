@@ -26,7 +26,7 @@ export const Input = ({
         type={type}
         placeholder={placeholder}
         onChange={formik.handleChange}
-        value={formik.values[name]}
+        value={formik.values[name].trimStart()}
         style={style}
       />
       {moveLabel && <LabelStyled htmlFor={name}>{labelText}</LabelStyled>}

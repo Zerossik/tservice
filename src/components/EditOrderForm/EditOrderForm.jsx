@@ -31,7 +31,11 @@ import {
   selectDeviceTypes,
   selectStatuses,
 } from "../../redux/settingsUser/selectors";
-import { rewriteDeviceTypeArr, createListOfMasters } from "../../utils";
+import {
+  rewriteDeviceTypeArr,
+  createListOfMasters,
+  removLeadTrailWhitespace,
+} from "../../utils";
 import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
 
 const compareData = (oldObj, newObj) => {
@@ -60,7 +64,9 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
     enableReinitialize: true,
     validationSchema: editOrderSchema(),
     onSubmit: (values) => {
-      const body = compareData(order, values);
+      const trimValues = removLeadTrailWhitespace(values);
+
+      const body = compareData(order, trimValues);
 
       dispatch(updateContactByIdThunk({ id, body }))
         .unwrap()

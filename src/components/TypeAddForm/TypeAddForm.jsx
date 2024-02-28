@@ -9,6 +9,7 @@ import { Input } from "../Input";
 import { addDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 import { selectSettingsIsLoading } from "../../redux/settingsUser/selectors";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const TypeAddForm = ({ closeConfirm }) => {
   const isLoading = useSelector(selectSettingsIsLoading);
@@ -20,7 +21,9 @@ export const TypeAddForm = ({ closeConfirm }) => {
     },
     validationSchema: AddTypeSchema,
     onSubmit: async (values) => {
-      dispatch(addDeviceTypeThunk(values))
+      const trimValues = removLeadTrailWhitespace(values);
+
+      dispatch(addDeviceTypeThunk(trimValues))
         .unwrap()
         .then(() => {
           toast.success("Тип техніки доданий");

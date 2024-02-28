@@ -10,6 +10,7 @@ import { NewPassSchema } from "../../validation";
 import { PATHS } from "../../constants";
 import { setNewPassword } from "../../services/authAPI";
 import { LoaderPretty } from "../LoaderPretty";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const NewPassForm = () => {
   const [loading, setLoading] = useState(false);
@@ -23,12 +24,14 @@ export const NewPassForm = () => {
     },
     validationSchema: NewPassSchema,
     onSubmit: async (value) => {
+      const trimValues = removLeadTrailWhitespace(value);
+
       try {
         setLoading(true);
         const { code } = await setNewPassword({
           id: data.id,
           token: data.token,
-          password: value.password,
+          password: trimValues.password,
         });
 
         if (code === 201) {

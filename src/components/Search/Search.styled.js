@@ -3,13 +3,12 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 
 export const Wrapper = styled.div`
   width: 250px;
-  background-color: ${({ theme }) => theme.color.bgSecondary};
-  border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
-  box-shadow: ${({ theme }) => theme.color.shadowSecond};
 `;
 
 export const Form = styled.form`
   display: flex;
+  border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
 `;
 
 export const Button = styled.button`

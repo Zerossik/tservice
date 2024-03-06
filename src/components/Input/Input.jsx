@@ -41,7 +41,7 @@ export const Input = ({
         type={inputType}
         placeholder={placeholder}
         onChange={formik.handleChange}
-        value={formik.values[name].trimStart()}
+        value={String(formik.values[name]).trimStart()}
         style={style}
       />
 

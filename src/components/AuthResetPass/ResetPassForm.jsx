@@ -9,6 +9,7 @@ import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
 import { LoaderPretty } from "../LoaderPretty";
 import { PATHS } from "../../constants";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const ResetPassForm = () => {
   const [loading, setLoading] = useState(false);
@@ -19,9 +20,11 @@ export const ResetPassForm = () => {
     },
     validationSchema: ResetPassSchema,
     onSubmit: async (value) => {
+      const trimValue = removLeadTrailWhitespace(value);
+
       try {
         setLoading(true);
-        await resetPassword(value);
+        await resetPassword(trimValue);
         setLoading(false);
         toast.success(`Вам надіслано листа, перевірте пошту, будь ласка`);
         formik.resetForm();

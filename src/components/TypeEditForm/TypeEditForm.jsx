@@ -10,6 +10,7 @@ import { selectSettingsIsLoading } from "../../redux/settingsUser/selectors";
 import { EditTypeSchema } from "../../validation";
 import { editDeviceTypeThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const TypeEditForm = ({ closeConfirm, oldFildName = "" }) => {
   const isLoading = useSelector(selectSettingsIsLoading);
@@ -20,7 +21,9 @@ export const TypeEditForm = ({ closeConfirm, oldFildName = "" }) => {
       newType: oldFildName,
     },
     validationSchema: EditTypeSchema,
-    onSubmit: async ({ newType }) => {
+    onSubmit: async (value) => {
+      const { newType } = removLeadTrailWhitespace(value);
+
       dispatch(editDeviceTypeThunk({ oldType: oldFildName, newType }))
         .unwrap()
         .then(() => {

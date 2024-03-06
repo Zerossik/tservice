@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
 // style
-import { InputWrapper, LabelStyled, InputStyled } from "./Input.styled";
+import {
+  InputWrapper,
+  LabelStyled,
+  InputStyled,
+  ButtonShowPass,
+  IconOpenEye,
+  IconCloseEye,
+} from "./Input.styled";
 // components
 import { Label } from "../Label";
 import { ErrorInput } from "../ErrorInput";
+import { useState } from "react";
 
 export const Input = ({
   name,
@@ -15,21 +23,35 @@ export const Input = ({
   style = {},
   placeholder = "",
 }) => {
+  const [inputType, setInputType] = useState(type);
+
+  const handleClick = () => {
+    setInputType((prev) => (prev === "password" ? "text" : "password"));
+  };
+
   return (
     <InputWrapper>
       {!moveLabel && (
         <Label htmlFor={name} labelText={labelText} styleLabel={styleLabel} />
       )}
+
       <InputStyled
         id={name}
         name={name}
-        type={type}
+        type={inputType}
         placeholder={placeholder}
         onChange={formik.handleChange}
-        value={formik.values[name]}
+        value={formik.values[name].trimStart()}
         style={style}
       />
+
       {moveLabel && <LabelStyled htmlFor={name}>{labelText}</LabelStyled>}
+
+      {type === "password" && (
+        <ButtonShowPass type="button" onClick={handleClick}>
+          {inputType === "password" ? <IconOpenEye /> : <IconCloseEye />}
+        </ButtonShowPass>
+      )}
       {formik.errors[name] ? <ErrorInput text={formik.errors[name]} /> : null}
     </InputWrapper>
   );

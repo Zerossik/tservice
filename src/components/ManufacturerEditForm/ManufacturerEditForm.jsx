@@ -10,6 +10,7 @@ import { Input } from "../Input";
 import { EditManufacturerSchema } from "../../validation";
 import { editDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const ManufacturerEditForm = ({ closeConfirm, oldFildName = "" }) => {
   const isLoading = useSelector(selectSettingsIsLoading);
@@ -20,7 +21,9 @@ export const ManufacturerEditForm = ({ closeConfirm, oldFildName = "" }) => {
       newManufacturer: oldFildName,
     },
     validationSchema: EditManufacturerSchema,
-    onSubmit: async ({ newManufacturer }) => {
+    onSubmit: async (value) => {
+      const { newManufacturer } = removLeadTrailWhitespace(value);
+
       dispatch(
         editDeviceManufacturerThunk({
           oldManufacturer: oldFildName,

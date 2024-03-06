@@ -8,6 +8,7 @@ import { Input } from "../Input";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
 import { LoaderPretty } from "../LoaderPretty";
 import { useNavigation, useSearchParams } from "react-router-dom";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const Search = () => {
   const [, setSearchParams] = useSearchParams();
@@ -23,7 +24,9 @@ export const Search = () => {
     initialValues: {
       search: "",
     },
-    onSubmit: ({ search }) => {
+    onSubmit: (value) => {
+      const { search } = removLeadTrailWhitespace(value);
+
       setSearchParams({ filter: search });
       formik.resetForm();
     },

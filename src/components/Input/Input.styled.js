@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { HiEye, HiEyeSlash } from "react-icons/hi2";
 
 export const InputWrapper = styled.div`
   position: relative;
@@ -29,4 +30,28 @@ export const LabelStyled = styled.label`
     transform: translateY(calc(-100% - 22px));
     /* color: ${({ theme }) => theme.color.primary}; */
   }
+`;
+
+export const ButtonShowPass = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  color: ${({ theme }) => theme.color.primary};
+  background-color: transparent;
+  opacity: 0.2;
+`;
+
+export const IconOpenEye = styled(HiEye)`
+  width: 100%;
+  height: 100%;
+  color: currentColor;
+`;
+
+export const IconCloseEye = styled(HiEyeSlash)`
+  width: 100%;
+  height: 100%;
+  color: currentColor;
 `;

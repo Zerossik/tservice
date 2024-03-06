@@ -10,6 +10,7 @@ import { AuthForm } from "../AuthForm/AuthForm";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
 import { LoaderPretty } from "../LoaderPretty";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -23,13 +24,15 @@ export const Register = () => {
     },
     validationSchema: SignupSchema,
     onSubmit: async (values) => {
+      const trimValues = removLeadTrailWhitespace(values);
+
       try {
         setLoading(true);
 
         const {
           code,
           data: { name },
-        } = await signup(values);
+        } = await signup(trimValues);
 
         if (code === 201) {
           setLoading(false);

@@ -9,6 +9,7 @@ import { AddManufacturerSchema } from "../../validation";
 import { addDeviceManufacturerThunk } from "../../redux/settingsUser/settingsUserThunks";
 import { SettingsForm } from "../SettingsForm/SettingsForm";
 import { selectSettingsIsLoading } from "../../redux/settingsUser/selectors";
+import { removLeadTrailWhitespace } from "../../utils";
 
 export const ManufacturerAddForm = ({ closeConfirm }) => {
   const isLoading = useSelector(selectSettingsIsLoading);
@@ -20,7 +21,9 @@ export const ManufacturerAddForm = ({ closeConfirm }) => {
     },
     validationSchema: AddManufacturerSchema,
     onSubmit: async (values) => {
-      dispatch(addDeviceManufacturerThunk(values))
+      const trimValues = removLeadTrailWhitespace(values);
+
+      dispatch(addDeviceManufacturerThunk(trimValues))
         .unwrap()
         .then(() => {
           toast.success("Виробник доданий");

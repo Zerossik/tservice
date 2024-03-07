@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 // style
 import {
   Wrapper,
@@ -21,6 +21,9 @@ export const Pagination = () => {
   const [lastPage, setLastPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const totalOrders = useSelector(selectTotalOrders);
+
+  let location = useLocation();
+  let params = new URLSearchParams(location.search);
 
   const range = (start, stop, step) =>
     Array.from(
@@ -46,7 +49,7 @@ export const Pagination = () => {
   };
 
   useEffect(() => {
-    setActivePage(1);
+    setActivePage(params.has("page") ? Number(params.get("page")) : 1);
     setLastPage(Math.ceil((totalOrders === 0 ? 1 : totalOrders) / limit));
     setPickedPages(createArrayBasedOnActivePage(activePage, lastPage));
   }, [totalOrders, lastPage]);

@@ -25,11 +25,6 @@ export const ServicePage = () => {
     if (lists) {
       dispatch(getAllLists(lists));
     }
-    // data.map((item) => {
-    //   Array.isArray(item.data)
-    //     ? dispatch(getAllContacts(item))
-    //     : dispatch(getAllLists(item));
-    // });
   }, [contacts, dispatch, lists]);
 
   return (

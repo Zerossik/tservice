@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { PATHS } from "../../constants/path";
 // styled
 import { Wrapper } from "./AuthLayout.styled";
 import { useEffect } from "react";
@@ -19,7 +18,7 @@ export const AuthLayout = () => {
   // "from" сетится в AuthRequired лоадере
   let location = useLocation();
   let params = new URLSearchParams(location.search);
-  let from = params.get("from") || "/";
+  let from = params.get("from") || "/tservice/services";
 
   useEffect(() => {
     if (isLoggedIn) {

@@ -34,6 +34,9 @@ export const SelectSort = () => {
   const listRef = useRef();
   const inputWrapperRef = useRef();
 
+  let params = new URLSearchParams(location.search);
+  const typeOfSort = params.get("type");
+
   useEffect(() => {
     if (types.length !== 0) {
       setList([defaultType, ...rewriteDeviceTypeArr(types)]);
@@ -41,6 +44,10 @@ export const SelectSort = () => {
 
     if (filter) {
       setValueInput("Результати пошуку");
+    }
+
+    if (typeOfSort) {
+      setValueInput(typeOfSort);
     }
 
     if (location?.state?.logoReset) {

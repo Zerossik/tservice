@@ -6,8 +6,8 @@ export const tableHeader = [
     columnName: "countNumber",
     isActive: false,
     sortDown: null,
-    isVisible: true,
-    isDisabled: true,
+    isVisible: false,
+    isDisabled: false,
   },
   {
     id: "2",

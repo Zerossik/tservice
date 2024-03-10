@@ -28,9 +28,9 @@ export const Row = styled.tr`
 export const Thead = styled.thead`
   font-weight: 700;
 
-  & th:nth-child(1) {
-    width: 3%;
-  }
+  /* & th:nth-child(1) {
+    width: 5%;
+  } */
 
   /* & th:nth-child(3) {
     width: 10%;

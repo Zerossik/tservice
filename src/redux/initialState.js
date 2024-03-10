@@ -20,6 +20,7 @@ export const contactsInitialState = {
   contacts: [],
   tableHeader: tableHeader,
   totalOrders: 0,
+  isTableVisible: true,
 };
 
 export const settingsUserInitialState = {

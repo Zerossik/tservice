@@ -1,6 +1,6 @@
 import { Suspense, useEffect } from "react";
 import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // styled
 import { Wrapper, Container, Main } from "./ServicePage.styled";
 // components
@@ -10,12 +10,14 @@ import { Filter } from "../../components/Filter/Filter";
 import { getAllContacts } from "../../redux/contacts/ContactSlice";
 import { getAllLists } from "../../redux/settingsUser/settingsUserSlice";
 import { LoaderPretty } from "../../components/LoaderPretty";
-import { Pagination } from "../../components/Pagination/Pagination";
+import { Pagination } from "../../components/Pagination";
+import { selectIsTableVisible } from "../../redux/contacts/selectors";
 
 export const ServicePage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [contacts, lists] = useLoaderData();
+  const isTableVisible = useSelector(selectIsTableVisible);
 
   useEffect(() => {
     if (contacts) {
@@ -40,9 +42,7 @@ export const ServicePage = () => {
             </Suspense>
           </Container>
 
-          <Container>
-            <Pagination />
-          </Container>
+          <Container>{isTableVisible && <Pagination />}</Container>
         </Main>
         <Footer />
       </Wrapper>

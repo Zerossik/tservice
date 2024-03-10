@@ -28,6 +28,7 @@ import { useConfirm } from "../ConfirmService/context";
 import { OrderView } from "../OrderView/OrderView";
 import { formatData } from "../../utils";
 import { limit } from "../../constants";
+import { isTableVisible } from "../../redux/contacts/ContactSlice";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +59,9 @@ export const WorkTable = () => {
       .filter((item) => item.isVisible)
       .sort((a, b) => a.order - b.order);
     setTableHeaderFiltered(tableHeaderFiltered);
+
+    tableHeaderFiltered.length === 0 && dispatch(isTableVisible(false));
+    tableHeaderFiltered.length === 1 && dispatch(isTableVisible(true));
 
     // Сортируем контакты по-умолчанию
     // const sortedContactsByDefault = contacts.toSorted(
@@ -138,78 +142,80 @@ export const WorkTable = () => {
 
   return (
     <>
-      <Table cellPadding="0">
-        <Thead>
-          <Row>
-            {tableHeaderFiltered.map(
-              ({ id, buttonName, isActive, sortDown }) => (
-                <TableHead key={id} scope="col">
-                  <ButtonWrapper>
-                    <Button
-                      type="button"
-                      // $isActive={isActive}
-                      // onClick={() =>
-                      //   handleClickButtonSort(tableHeaderFiltered, id)
-                      // }
-                    >
-                      {buttonName}
-                      {isActive && <IconSort $sortDown={sortDown} />}
-                    </Button>
-                  </ButtonWrapper>
-                </TableHead>
-              )
+      {tableHeaderFiltered.length > 0 && (
+        <Table cellPadding="0">
+          <Thead>
+            <Row>
+              {tableHeaderFiltered.map(
+                ({ id, buttonName, isActive, sortDown }) => (
+                  <TableHead key={id} scope="col">
+                    <ButtonWrapper>
+                      <Button
+                        type="button"
+                        // $isActive={isActive}
+                        // onClick={() =>
+                        //   handleClickButtonSort(tableHeaderFiltered, id)
+                        // }
+                      >
+                        {buttonName}
+                        {isActive && <IconSort $sortDown={sortDown} />}
+                      </Button>
+                    </ButtonWrapper>
+                  </TableHead>
+                )
+              )}
+
+              {/* когда нет колонок нужно добавить пустые TableHead */}
+              {/* {tableHeaderFiltered.length === 1 && <TableHead key="emptyHead" />} */}
+
+              <TableHead key="editHead">Дії</TableHead>
+            </Row>
+          </Thead>
+          <TableBody>
+            {contacts.length === 0 && (
+              <RowNoItem>
+                <CellNoItem colSpan={tableHeaderFiltered.length + 1}>
+                  Нічого нема :)
+                </CellNoItem>
+              </RowNoItem>
             )}
 
-            {/* когда нет колонок нужно добавить пустые TableHead */}
-            {tableHeaderFiltered.length === 1 && <TableHead key="emptyHead" />}
+            {contacts.lehgth !== 0 &&
+              contacts.map((item, idx) => (
+                <Row key={item._id}>
+                  {tableHeaderFiltered.map(({ id, columnName }) => {
+                    return (
+                      <Cell
+                        key={id}
+                        onClick={() => {
+                          handleClickOrder(item, activePage * limit + idx);
+                        }}
+                      >
+                        {formatData(
+                          columnName,
+                          item[columnName],
+                          activePage * limit + idx
+                        )}
+                      </Cell>
+                    );
+                  })}
 
-            <TableHead key="editHead">Дії</TableHead>
-          </Row>
-        </Thead>
-        <TableBody>
-          {contacts.length === 0 && (
-            <RowNoItem>
-              <CellNoItem colSpan={tableHeaderFiltered.length + 1}>
-                Нічого нема :)
-              </CellNoItem>
-            </RowNoItem>
-          )}
+                  {/* когда нет колонок нужно добавить пустые Cell */}
+                  {/* {tableHeaderFiltered.length === 1 && <Cell key="emptyCell" />} */}
 
-          {contacts.lehgth !== 0 &&
-            contacts.map((item, idx) => (
-              <Row key={item._id}>
-                {tableHeaderFiltered.map(({ id, columnName }) => {
-                  return (
-                    <Cell
-                      key={id}
-                      onClick={() => {
-                        handleClickOrder(item, activePage * limit + idx);
-                      }}
+                  <Cell key="editCell">
+                    <ButtonIconEdit
+                      onClick={() => setOrderDataToEdit(item)}
+                      disabled={isArchive}
                     >
-                      {formatData(
-                        columnName,
-                        item[columnName],
-                        activePage * limit + idx
-                      )}
-                    </Cell>
-                  );
-                })}
-
-                {/* когда нет колонок нужно добавить пустые Cell */}
-                {tableHeaderFiltered.length === 1 && <Cell key="emptyCell" />}
-
-                <Cell key="editCell">
-                  <ButtonIconEdit
-                    onClick={() => setOrderDataToEdit(item)}
-                    disabled={isArchive}
-                  >
-                    <IconEdit />
-                  </ButtonIconEdit>
-                </Cell>
-              </Row>
-            ))}
-        </TableBody>
-      </Table>
+                      <IconEdit />
+                    </ButtonIconEdit>
+                  </Cell>
+                </Row>
+              ))}
+          </TableBody>
+        </Table>
+      )}
 
       {isModalOpen && (
         <Modal

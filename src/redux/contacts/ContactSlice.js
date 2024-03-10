@@ -52,6 +52,9 @@ const contactSlice = createSlice({
         item.id === payload ? { ...item, isVisible: !item.isVisible } : item
       );
     },
+    isTableVisible: (state, { payload }) => {
+      state.isTableVisible = payload;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -78,5 +81,6 @@ const contactSlice = createSlice({
       ),
 });
 
-export const { getAllContacts, changeVisibleTableHead } = contactSlice.actions;
+export const { getAllContacts, changeVisibleTableHead, isTableVisible } =
+  contactSlice.actions;
 export const contactReducer = contactSlice.reducer;

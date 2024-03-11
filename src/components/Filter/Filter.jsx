@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 // style
 import {
   Wrapper,
@@ -13,13 +14,17 @@ import { OrderForm } from "../OrderForm/OrderForm";
 import { SelectSort } from "../SelectSort/SelectSort";
 import { Search } from "../Search";
 import { useConfirm } from "../ConfirmService/context";
-import { ChooseTableColumn } from "../ChooseTableColumn/ChooseTableColumn";
+import { ChooseTableColumn } from "../ChooseTableColumn";
+import { PATHS } from "../../constants";
 
 export const Filter = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormEdit, setIsFormEdit] = useState(false);
   const awitingPromiseRef = useRef();
   const confirm = useConfirm();
+  const location = useLocation();
+
+  const isActive = location.pathname === `/${PATHS.ARCHIVE}`;
 
   const toggleModal = () => {
     if (isFormEdit) {
@@ -47,7 +52,7 @@ export const Filter = () => {
   return (
     <>
       <Wrapper>
-        <ButtonIconPlus onClick={toggleModal}>
+        <ButtonIconPlus onClick={toggleModal} disabled={isActive}>
           <IconPlus />
         </ButtonIconPlus>
 

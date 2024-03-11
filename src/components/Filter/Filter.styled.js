@@ -11,12 +11,18 @@ export const ButtonIconPlus = styled.button`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.color.bgSecondary};
   box-shadow: ${({ theme }) => theme.color.shadowSecond};
+  color: ${({ theme }) => theme.color.iconPlus};
+
+  &:disabled {
+    color: ${({ theme }) => theme.color.iconPlusDisabled};
+    cursor: not-allowed;
+  }
 `;
 
 export const IconPlus = styled(HiPlusCircle)`
   width: 42px;
   height: 42px;
-  fill: ${({ theme }) => theme.color.iconPlus};
+  fill: currentColor;
 `;
 
 export const FilterWrapper = styled.div`

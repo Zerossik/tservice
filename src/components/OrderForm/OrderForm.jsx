@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import PhoneInput from "react-phone-input-2";
@@ -22,7 +23,10 @@ import { TextArea } from "../TextArea/TextArea";
 import { ErrorInput } from "../ErrorInput";
 import { ButtonForm } from "../ButtonForm";
 import { selectIsContactsLoading } from "../../redux/contacts/selectors";
-import { addContactThunk } from "../../redux/contacts/contactsThunks";
+import {
+  addContactThunk,
+  getAllOrdersThunk,
+} from "../../redux/contacts/contactsThunks";
 import { LoaderPretty } from "../LoaderPretty";
 import { makeOrderSchema } from "../../validation";
 import {
@@ -31,13 +35,19 @@ import {
 } from "../../redux/settingsUser/selectors";
 import { removLeadTrailWhitespace, rewriteDeviceTypeArr } from "../../utils";
 import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
+import { addcontact } from "../../services/contactsAPI";
 
 export const OrderForm = ({ closeModal, isFormEdit }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsContactsLoading);
   const deviceManufacturers = useSelector(selectDeviceManufacturers);
   const deviceTypes = useSelector(selectDeviceTypes);
+  const location = useLocation();
   const theme = useTheme();
+
+  const params = new URLSearchParams(location.search);
+  const pageNumber = params.get("page");
+  const bodyParams = Object.fromEntries([...params.entries()]);
 
   const formik = useFormik({
     initialValues: {
@@ -54,10 +64,26 @@ export const OrderForm = ({ closeModal, isFormEdit }) => {
     onSubmit: (values) => {
       const trimValues = removLeadTrailWhitespace(values);
 
+      if (pageNumber > 1) {
+        addcontact(trimValues)
+          .then(({ data: { orderNumber } }) => {
+            dispatch(getAllOrdersThunk(bodyParams));
+            toast.success(
+              `Замовлення #${orderNumber} додано. Доступно на початку таблиці`
+            );
+            formik.resetForm();
+            isFormEdit(false);
+            closeModal(false);
+          })
+          .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
+
+        return;
+      }
+
       dispatch(addContactThunk(trimValues))
         .unwrap()
-        .then(() => {
-          toast.success("Замовлення додано");
+        .then(({ orderNumber }) => {
+          toast.success(`Замовлення #${orderNumber} додано`);
           formik.resetForm();
           isFormEdit(false);
           closeModal(false);

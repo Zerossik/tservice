@@ -25,6 +25,7 @@ const lightTheme = {
   // icons
   iconMain: "rgba(18, 20, 23, 0.8)",
   iconPlus: "#34C759",
+  iconPlusDisabled: "#cfcbcb", // #cfcbcb
   // table
   tableHead: "#4da2ff",
   tableRow: "#e8e6e6",
@@ -77,6 +78,7 @@ const darktheme = {
   // icons
   iconMain: "rgba(255, 255, 255, 0.8)",
   iconPlus: "#33ff9d",
+  iconPlusDisabled: "#222222",
   // table
   tableHead: "#4da2ff",
   tableRow: "#222222",

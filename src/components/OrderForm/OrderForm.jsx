@@ -49,8 +49,6 @@ export const OrderForm = ({ closeModal, isFormEdit }) => {
   const pageNumber = params.get("page");
   const bodyParams = Object.fromEntries([...params.entries()]);
 
-  // console.log("location", Object.fromEntries([...params.entries()]));
-
   const formik = useFormik({
     initialValues: {
       type: "",

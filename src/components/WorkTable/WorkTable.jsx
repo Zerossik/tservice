@@ -29,6 +29,7 @@ import { OrderView } from "../OrderView/OrderView";
 import { formatData } from "../../utils";
 import { limit } from "../../constants";
 import { isTableVisible } from "../../redux/contacts/ContactSlice";
+import { PATHS } from "../../constants";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +48,7 @@ export const WorkTable = () => {
   const tableHeader = useSelector(selectTableHeader);
   let location = useLocation();
 
-  const isArchive = location.pathname === "/archive";
+  const isArchive = location.pathname === `/${PATHS.ARCHIVE}`;
 
   useEffect(() => {
     const page = searchParams.get("page");

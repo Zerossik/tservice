@@ -7,6 +7,7 @@ import {
   getAllOrdersThunk,
   getAllOrdersFromArchiveThunk,
 } from "./contactsThunks";
+import { STATUS } from "../../fakeData";
 
 const handleGetAllOrders = (state, { payload }) => {
   state.contacts = payload.data;
@@ -18,6 +19,11 @@ const handleAddContact = (state, { payload }) => {
 };
 
 const handleUpdateContact = (state, { payload }) => {
+  if (payload.status === STATUS.ISSUED) {
+    state.contacts = state.contacts.filter((item) => item._id !== payload._id);
+    return;
+  }
+
   state.contacts = state.contacts.map((item) =>
     item._id === payload._id ? payload : item
   );

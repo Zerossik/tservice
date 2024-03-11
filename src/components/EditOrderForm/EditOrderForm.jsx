@@ -36,7 +36,8 @@ import {
   createListOfMasters,
   removLeadTrailWhitespace,
 } from "../../utils";
-import { ButtonAddList } from "../ButtonAddList/ButtonAddList";
+import { ButtonAddList } from "../ButtonAddList";
+import { STATUS } from "../../fakeData";
 
 const compareData = (oldObj, newObj) => {
   let objValues = {};
@@ -51,7 +52,7 @@ const compareData = (oldObj, newObj) => {
 };
 
 export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
-  const [orderStatus, setOrderStatus] = useState(false);
+  const [isOrderStatusReady, setIsOrderStatusReady] = useState(false);
   const dispatch = useDispatch();
   const masters = useSelector(selectMasters);
   const deviceManufacturers = useSelector(selectDeviceManufacturers);
@@ -72,7 +73,9 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
         .unwrap()
         .then(() => {
           toast.success(
-            `Замовлення ${orderStatus ? "перенесено до архіву" : "оновлено"}`
+            `Замовлення ${
+              isOrderStatusReady ? "перенесено до архіву" : "оновлено"
+            }`
           );
           isFormEdit(false);
           closeModal(false);
@@ -85,7 +88,7 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
 
   useEffect(() => {
     isFormEdit(formik.dirty);
-    setOrderStatus(formik.values.status === "Видано");
+    setIsOrderStatusReady(formik.values.status === STATUS.ISSUED);
   }, [formik.dirty, formik.values.status, isFormEdit]);
 
   return (
@@ -225,7 +228,7 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
           <ListItemArea>
             <BtnWrapper>
               <ButtonAddList />
-              {orderStatus && (
+              {isOrderStatusReady && (
                 <Warning>
                   {`Замовлення №${order.orderNumber} буде перенесено до архіву`}
                 </Warning>
@@ -235,7 +238,7 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
 
           <ListItemLast>
             <ButtonForm
-              buttonName={orderStatus ? "Перенести" : "Додати"}
+              buttonName={isOrderStatusReady ? "Перенести" : "Додати"}
               disabled={!(formik.isValid && formik.dirty)}
             />
           </ListItemLast>

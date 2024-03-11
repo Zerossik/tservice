@@ -1,3 +1,10 @@
+export const STATUS = Object.freeze({
+  TAKEN: "Прийнято",
+  WORKING: "В роботі",
+  FINISHED: "Завершено",
+  ISSUED: "Видано",
+});
+
 export const listOfStatus = [
   { _id: 1, status: "Прийнято" },
   { _id: 2, status: "В роботі" },

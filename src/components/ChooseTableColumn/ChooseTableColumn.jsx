@@ -1,29 +1,50 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 // style
 import {
   ButtonWrapper,
+  Wrapper,
   ButtonChoose,
   IconChoose,
   DropDownList,
   DropDownItem,
-  Warning,
+  ButtonSaveWrapper,
 } from "./ChooseTableColumn.styled";
 // components
 import { DropDown } from "../DropDown";
 import { Checkbox } from "../Checkbox";
-import { selectTableHeader } from "../../redux/contacts/selectors";
-import { changeVisibleTableHead } from "../../redux/contacts/ContactSlice";
+import { changeVisibleTableSettings } from "../../redux/settingsUser/settingsUserSlice";
+import { ButtonForm } from "../ButtonForm";
+import { updateTableSettings } from "../../services/settingsUserAPI";
+import { selectTableSettings } from "../../redux/settingsUser/selectors";
 
 export const ChooseTableColumn = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useDispatch();
   const dropDownRef = useRef(null);
   const buttonRef = useRef(null);
-  const tableHeader = useSelector(selectTableHeader);
+  const tableSettings = useSelector(selectTableSettings);
 
   const handleChangeCheckbox = (id) => {
-    dispatch(changeVisibleTableHead(id));
+    dispatch(changeVisibleTableSettings(id));
+    setIsButtonDisabled(false);
+  };
+
+  const handleButtonClickSave = () => {
+    const tableSettingsWithout_Id = tableSettings.map((item) => {
+      const newObj = { ...item };
+      delete newObj._id;
+      return newObj;
+    });
+
+    updateTableSettings(tableSettingsWithout_Id)
+      .then(() => {
+        toast.success("Налаштування таблиці оновлено");
+        setIsButtonDisabled(true);
+      })
+      .catch(() => toast.warning("Щось пішло не так, спробуйте ще раз"));
   };
 
   const toggleUserDropDown = () => {
@@ -43,26 +64,34 @@ export const ChooseTableColumn = () => {
           dropRef={dropDownRef}
           buttonRef={buttonRef}
         >
-          <DropDownList ref={dropDownRef}>
-            {tableHeader &&
-              tableHeader.map(
-                ({ id, buttonName, columnName, isVisible, isDisabled }) => (
-                  <DropDownItem key={id}>
-                    <Checkbox
-                      id={columnName}
-                      name={columnName}
-                      isChecked={isVisible}
-                      labelText={buttonName}
-                      disabled={isDisabled}
-                      onChange={() => handleChangeCheckbox(id)}
-                    />
-                  </DropDownItem>
-                )
-              )}
-            <DropDownItem>
-              <Warning>Налаштування зберігаються лише в поточній сесії</Warning>
-            </DropDownItem>
-          </DropDownList>
+          <Wrapper ref={dropDownRef}>
+            <DropDownList>
+              {tableSettings &&
+                tableSettings.map(
+                  ({ id, buttonName, columnName, isVisible, isDisabled }) => (
+                    <DropDownItem key={id}>
+                      <Checkbox
+                        id={columnName}
+                        name={columnName}
+                        isChecked={isVisible}
+                        labelText={buttonName}
+                        disabled={isDisabled}
+                        onChange={() => handleChangeCheckbox(id)}
+                      />
+                    </DropDownItem>
+                  )
+                )}
+            </DropDownList>
+
+            <ButtonSaveWrapper>
+              <ButtonForm
+                type="button"
+                buttonName="Зберегти"
+                disabled={isButtonDisabled}
+                onClick={handleButtonClickSave}
+              />
+            </ButtonSaveWrapper>
+          </Wrapper>
         </DropDown>
       )}
     </ButtonWrapper>

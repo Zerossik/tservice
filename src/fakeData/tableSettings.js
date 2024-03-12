@@ -1,4 +1,4 @@
-export const tableHeader = [
+export const tableSettings = [
   {
     id: "1",
     order: 1,

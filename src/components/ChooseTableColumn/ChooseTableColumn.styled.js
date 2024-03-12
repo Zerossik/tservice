@@ -5,6 +5,15 @@ export const ButtonWrapper = styled.div`
   position: relative;
 `;
 
+export const Wrapper = styled.div`
+  padding: 20px;
+  border: 1px solid ${({ theme }) => theme.color.border};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  background-color: ${({ theme }) => theme.color.dropDownBg};
+  box-shadow: ${({ theme }) => theme.color.shadowSecond};
+  overflow: hidden;
+`;
+
 export const ButtonChoose = styled.button`
   width: 42px;
   height: 42px;
@@ -26,12 +35,7 @@ export const DropDownList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 20px;
-  border: 1px solid ${({ theme }) => theme.color.border};
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  background-color: ${({ theme }) => theme.color.dropDownBg};
-  box-shadow: ${({ theme }) => theme.color.shadowSecond};
-  overflow: hidden;
+  margin-bottom: 10px;
 `;
 
 export const DropDownItem = styled.li`
@@ -39,8 +43,7 @@ export const DropDownItem = styled.li`
   /* height: 24px; */
 `;
 
-export const Warning = styled.p`
-  padding-top: 5px;
-  border-top: 1px solid ${({ theme }) => theme.color.border};
-  color: ${({ theme }) => theme.color.third};
+export const ButtonSaveWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;

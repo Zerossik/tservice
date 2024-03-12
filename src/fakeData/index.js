@@ -1,2 +1,2 @@
-export * from "./tableHeader";
+export * from "./tableSettings";
 export * from "./listOfStatus";

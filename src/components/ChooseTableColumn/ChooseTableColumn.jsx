@@ -44,16 +44,10 @@ export const ChooseTableColumn = () => {
   };
 
   const handleButtonClickSave = () => {
-    const tableSettingsWithout_Id = tableSettings.map((item) => {
-      const newObj = { ...item };
-      delete newObj._id;
-      return newObj;
-    });
-
     setIsLoading(true);
     setIsButtonDisabled(true);
 
-    updateTableSettings(tableSettingsWithout_Id)
+    updateTableSettings(tableSettings)
       .then(() => {
         toast.success("Налаштування таблиці оновлено");
         toggleUserDropDown();

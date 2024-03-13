@@ -16,7 +16,7 @@ import { ButtonForm } from "../ButtonForm";
 import { formatData } from "../../utils";
 import { selectTableSettings } from "../../redux/settingsUser/selectors";
 
-export const OrderView = ({ data, idx, closeConfirm }) => {
+export const OrderView = ({ data, idx, closeConfirm, isArchive }) => {
   const tableSettings = useSelector(selectTableSettings);
 
   return (
@@ -25,12 +25,16 @@ export const OrderView = ({ data, idx, closeConfirm }) => {
         <Table>
           <TableBody>
             {tableSettings &&
-              tableSettings.map(({ id, buttonName, columnName }) => (
-                <Row key={id}>
-                  <HeaderCells>{buttonName}</HeaderCells>
-                  <Cell>{formatData(columnName, data[columnName], idx)}</Cell>
-                </Row>
-              ))}
+              tableSettings.map(({ id, buttonName, columnName }) => {
+                if (!isArchive && columnName === "issueDate") return;
+
+                return (
+                  <Row key={id}>
+                    <HeaderCells>{buttonName}</HeaderCells>
+                    <Cell>{formatData(columnName, data[columnName], idx)}</Cell>
+                  </Row>
+                );
+              })}
           </TableBody>
         </Table>
       </WrapperTable>
@@ -46,4 +50,5 @@ OrderView.propTypes = {
   data: PropTypes.object.isRequired,
   idx: PropTypes.number,
   closeConfirm: PropTypes.func.isRequired,
+  isArchive: PropTypes.bool,
 };

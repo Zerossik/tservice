@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData, useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 // style
 import {
   Table,
@@ -15,12 +15,15 @@ import {
   Button,
   ButtonIconEdit,
   IconEdit,
-  IconSort,
+  // IconSort,
 } from "./WorkTable.styled";
 // component
 import { Modal } from "../Modal";
 import { EditOrderForm } from "../EditOrderForm/EditOrderForm";
-import { selectContacts } from "../../redux/contacts/selectors";
+import {
+  selectContacts,
+  selectIsTableVisible,
+} from "../../redux/contacts/selectors";
 import { useConfirm } from "../ConfirmService/context";
 import { OrderView } from "../OrderView/OrderView";
 import { formatData } from "../../utils";
@@ -41,10 +44,10 @@ export const WorkTable = () => {
   const awitingPromiseRef = useRef();
   const confirm = useConfirm();
   const dispatch = useDispatch();
-  const data = useLoaderData();
+  const location = useLocation();
   const contacts = useSelector(selectContacts);
   const tableSettings = useSelector(selectTableSettings);
-  const location = useLocation();
+  const isTableVisibleSelect = useSelector(selectIsTableVisible);
 
   const isArchive = location.pathname === `/${PATHS.ARCHIVE}`;
 
@@ -54,18 +57,21 @@ export const WorkTable = () => {
 
     // Сортировка заголовков таблицы
     // фильтруем по "isVisible" и сортируем по порядку "order"
-    const tableSettingsFiltered = tableSettings
+    const tableFiltered = tableSettings
       .filter((item) => {
         // отключаем доступ к полю "дата выдачи"
         if (!isArchive && item.columnName === "issueDate") return;
         return item.isVisible;
       })
       .sort((a, b) => a.order - b.order);
-    setTableSettingsFiltered(tableSettingsFiltered);
 
     // прячем таблицу, если отключены все колонки
-    tableSettingsFiltered.length === 0 && dispatch(isTableVisible(false));
-    tableSettingsFiltered.length > 0 && dispatch(isTableVisible(true));
+    tableFiltered.length === 0 && dispatch(isTableVisible(false));
+    if (tableFiltered.length > 0 && !isTableVisibleSelect) {
+      dispatch(isTableVisible(true));
+    }
+
+    setTableSettingsFiltered(tableFiltered);
 
     // Сортируем контакты по-умолчанию
     // const sortedContactsByDefault = contacts.toSorted(
@@ -74,7 +80,7 @@ export const WorkTable = () => {
     // setSortedContacts(sortedContactsByDefault);
 
     // setSortedContacts(contacts);
-  }, [dispatch, data, tableSettings, contacts, searchParams, isArchive]);
+  }, [dispatch, tableSettings, searchParams, isArchive, isTableVisibleSelect]);
 
   const setOrderDataToEdit = (data) => {
     setOrder(data);
@@ -116,7 +122,12 @@ export const WorkTable = () => {
   const handleClickOrder = (data, idx) => {
     confirm.openConfirm({
       component: (
-        <OrderView data={data} idx={idx} closeConfirm={confirm.handleClose} />
+        <OrderView
+          data={data}
+          idx={idx}
+          closeConfirm={confirm.handleClose}
+          isArchive={isArchive}
+        />
       ),
     });
   };
@@ -150,24 +161,23 @@ export const WorkTable = () => {
         <Table cellPadding="0">
           <Thead>
             <Row>
-              {tableSettingsFiltered.map(
-                ({ id, buttonName, isActive, sortDown }) => (
-                  <TableHead key={id} scope="col">
-                    <ButtonWrapper>
-                      <Button
-                        type="button"
-                        // $isActive={isActive}
-                        // onClick={() =>
-                        //   handleClickButtonSort(tableSettingsFiltered, id)
-                        // }
-                      >
-                        {buttonName}
-                        {isActive && <IconSort $sortDown={sortDown} />}
-                      </Button>
-                    </ButtonWrapper>
-                  </TableHead>
-                )
-              )}
+              {tableSettingsFiltered.map(({ id, buttonName }) => (
+                <TableHead key={id} scope="col">
+                  <ButtonWrapper>
+                    <Button
+                      type="button"
+                      // $isActive={isActive}
+                      // onClick={() =>
+                      //   handleClickButtonSort(tableSettingsFiltered, id)
+                      // }
+                    >
+                      {buttonName}
+                      {/* стрелка указывающая на сортировку */}
+                      {/* {isActive && <IconSort $sortDown={sortDown} />} */}
+                    </Button>
+                  </ButtonWrapper>
+                </TableHead>
+              ))}
 
               <TableHead key="editHead">Дії</TableHead>
             </Row>
@@ -183,15 +193,15 @@ export const WorkTable = () => {
 
             {contacts.lehgth !== 0 &&
               contacts.map((item, idx) => (
-                <Row key={item._id}>
+                <Row
+                  key={item._id}
+                  onClick={() =>
+                    handleClickOrder(item, activePage * limit + idx)
+                  }
+                >
                   {tableSettingsFiltered.map(({ id, columnName }) => {
                     return (
-                      <Cell
-                        key={id}
-                        onClick={() => {
-                          handleClickOrder(item, activePage * limit + idx);
-                        }}
-                      >
+                      <Cell key={id}>
                         {formatData(
                           columnName,
                           item[columnName],
@@ -203,7 +213,11 @@ export const WorkTable = () => {
 
                   <Cell key="editCell">
                     <ButtonIconEdit
-                      onClick={() => setOrderDataToEdit(item)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setOrderDataToEdit(item);
+                      }}
                       disabled={isArchive}
                     >
                       <IconEdit />

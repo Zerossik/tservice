@@ -13,19 +13,19 @@ import {
 } from "./OrderView.styled";
 // components
 import { ButtonForm } from "../ButtonForm";
-import { selectTableHeader } from "../../redux/contacts/selectors";
 import { formatData } from "../../utils";
+import { selectTableSettings } from "../../redux/settingsUser/selectors";
 
 export const OrderView = ({ data, idx, closeConfirm }) => {
-  const tableHeader = useSelector(selectTableHeader);
+  const tableSettings = useSelector(selectTableSettings);
 
   return (
     <Wrapper>
       <WrapperTable>
         <Table>
           <TableBody>
-            {tableHeader &&
-              tableHeader.map(({ id, buttonName, columnName }) => (
+            {tableSettings &&
+              tableSettings.map(({ id, buttonName, columnName }) => (
                 <Row key={id}>
                   <HeaderCells>{buttonName}</HeaderCells>
                   <Cell>{formatData(columnName, data[columnName], idx)}</Cell>

@@ -27,7 +27,7 @@ export const formatData = (entity, value, idx) => {
     return Number(idx + 1);
   }
 
-  if (entity === "createdAt") {
+  if (entity === "createdAt" || entity === "issueDate") {
     return formatDate(value);
   }
 

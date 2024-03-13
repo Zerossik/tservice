@@ -74,7 +74,9 @@ export const EditOrderForm = ({ id, order, closeModal, isFormEdit }) => {
         .then(() => {
           toast.success(
             `Замовлення ${
-              isOrderStatusReady ? "перенесено до архіву" : "оновлено"
+              isOrderStatusReady
+                ? "оновлено та перенесено до архіву"
+                : "оновлено"
             }`
           );
           isFormEdit(false);

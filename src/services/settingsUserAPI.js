@@ -104,3 +104,12 @@ export const deleteDeviceManufacturer = async (body) => {
     throw new Error(error.response.data.message);
   }
 };
+
+export const updateTableSettings = async (body) => {
+  try {
+    const { data } = await apiPrivate.put("/api/user/tableSettings", body);
+    return data.code;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

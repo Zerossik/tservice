@@ -20,21 +20,19 @@ import {
 // component
 import { Modal } from "../Modal";
 import { EditOrderForm } from "../EditOrderForm/EditOrderForm";
-import {
-  selectContacts,
-  selectTableHeader,
-} from "../../redux/contacts/selectors";
+import { selectContacts } from "../../redux/contacts/selectors";
 import { useConfirm } from "../ConfirmService/context";
 import { OrderView } from "../OrderView/OrderView";
 import { formatData } from "../../utils";
 import { limit } from "../../constants";
 import { isTableVisible } from "../../redux/contacts/ContactSlice";
 import { PATHS } from "../../constants";
+import { selectTableSettings } from "../../redux/settingsUser/selectors";
 
 export const WorkTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormEdit, setIsFormEdit] = useState(false);
-  const [tableHeaderFiltered, setTableHeaderFiltered] = useState([]);
+  const [tableSettingsFiltered, setTableSettingsFiltered] = useState([]);
   // const [sortedContacts, setSortedContacts] = useState([]);
   const [order, setOrder] = useState({});
   const [searchParams] = useSearchParams();
@@ -45,8 +43,8 @@ export const WorkTable = () => {
   const dispatch = useDispatch();
   const data = useLoaderData();
   const contacts = useSelector(selectContacts);
-  const tableHeader = useSelector(selectTableHeader);
-  let location = useLocation();
+  const tableSettings = useSelector(selectTableSettings);
+  const location = useLocation();
 
   const isArchive = location.pathname === `/${PATHS.ARCHIVE}`;
 
@@ -56,13 +54,18 @@ export const WorkTable = () => {
 
     // Сортировка заголовков таблицы
     // фильтруем по "isVisible" и сортируем по порядку "order"
-    const tableHeaderFiltered = tableHeader
-      .filter((item) => item.isVisible)
+    const tableSettingsFiltered = tableSettings
+      .filter((item) => {
+        // отключаем доступ к полю "дата выдачи"
+        if (!isArchive && item.columnName === "issueDate") return;
+        return item.isVisible;
+      })
       .sort((a, b) => a.order - b.order);
-    setTableHeaderFiltered(tableHeaderFiltered);
+    setTableSettingsFiltered(tableSettingsFiltered);
 
-    tableHeaderFiltered.length === 0 && dispatch(isTableVisible(false));
-    tableHeaderFiltered.length === 1 && dispatch(isTableVisible(true));
+    // прячем таблицу, если отключены все колонки
+    tableSettingsFiltered.length === 0 && dispatch(isTableVisible(false));
+    tableSettingsFiltered.length > 0 && dispatch(isTableVisible(true));
 
     // Сортируем контакты по-умолчанию
     // const sortedContactsByDefault = contacts.toSorted(
@@ -71,7 +74,7 @@ export const WorkTable = () => {
     // setSortedContacts(sortedContactsByDefault);
 
     // setSortedContacts(contacts);
-  }, [dispatch, data, tableHeader, contacts, searchParams]);
+  }, [dispatch, data, tableSettings, contacts, searchParams, isArchive]);
 
   const setOrderDataToEdit = (data) => {
     setOrder(data);
@@ -106,7 +109,7 @@ export const WorkTable = () => {
   //     return { ...item, isActive: false, sortDown: null };
   //   });
 
-  //   setTableHeaderFiltered(newTableHead);
+  //   settableSettingsFiltered(newTableHead);
   //   sortCollumn(selectedTableHeadCell);
   // };
 
@@ -143,11 +146,11 @@ export const WorkTable = () => {
 
   return (
     <>
-      {tableHeaderFiltered.length > 0 && (
+      {tableSettingsFiltered.length > 0 && (
         <Table cellPadding="0">
           <Thead>
             <Row>
-              {tableHeaderFiltered.map(
+              {tableSettingsFiltered.map(
                 ({ id, buttonName, isActive, sortDown }) => (
                   <TableHead key={id} scope="col">
                     <ButtonWrapper>
@@ -155,7 +158,7 @@ export const WorkTable = () => {
                         type="button"
                         // $isActive={isActive}
                         // onClick={() =>
-                        //   handleClickButtonSort(tableHeaderFiltered, id)
+                        //   handleClickButtonSort(tableSettingsFiltered, id)
                         // }
                       >
                         {buttonName}
@@ -166,16 +169,13 @@ export const WorkTable = () => {
                 )
               )}
 
-              {/* когда нет колонок нужно добавить пустые TableHead */}
-              {/* {tableHeaderFiltered.length === 1 && <TableHead key="emptyHead" />} */}
-
               <TableHead key="editHead">Дії</TableHead>
             </Row>
           </Thead>
           <TableBody>
             {contacts.length === 0 && (
               <RowNoItem>
-                <CellNoItem colSpan={tableHeaderFiltered.length + 1}>
+                <CellNoItem colSpan={tableSettingsFiltered.length + 1}>
                   Нічого нема :)
                 </CellNoItem>
               </RowNoItem>
@@ -184,7 +184,7 @@ export const WorkTable = () => {
             {contacts.lehgth !== 0 &&
               contacts.map((item, idx) => (
                 <Row key={item._id}>
-                  {tableHeaderFiltered.map(({ id, columnName }) => {
+                  {tableSettingsFiltered.map(({ id, columnName }) => {
                     return (
                       <Cell
                         key={id}
@@ -200,9 +200,6 @@ export const WorkTable = () => {
                       </Cell>
                     );
                   })}
-
-                  {/* когда нет колонок нужно добавить пустые Cell */}
-                  {/* {tableHeaderFiltered.length === 1 && <Cell key="emptyCell" />} */}
 
                   <Cell key="editCell">
                     <ButtonIconEdit

@@ -9,10 +9,18 @@ import {
   editDeviceTypeThunk,
   getAllListThunk,
 } from "./settingsUserThunks";
+import { tableSettings } from "../../fakeData";
 
 const handlegetAllList = (state, { payload }) => {
   state.deviceManufacturers = payload.deviceManufacturers;
   state.deviceTypes = payload.deviceTypes;
+
+  if (payload.tableSettings.length === 0) {
+    state.tableSettings = tableSettings;
+    return;
+  }
+
+  state.tableSettings = payload.tableSettings;
 };
 
 const handleAddDeviceType = (state, { payload }) => {
@@ -67,9 +75,21 @@ const settingsUserSlice = createSlice({
     getAllLists: (state, { payload }) => {
       state.deviceManufacturers = payload.data.deviceManufacturers;
       state.deviceTypes = payload.data.deviceTypes;
+
+      if (payload.data.tableSettings.length === 0) {
+        state.tableSettings = tableSettings;
+        return;
+      }
+
+      state.tableSettings = payload.data.tableSettings;
     },
     device: (state, { payload }) => {
       state.device = payload;
+    },
+    changeVisibleTableSettings: (state, { payload }) => {
+      state.tableSettings = state.tableSettings.map((item) =>
+        item.id === payload ? { ...item, isVisible: !item.isVisible } : item
+      );
     },
   },
   extraReducers: (builder) => {
@@ -110,5 +130,6 @@ const settingsUserSlice = createSlice({
   },
 });
 
-export const { getAllLists, device } = settingsUserSlice.actions;
+export const { getAllLists, device, changeVisibleTableSettings } =
+  settingsUserSlice.actions;
 export const settingsUserReducer = settingsUserSlice.reducer;

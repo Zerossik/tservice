@@ -129,6 +129,16 @@ export const tableSettings = [
     isVisible: false,
     isDisabled: false,
   },
+  {
+    id: "14",
+    order: 14,
+    buttonName: "Дата видачі",
+    columnName: "issueDate",
+    isActive: false,
+    sortDown: null,
+    isVisible: false,
+    isDisabled: false,
+  },
 ];
 
 // {
@@ -155,3 +165,4 @@ export const tableSettings = [
 // 11 failure
 // 12 startDate
 // 13 orderNumber
+// 14 issueDate

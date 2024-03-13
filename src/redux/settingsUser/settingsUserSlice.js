@@ -9,11 +9,17 @@ import {
   editDeviceTypeThunk,
   getAllListThunk,
 } from "./settingsUserThunks";
+import { tableSettings } from "../../fakeData";
 
 const handlegetAllList = (state, { payload }) => {
-  console.log("slice", payload);
   state.deviceManufacturers = payload.deviceManufacturers;
   state.deviceTypes = payload.deviceTypes;
+
+  if (payload.tableSettings.length === 0) {
+    state.tableSettings = tableSettings;
+    return;
+  }
+
   state.tableSettings = payload.tableSettings;
 };
 
@@ -69,6 +75,12 @@ const settingsUserSlice = createSlice({
     getAllLists: (state, { payload }) => {
       state.deviceManufacturers = payload.data.deviceManufacturers;
       state.deviceTypes = payload.data.deviceTypes;
+
+      if (payload.data.tableSettings.length === 0) {
+        state.tableSettings = tableSettings;
+        return;
+      }
+
       state.tableSettings = payload.data.tableSettings;
     },
     device: (state, { payload }) => {

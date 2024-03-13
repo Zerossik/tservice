@@ -44,7 +44,7 @@ export const WorkTable = () => {
   const data = useLoaderData();
   const contacts = useSelector(selectContacts);
   const tableSettings = useSelector(selectTableSettings);
-  let location = useLocation();
+  const location = useLocation();
 
   const isArchive = location.pathname === `/${PATHS.ARCHIVE}`;
 
@@ -55,12 +55,17 @@ export const WorkTable = () => {
     // Сортировка заголовков таблицы
     // фильтруем по "isVisible" и сортируем по порядку "order"
     const tableSettingsFiltered = tableSettings
-      .filter((item) => item.isVisible)
+      .filter((item) => {
+        // отключаем доступ к полю "дата выдачи"
+        if (!isArchive && item.columnName === "issueDate") return;
+        return item.isVisible;
+      })
       .sort((a, b) => a.order - b.order);
     setTableSettingsFiltered(tableSettingsFiltered);
 
+    // прячем таблицу, если отключены все колонки
     tableSettingsFiltered.length === 0 && dispatch(isTableVisible(false));
-    tableSettingsFiltered.length === 1 && dispatch(isTableVisible(true));
+    tableSettingsFiltered.length > 0 && dispatch(isTableVisible(true));
 
     // Сортируем контакты по-умолчанию
     // const sortedContactsByDefault = contacts.toSorted(
@@ -69,7 +74,7 @@ export const WorkTable = () => {
     // setSortedContacts(sortedContactsByDefault);
 
     // setSortedContacts(contacts);
-  }, [dispatch, data, tableSettings, contacts, searchParams]);
+  }, [dispatch, data, tableSettings, contacts, searchParams, isArchive]);
 
   const setOrderDataToEdit = (data) => {
     setOrder(data);
@@ -164,9 +169,6 @@ export const WorkTable = () => {
                 )
               )}
 
-              {/* когда нет колонок нужно добавить пустые TableHead */}
-              {/* {tableSettingsFiltered.length === 1 && <TableHead key="emptyHead" />} */}
-
               <TableHead key="editHead">Дії</TableHead>
             </Row>
           </Thead>
@@ -198,9 +200,6 @@ export const WorkTable = () => {
                       </Cell>
                     );
                   })}
-
-                  {/* когда нет колонок нужно добавить пустые Cell */}
-                  {/* {tableSettingsFiltered.length === 1 && <Cell key="emptyCell" />} */}
 
                   <Cell key="editCell">
                     <ButtonIconEdit

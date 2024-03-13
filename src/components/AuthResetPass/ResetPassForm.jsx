@@ -29,7 +29,7 @@ export const ResetPassForm = () => {
         toast.success(`Вам надіслано листа, перевірте пошту, будь ласка`);
         formik.resetForm();
       } catch (error) {
-        console.log("error ", error.message);
+        setLoading(false);
         toast.warning(`Щось пішло не так, спробуйте ще раз`);
       }
     },

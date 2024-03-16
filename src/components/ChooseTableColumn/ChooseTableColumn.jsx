@@ -15,7 +15,10 @@ import {
 // components
 import { DropDown } from "../DropDown";
 import { Checkbox } from "../Checkbox";
-import { changeVisibleTableSettings } from "../../redux/settingsUser/settingsUserSlice";
+import {
+  changeOrderTableSettings,
+  changeVisibleTableSettings,
+} from "../../redux/settingsUser/settingsUserSlice";
 import { ButtonForm } from "../ButtonForm";
 import { updateTableSettings } from "../../services/settingsUserAPI";
 import { selectTableSettings } from "../../redux/settingsUser/selectors";
@@ -26,10 +29,15 @@ export const ChooseTableColumn = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const location = useLocation();
+
   const dropDownRef = useRef(null);
   const buttonRef = useRef(null);
+  const dragItemStart = useRef();
+  const dragItemEnter = useRef();
+
   const tableSettings = useSelector(selectTableSettings);
 
   const isArchive = location.pathname === `/${PATHS.ARCHIVE}`;
@@ -58,6 +66,32 @@ export const ChooseTableColumn = () => {
       .finally(() => setIsLoading(false));
   };
 
+  const dragStart = (_, idx) => {
+    dragItemStart.current = idx;
+  };
+
+  const dragEnter = (_, idx) => {
+    dragItemEnter.current = idx;
+  };
+
+  const dragOver = (e) => {
+    e.dataTransfer.dropEffect = "move";
+    e.preventDefault();
+  };
+
+  const drop = () => {
+    const start = Number(dragItemStart.current);
+    const end = Number(dragItemEnter.current);
+
+    const deletedItem = { ...tableSettings[start] };
+    const newTable = tableSettings.toSpliced(start, 1);
+    const newOrderTable = newTable.toSpliced(end, 0, deletedItem);
+
+    dispatch(changeOrderTableSettings(newOrderTable));
+    dragItemStart.current = null;
+    dragItemEnter.current = null;
+  };
+
   return (
     <>
       {isLoading && <LoaderPretty />}
@@ -78,9 +112,9 @@ export const ChooseTableColumn = () => {
             buttonRef={buttonRef}
           >
             <Wrapper ref={dropDownRef}>
-              <DropDownList>
+              <DropDownList onDragOver={dragOver}>
                 {tableSettings &&
-                  tableSettings.map((item) => {
+                  tableSettings.map((item, idx) => {
                     // отключаем доступ к полю "дата выдачи"
                     if (!isArchive && item.columnName === "issueDate") return;
 
@@ -93,7 +127,14 @@ export const ChooseTableColumn = () => {
                     } = item;
 
                     return (
-                      <DropDownItem key={id}>
+                      <DropDownItem
+                        key={id}
+                        id={id}
+                        onDragStart={(e) => dragStart(e, idx)}
+                        onDragEnter={(e) => dragEnter(e, idx)}
+                        onDragEnd={drop}
+                        draggable="true"
+                      >
                         <Checkbox
                           id={columnName}
                           name={columnName}

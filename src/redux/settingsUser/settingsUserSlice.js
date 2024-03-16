@@ -91,6 +91,9 @@ const settingsUserSlice = createSlice({
         item.id === payload ? { ...item, isVisible: !item.isVisible } : item
       );
     },
+    changeOrderTableSettings: (state, { payload }) => {
+      state.tableSettings = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -130,6 +133,10 @@ const settingsUserSlice = createSlice({
   },
 });
 
-export const { getAllLists, device, changeVisibleTableSettings } =
-  settingsUserSlice.actions;
+export const {
+  getAllLists,
+  device,
+  changeVisibleTableSettings,
+  changeOrderTableSettings,
+} = settingsUserSlice.actions;
 export const settingsUserReducer = settingsUserSlice.reducer;

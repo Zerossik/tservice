@@ -41,10 +41,14 @@ export const WorkTable = () => {
   const [searchParams] = useSearchParams();
   const [activePage, setActivePage] = useState(1);
 
+  // const dragItem = useRef();
+  // const dragOverItem = useRef();
+
   const awitingPromiseRef = useRef();
   const confirm = useConfirm();
   const dispatch = useDispatch();
   const location = useLocation();
+
   const contacts = useSelector(selectContacts);
   const tableSettings = useSelector(selectTableSettings);
   const isTableVisibleSelect = useSelector(selectIsTableVisible);
@@ -57,13 +61,12 @@ export const WorkTable = () => {
 
     // Сортировка заголовков таблицы
     // фильтруем по "isVisible" и сортируем по порядку "order"
-    const tableFiltered = tableSettings
-      .filter((item) => {
-        // отключаем доступ к полю "дата выдачи"
-        if (!isArchive && item.columnName === "issueDate") return;
-        return item.isVisible;
-      })
-      .sort((a, b) => a.order - b.order);
+    const tableFiltered = tableSettings.filter((item) => {
+      // отключаем доступ к полю "дата выдачи"
+      if (!isArchive && item.columnName === "issueDate") return;
+      return item.isVisible;
+    });
+    // .sort((a, b) => a.order - b.order);
 
     // прячем таблицу, если отключены все колонки
     tableFiltered.length === 0 && dispatch(isTableVisible(false));
@@ -155,6 +158,16 @@ export const WorkTable = () => {
     setIsModalOpen((prev) => !prev);
   };
 
+  // const dragStart = (e) => {
+  //   console.log("dragStart", e.target.id);
+  //   dragItem.current = e.target.id;
+  // };
+
+  // const dragEnter = (e) => {
+  //   console.log("dragEnter", e.currentTarget.id);
+  //   dragOverItem.current = e.currentTarget.id;
+  // };
+
   return (
     <>
       {tableSettingsFiltered.length > 0 && (
@@ -162,7 +175,14 @@ export const WorkTable = () => {
           <Thead>
             <Row>
               {tableSettingsFiltered.map(({ id, buttonName }) => (
-                <TableHead key={id} scope="col">
+                <TableHead
+                  key={id}
+                  // id={id}
+                  scope="col"
+                  // onDragStart={(e) => dragStart(e)}
+                  // onDragEnter={(e) => dragEnter(e)}
+                  // draggable
+                >
                   <ButtonWrapper>
                     <Button
                       type="button"

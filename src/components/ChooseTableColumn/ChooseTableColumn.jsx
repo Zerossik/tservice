@@ -80,6 +80,7 @@ export const ChooseTableColumn = () => {
   };
 
   const drop = () => {
+    setIsButtonDisabled(false);
     const start = Number(dragItemStart.current);
     const end = Number(dragItemEnter.current);
 

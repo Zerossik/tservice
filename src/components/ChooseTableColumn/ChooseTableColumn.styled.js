@@ -41,6 +41,13 @@ export const DropDownList = styled.ul`
 export const DropDownItem = styled.li`
   width: 100%;
   /* height: 24px; */
+  opacity: 1;
+  border-radius: ${({ theme }) => theme.borderRadius.extraSmall};
+
+  &.dragging {
+    opacity: 0.1;
+    background-color: ${({ theme }) => theme.color.bg};
+  }
 `;
 
 export const ButtonSaveWrapper = styled.div`

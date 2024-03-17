@@ -29,6 +29,8 @@ export const ChooseTableColumn = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [dragItem, setDragItem] = useState(null);
+  const [dragTable, setDragTable] = useState([]);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -67,6 +69,7 @@ export const ChooseTableColumn = () => {
   };
 
   const dragStart = (_, idx) => {
+    setTimeout(() => setDragItem(idx), 0);
     dragItemStart.current = idx;
   };
 
@@ -74,20 +77,31 @@ export const ChooseTableColumn = () => {
     dragItemEnter.current = idx;
   };
 
-  const dragOver = (e) => {
-    e.dataTransfer.dropEffect = "move";
-    e.preventDefault();
-  };
-
-  const drop = () => {
-    setIsButtonDisabled(false);
+  const createDragbleTable = () => {
     const start = Number(dragItemStart.current);
     const end = Number(dragItemEnter.current);
 
     const deletedItem = { ...tableSettings[start] };
     const newTable = tableSettings.toSpliced(start, 1);
-    const newOrderTable = newTable.toSpliced(end, 0, deletedItem);
+    return newTable.toSpliced(end, 0, deletedItem);
+  };
 
+  const dragOver = (e) => {
+    e.dataTransfer.dropEffect = "move";
+    e.preventDefault();
+    const end = Number(dragItemEnter.current);
+    setDragItem(end);
+
+    const newOrderTable = createDragbleTable();
+    setDragTable(newOrderTable);
+  };
+
+  const drop = () => {
+    setIsButtonDisabled(false);
+    setDragItem(null);
+    setDragTable([]);
+
+    const newOrderTable = createDragbleTable();
     dispatch(changeOrderTableSettings(newOrderTable));
     dragItemStart.current = null;
     dragItemEnter.current = null;
@@ -115,38 +129,40 @@ export const ChooseTableColumn = () => {
             <Wrapper ref={dropDownRef}>
               <DropDownList onDragOver={dragOver}>
                 {tableSettings &&
-                  tableSettings.map((item, idx) => {
-                    // отключаем доступ к полю "дата выдачи"
-                    if (!isArchive && item.columnName === "issueDate") return;
+                  (dragTable.length === 0 ? tableSettings : dragTable).map(
+                    (item, idx) => {
+                      // отключаем доступ к полю "дата выдачи"
+                      if (!isArchive && item.columnName === "issueDate") return;
 
-                    const {
-                      id,
-                      buttonName,
-                      columnName,
-                      isVisible,
-                      isDisabled,
-                    } = item;
+                      const {
+                        id,
+                        buttonName,
+                        columnName,
+                        isVisible,
+                        isDisabled,
+                      } = item;
 
-                    return (
-                      <DropDownItem
-                        key={id}
-                        id={id}
-                        onDragStart={(e) => dragStart(e, idx)}
-                        onDragEnter={(e) => dragEnter(e, idx)}
-                        onDragEnd={drop}
-                        draggable="true"
-                      >
-                        <Checkbox
-                          id={columnName}
-                          name={columnName}
-                          isChecked={isVisible}
-                          labelText={buttonName}
-                          disabled={isDisabled}
-                          onChange={() => handleChangeCheckbox(id)}
-                        />
-                      </DropDownItem>
-                    );
-                  })}
+                      return (
+                        <DropDownItem
+                          key={id}
+                          onDragStart={(e) => dragStart(e, idx)}
+                          onDragEnter={(e) => dragEnter(e, idx)}
+                          onDragEnd={drop}
+                          draggable="true"
+                          className={dragItem === idx ? "dragging" : ""}
+                        >
+                          <Checkbox
+                            id={columnName}
+                            name={columnName}
+                            isChecked={isVisible}
+                            labelText={buttonName}
+                            disabled={isDisabled}
+                            onChange={() => handleChangeCheckbox(id)}
+                          />
+                        </DropDownItem>
+                      );
+                    }
+                  )}
               </DropDownList>
 
               <ButtonSaveWrapper>

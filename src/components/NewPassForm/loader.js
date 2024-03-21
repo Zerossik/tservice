@@ -14,7 +14,7 @@ export const loader = async ({ params, request }) => {
       return { token, id };
     }
 
-    return redirect(`${PATHS.LOGIN}`);
+    return redirect(`/${PATHS.LOGIN}`);
   } catch (error) {
     throw {
       message: "Not found",

@@ -8,6 +8,7 @@ import {
 } from "./ErrorPage.styled";
 // components
 import { PATHS } from "../../constants";
+import bgImage from "/images/404.svg";
 
 export const ErrorPage = () => {
   //если нужно вывести куда-то информацию об ошибке
@@ -17,7 +18,7 @@ export const ErrorPage = () => {
   return (
     <Wrapper id="error-page">
       <ImgWrapper>
-        <ImgStyle src="/images/404.svg" />
+        <ImgStyle src={bgImage} />
         <NavLinkStyled to={PATHS.BASE}>На головну</NavLinkStyled>
       </ImgWrapper>
     </Wrapper>

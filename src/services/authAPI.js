@@ -70,3 +70,12 @@ export const setNewPassword = async (body) => {
     throw new Error(error.message);
   }
 };
+
+export const verifyTokenEmail = async (verifyToken) => {
+  try {
+    const { data } = await apiPublic.get(`${verifyToken}`);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

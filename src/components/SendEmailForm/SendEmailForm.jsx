@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-// components
-import { resetPassword } from "../../services/authAPI";
-import { AuthForm } from "../AuthForm/AuthForm";
+import PropTypes from "prop-types";
+// styled
+import { ButtonWrapper } from "./SendEmailForm.styled";
+//components
+import { removLeadTrailWhitespace } from "../../utils";
 import { ResetPassSchema } from "../../validation";
+import { LoaderPretty } from "../LoaderPretty";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
-import { LoaderPretty } from "../LoaderPretty";
-import { PATHS } from "../../constants";
-import { removLeadTrailWhitespace } from "../../utils";
 
-export const ResetPassForm = () => {
+export const SendEmailForm = ({ closeConfirm }) => {
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
@@ -24,13 +24,13 @@ export const ResetPassForm = () => {
 
       try {
         setLoading(true);
-        await resetPassword(trimValue);
+        // await resetPassword(trimValue);
         setLoading(false);
         toast.success(`Вам надіслано листа, перевірте пошту, будь ласка`);
         formik.resetForm();
       } catch (error) {
         setLoading(false);
-        toast.warning(`Щось пішло не так, спробуйте ще раз`);
+        toast.warning(`Такого емейлу немає. Введіть інший або зареєструйтесь`);
       }
     },
   });
@@ -38,25 +38,31 @@ export const ResetPassForm = () => {
   return (
     <>
       {loading && <LoaderPretty />}
-      <AuthForm
-        formik={formik}
-        title="Відновлення паролю"
-        path={`${PATHS.BASE}`}
-        textLink="На головну"
-      >
+      <div>
         <Input
           name="email"
           type="email"
+          placeholder="email@dot.com"
           formik={formik}
-          labelText="Email адреса"
-          moveLabel
         />
 
-        <ButtonForm
-          buttonName="Відправити"
-          disabled={!(formik.isValid && formik.dirty && !loading)}
-        />
-      </AuthForm>
+        <ButtonWrapper>
+          <ButtonForm
+            type="button"
+            onClick={closeConfirm}
+            buttonName="Скасувати"
+          />
+
+          <ButtonForm
+            buttonName="Відправити"
+            disabled={!(formik.isValid && formik.dirty && !loading)}
+          />
+        </ButtonWrapper>
+      </div>
     </>
   );
+};
+
+SendEmailForm.propTypes = {
+  closeConfirm: PropTypes.func,
 };

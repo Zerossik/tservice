@@ -31,19 +31,27 @@ export const Login = () => {
       const { email, password } = trimValues;
 
       if (email === "" || password === "") return;
+
       dispatch(loginThunk(trimValues))
         .unwrap()
         .then(() => {
           formik.resetForm();
           navigate(`/${PATHS.SERVICES}`, { replace: true });
         })
-        .catch(() => toast.warning(`Email або password, не вірні`));
+        .catch((err) => {
+          if (err === "email address not confirmed") {
+            navigate(`/${PATHS.VERIFYUSER}`);
+            return;
+          }
+
+          toast.warning(`Email або password, не вірні`);
+        });
     },
   });
 
   return (
     <>
-      {isLoading && <LoaderPretty isLoading={isLoading} />}
+      {isLoading && <LoaderPretty />}
       <AuthForm
         formik={formik}
         title="Авторизація"

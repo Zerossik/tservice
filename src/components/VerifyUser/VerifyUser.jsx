@@ -30,7 +30,7 @@ export const VerifyUser = () => {
       </LogoWrapper>
 
       <TextWrapper>
-        <Text>Вітаємо, ваш профіль був успішно створений.</Text>
+        <Text>Ваш профіль був успішно створений.</Text>
         <Text>Перейдіть на пошту та підтвердіть свій емейл.</Text>
       </TextWrapper>
 

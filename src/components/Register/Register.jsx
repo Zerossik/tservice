@@ -36,7 +36,7 @@ export const Register = () => {
 
         if (code === 201) {
           setLoading(false);
-          toast.success(`Ваш профіль, ${name}, успішно створено`);
+          toast.success(`Вітаємо, ${name}, ви зареєструвалися!`);
           formik.resetForm();
           navigate(`/${PATHS.VERIFYUSER}`);
         }

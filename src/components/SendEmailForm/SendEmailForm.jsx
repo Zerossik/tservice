@@ -10,6 +10,7 @@ import { ResetPassSchema } from "../../validation";
 import { LoaderPretty } from "../LoaderPretty";
 import { Input } from "../Input";
 import { ButtonForm } from "../ButtonForm";
+import { sendEmail } from "../../services/authAPI";
 
 export const SendEmailForm = ({ closeConfirm }) => {
   const [loading, setLoading] = useState(false);
@@ -24,10 +25,11 @@ export const SendEmailForm = ({ closeConfirm }) => {
 
       try {
         setLoading(true);
-        // await resetPassword(trimValue);
+        await sendEmail(trimValue);
         setLoading(false);
-        toast.success(`Вам надіслано листа, перевірте пошту, будь ласка`);
+        toast.success(`Вам надіслано листа, будь ласка, перевірте пошту`);
         formik.resetForm();
+        closeConfirm();
       } catch (error) {
         setLoading(false);
         toast.warning(`Такого емейлу немає. Введіть інший або зареєструйтесь`);
@@ -38,7 +40,7 @@ export const SendEmailForm = ({ closeConfirm }) => {
   return (
     <>
       {loading && <LoaderPretty />}
-      <div>
+      <form onSubmit={formik.handleSubmit} autoComplete="off">
         <Input
           name="email"
           type="email"
@@ -58,7 +60,7 @@ export const SendEmailForm = ({ closeConfirm }) => {
             disabled={!(formik.isValid && formik.dirty && !loading)}
           />
         </ButtonWrapper>
-      </div>
+      </form>
     </>
   );
 };

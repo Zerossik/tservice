@@ -1,19 +1,11 @@
-import { redirect } from "react-router-dom";
-import { verifyTokenEmail } from "../../services/authAPI";
-import { PATHS } from "../../constants";
+import { verifyEmailToken } from "../../services/authAPI";
 
 export const loader = async ({ params }) => {
   const { verifyToken } = params;
 
   try {
-    // const data = await verifyTokenEmail(verifyToken);
-    const data = { code: 200 };
-
-    if (data.code === 200) {
-      return null;
-    }
-
-    return redirect(`/${PATHS.REGISTER}`);
+    await verifyEmailToken(verifyToken);
+    return null;
   } catch (error) {
     throw {
       message: "Not found",

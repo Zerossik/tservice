@@ -37,7 +37,7 @@ export const ResetPassForm = () => {
 
   return (
     <>
-      {loading && <LoaderPretty isLoading={loading} />}
+      {loading && <LoaderPretty />}
       <AuthForm
         formik={formik}
         title="Відновлення паролю"

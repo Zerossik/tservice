@@ -15,7 +15,7 @@ export const signin = async (user) => {
     const { data } = await apiPublic.post("/api/auth/signin", user);
     return data;
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error(error.response.data.message);
   }
 };
 
@@ -65,6 +65,24 @@ export const setNewPassword = async (body) => {
       id,
       password,
     });
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const verifyEmailToken = async (verifyToken) => {
+  try {
+    const { data } = await apiPublic.get(`/api/auth/verify/${verifyToken}`);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const sendEmail = async (body) => {
+  try {
+    const { data } = await apiPublic.post("/api/auth/resendEmail", body);
     return data;
   } catch (error) {
     throw new Error(error.message);

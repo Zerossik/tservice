@@ -36,9 +36,9 @@ export const Register = () => {
 
         if (code === 201) {
           setLoading(false);
-          toast.success(`Ваш профіль, ${name}, успішно створено`);
+          toast.success(`Вітаємо, ${name}, ви зареєструвалися!`);
           formik.resetForm();
-          navigate(`/${PATHS.LOGIN}`);
+          navigate(`/${PATHS.VERIFYUSER}`);
         }
       } catch (error) {
         toast.warning(error.message);
@@ -49,7 +49,7 @@ export const Register = () => {
 
   return (
     <>
-      {loading && <LoaderPretty isLoading={loading} />}
+      {loading && <LoaderPretty />}
       <AuthForm
         formik={formik}
         title="Реєстрація"

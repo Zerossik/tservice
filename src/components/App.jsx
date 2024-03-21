@@ -20,13 +20,16 @@ import { ResetPassForm } from "./AuthResetPass";
 import { NewPassForm } from "./NewPassForm";
 import { ErrorPage } from "../pages/ErrorPage";
 import { selectTheme } from "../redux/auth/selectors";
+import { device } from "../redux/settingsUser/settingsUserSlice";
+import { ConfirmServiceProvider } from "./ConfirmService/ConfirmServiceProvider";
+import { VerifiedEmail } from "./VerifiedEmail";
 // loaders
 import { loader as loaderAuthLayout } from "./AuthLayout";
 import { loader as authRequiredLoader } from "./AuthRequired";
 import { loaderArchive as authRequiredLoaderArchive } from "./AuthRequired";
 import { loader as newPassFormLoader } from "./NewPassForm";
-import { device } from "../redux/settingsUser/settingsUserSlice";
-import { ConfirmServiceProvider } from "./ConfirmService/ConfirmServiceProvider";
+import { loader as verifyEmailLoader } from "./VerifiedEmail";
+import { VerifyUser } from "./VerifyUser/VerifyUser";
 
 export const App = () => {
   const [viewportWidth, setViewportWidth] = useState(
@@ -63,6 +66,15 @@ export const App = () => {
           { index: true, element: <Login /> },
           { path: PATHS.LOGIN, element: <Login /> },
           { path: PATHS.REGISTER, element: <Register /> },
+          {
+            path: `${PATHS.VERIFIED}/:verifyToken`,
+            element: <VerifiedEmail />,
+            loader: verifyEmailLoader,
+          },
+          {
+            path: `${PATHS.VERIFYUSER}`,
+            element: <VerifyUser />,
+          },
           { path: PATHS.RESET, element: <ResetPassForm /> },
           {
             path: `${PATHS.RESET}/:token`,
